@@ -22,7 +22,6 @@
       scroll-behavior: smooth;
     }
 
-    /* premium animated gradient */
     .gradient-bg {
       position: fixed;
       top: 0;
@@ -37,7 +36,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 70% 80%, rgba(0, 255, 170, 0.12), transparent 70%);
+      background: radial-gradient(circle at 70% 80%, rgba(0, 255, 170, 0.15), transparent 70%);
       animation: slowMove 22s infinite alternate;
     }
     .gradient-bg::after {
@@ -45,20 +44,19 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.05), transparent 60%);
+      background: radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.08), transparent 60%);
       animation: slowMoveRev 18s infinite alternate;
     }
 
     @keyframes slowMove {
       0% { opacity: 0.3; transform: scale(1);}
-      100% { opacity: 0.7; transform: scale(1.3);}
+      100% { opacity: 0.8; transform: scale(1.3);}
     }
     @keyframes slowMoveRev {
       0% { opacity: 0.2; transform: scale(1);}
-      100% { opacity: 0.5; transform: scale(1.2);}
+      100% { opacity: 0.6; transform: scale(1.2);}
     }
 
-    /* navbar */
     .navbar {
       position: sticky;
       top: 0;
@@ -106,7 +104,6 @@
       margin: 5rem 0;
     }
 
-    /* Hero section */
     .hero {
       display: flex;
       flex-wrap: wrap;
@@ -167,13 +164,12 @@
       font-size: 1.2rem;
     }
 
-    /* 3D Automatic Sliding Stats Cards - Enhanced */
     .exp-showcase {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
       margin: 2rem 0;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .exp-card-adv {
       background: linear-gradient(145deg, rgba(15, 25, 40, 0.9), rgba(5, 12, 22, 0.95));
@@ -183,28 +179,18 @@
       border-left: 5px solid;
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       text-align: center;
-      min-width: 130px;
+      min-width: 140px;
       animation: floatCard 3s ease-in-out infinite;
       transform-style: preserve-3d;
       perspective: 1000px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
-    .exp-card-adv:nth-child(1) { 
-      border-left-color: #2aff9e;
-      animation-delay: 0s;
-    }
-    .exp-card-adv:nth-child(2) { 
-      border-left-color: #ffd966;
-      animation-delay: 0.5s;
-    }
-    .exp-card-adv:nth-child(3) { 
-      border-left-color: #3b82f6;
-      animation-delay: 1s;
-    }
+    .exp-card-adv:nth-child(1) { border-left-color: #2aff9e; animation-delay: 0s; }
+    .exp-card-adv:nth-child(2) { border-left-color: #ffd966; animation-delay: 0.5s; }
+    .exp-card-adv:nth-child(3) { border-left-color: #3b82f6; animation-delay: 1s; }
     .exp-card-adv:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 25px 45px rgba(42, 255, 158, 0.25);
-      border-left-width: 6px;
     }
     @keyframes floatCard {
       0% { transform: translateY(0px) rotateX(0deg); }
@@ -227,10 +213,12 @@
       gap: 6px;
     }
 
+    /* BUTTON GROUP - PERFECTLY ALIGNED & SPACED */
     .btn-group {
       display: flex;
       gap: 1.2rem;
       flex-wrap: wrap;
+      margin-top: 0.5rem;
     }
     .btn-primary, .btn-outline {
       padding: 0.9rem 2rem;
@@ -240,6 +228,16 @@
       cursor: pointer;
       border: none;
       font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-primary i, .btn-outline i {
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+    .btn-primary:hover i, .btn-outline:hover i {
+      transform: translateX(4px);
     }
     .btn-primary {
       background: linear-gradient(95deg, #2aff9e, #0fcc73);
@@ -255,6 +253,11 @@
       border: 1.5px solid #2aff9e;
       color: #2aff9e;
     }
+    .btn-outline:hover {
+      background: rgba(42,255,158,0.1);
+      transform: translateY(-3px);
+    }
+
     .hero-img-card {
       flex: 0.9;
       background: linear-gradient(145deg, #111a24, #070e16);
@@ -279,7 +282,6 @@
       border-radius: 50%;
     }
 
-    /* Courses Grid */
     .courses-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
@@ -366,7 +368,6 @@
       color: #0a0f1a;
     }
 
-    /* Payment Section */
     .payment-section {
       background: rgba(10, 16, 24, 0.7);
       backdrop-filter: blur(12px);
@@ -429,7 +430,6 @@
       font-weight: bold;
     }
 
-    /* About Section */
     .about-wrap {
       display: flex;
       flex-wrap: wrap;
@@ -439,7 +439,7 @@
       border-radius: 48px;
       padding: 2rem;
       align-items: center;
-      border: 1px solid rgba(42,255,158,0.2);
+      border: 1px solid rgba(42,255,158,0.25);
     }
     .about-img-modern {
       flex: 1;
@@ -457,7 +457,7 @@
     }
     @keyframes profileGlow {
       0% { box-shadow: 0 0 0 0 rgba(42, 255, 158, 0.4); }
-      50% { box-shadow: 0 0 0 10px rgba(42, 255, 158, 0.1); }
+      50% { box-shadow: 0 0 0 12px rgba(42, 255, 158, 0.1); }
       100% { box-shadow: 0 0 0 0 rgba(42, 255, 158, 0); }
     }
     .profile-photo-lg img {
@@ -473,21 +473,45 @@
       font-size: 1.8rem;
       margin-bottom: 1rem;
       color: #ffd966;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .about-text-sharp p {
-      margin-bottom: 0.9rem;
-      line-height: 1.5;
+    .typewriter-container-3d {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1.2rem;
+      border-radius: 24px;
+      border-left: 4px solid #2aff9e;
+      transform-style: preserve-3d;
+      perspective: 800px;
+      animation: fadeIn3D 0.8s ease-out;
+    }
+    @keyframes fadeIn3D {
+      from { opacity: 0; transform: translateZ(-30px) rotateX(-3deg); }
+      to { opacity: 1; transform: translateZ(0) rotateX(0deg); }
+    }
+    .typewriter-line-3d {
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
       color: #e0e7ff;
+      font-size: 1rem;
+      border-right: 3px solid #2aff9e;
+      white-space: normal;
+      overflow: hidden;
+      font-weight: 400;
+    }
+    .typewriter-line-3d:last-child {
+      border-right: none;
     }
     .signature-compact {
-      margin-top: 0.8rem;
+      margin-top: 1.2rem;
       border-left: 3px solid #2aff9e;
       padding-left: 1rem;
       color: #2aff9e;
       font-weight: 500;
+      font-style: italic;
     }
 
-    /* Features Icons */
     .features-icons {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -501,15 +525,17 @@
       border-radius: 28px;
       text-align: center;
       transition: all 0.3s ease;
-      animation: fadeSlideUp 0.5s ease-out;
+      border: 1px solid rgba(255,255,255,0.05);
     }
     .feature-item:hover {
       transform: translateY(-5px);
       background: rgba(42, 255, 158, 0.1);
+      border-color: rgba(42, 255, 158, 0.3);
     }
     .feature-item i {
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: #ffd966;
+      margin-bottom: 0.5rem;
     }
     .contact-social {
       display: flex;
@@ -528,6 +554,7 @@
       text-decoration: none;
       font-weight: 600;
       transition: 0.3s;
+      border: 1px solid rgba(42,255,158,0.2);
     }
     .social-icon:hover {
       background: #2aff9e;
@@ -560,91 +587,25 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
     }
-    .floating-wa i {
-      font-size: 1.2rem;
-    }
 
-    /* Mobile Responsive - Stats Cards adjustment */
     @media (max-width: 768px) {
-      .navbar {
-        flex-direction: column;
-        align-items: center;
-        padding: 0.8rem 1rem;
-      }
-      .nav-links {
-        margin-top: 0.5rem;
-        gap: 1.2rem;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .hero {
-        flex-direction: column;
-        text-align: center;
-      }
-      .hero-headline-main {
-        font-size: 2rem;
-        white-space: normal;
-      }
-      .hero-tagline-single {
-        font-size: 0.9rem;
-        white-space: normal;
-        justify-content: center;
-      }
-      /* Stats cards become more compact on mobile but still elegant */
-      .exp-showcase {
-        gap: 0.8rem;
-        justify-content: center;
-      }
-      .exp-card-adv {
-        padding: 0.6rem 1.2rem;
-        min-width: 100px;
-      }
-      .exp-card-adv h3 {
-        font-size: 1.2rem;
-      }
-      .exp-card-adv p {
-        font-size: 0.7rem;
-      }
-      .courses-grid {
-        grid-template-columns: 1fr;
-      }
-      .about-wrap {
-        flex-direction: column;
-        text-align: center;
-      }
-      .contact-social {
-        flex-direction: column;
-        align-items: center;
-      }
-      .container {
-        padding: 0 1rem;
-      }
-      section {
-        margin: 2.5rem 0;
-      }
-      .profile-photo {
-        width: 130px;
-        height: 130px;
-      }
-      .profile-photo-lg {
-        width: 150px;
-        height: 150px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-headline-main {
-        font-size: 1.6rem;
-      }
-      .hero-tagline-single {
-        font-size: 0.75rem;
-      }
-      .exp-card-adv {
-        padding: 0.4rem 1rem;
-      }
-      .exp-card-adv h3 {
-        font-size: 1rem;
-      }
+      .navbar { flex-direction: column; align-items: center; padding: 0.8rem 1rem; }
+      .nav-links { margin-top: 0.5rem; gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
+      .hero { flex-direction: column; text-align: center; }
+      .hero-headline-main { font-size: 2rem; white-space: normal; }
+      .hero-tagline-single { font-size: 0.9rem; white-space: normal; justify-content: center; }
+      .exp-showcase { justify-content: center; }
+      .exp-card-adv { padding: 0.6rem 1.2rem; min-width: 100px; }
+      .exp-card-adv h3 { font-size: 1.2rem; }
+      .btn-group { justify-content: center; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .about-wrap { flex-direction: column; text-align: center; }
+      .contact-social { flex-direction: column; align-items: center; }
+      .container { padding: 0 1rem; }
+      section { margin: 2.5rem 0; }
+      .profile-photo { width: 130px; height: 130px; }
+      .profile-photo-lg { width: 150px; height: 150px; }
+      .typewriter-line-3d { font-size: 0.85rem; text-align: left; }
     }
   </style>
 </head>
@@ -681,8 +642,8 @@
           <div class="exp-card-adv"><h3>250+</h3><p>👥 Active Community</p></div>
         </div>
         <div class="btn-group">
-          <button class="btn-primary" id="exploreBtn">Explore Courses</button>
-          <button class="btn-outline" id="enrollBtn">Enroll Now</button>
+          <button class="btn-primary" id="exploreBtn"><i class="fas fa-compass"></i> Explore Courses</button>
+          <button class="btn-outline" id="enrollBtn"><i class="fas fa-graduation-cap"></i> Enroll Now</button>
         </div>
       </div>
       <div class="hero-img-card">
@@ -757,10 +718,12 @@
         <p style="color:#2aff9e;">Digital Marketing & Stock Market Mentor</p>
       </div>
       <div class="about-text-sharp">
-        <h2>🙋‍♂️ About Me</h2>
-        <p>I'm <strong>Nabin Khanal</strong>, a digital marketing strategist and stock market analyst with <strong>3+ years in Digital Marketing</strong> (Facebook, TikTok, Instagram Ads) and <strong>4+ years in Stock Market</strong> (IPO, NEPSE, technical analysis). I've run real ad campaigns, managed budgets, and traded safely using risk management & candlestick patterns.</p>
-        <p>I've built a <strong>community of 250+ active members</strong> where beginners learn practical skills without confusion. My goal is simple: give you real-world knowledge, not just theory.</p>
-        <div class="signature-compact">
+        <h2><i class="fas fa-user-astronaut"></i> About Me</h2>
+        <div class="typewriter-container-3d">
+          <div class="typewriter-line-3d" id="typewriter-line1"></div>
+          <div class="typewriter-line-3d" id="typewriter-line2"></div>
+        </div>
+        <div class="signature-compact" id="signature-text">
           <i class="fas fa-graduation-cap"></i> "Learn by doing — join me to master digital skills & stock trading."
         </div>
       </div>
@@ -769,11 +732,11 @@
 
   <section><h2 style="text-align:center;">✨ Why <span style="color:#2aff9e;">Learn With Me?</span></h2>
     <div class="features-icons">
-      <div class="feature-item"><i class="fas fa-laptop-code"></i><h4>100% Practical</h4><p>Live projects & case studies</p></div>
-      <div class="feature-item"><i class="fas fa-seedling"></i><h4>Beginner Friendly</h4><p>Step-by-step roadmap</p></div>
-      <div class="feature-item"><i class="fas fa-users"></i><h4>Community Support</h4><p>250+ active learners</p></div>
-      <div class="feature-item"><i class="fas fa-infinity"></i><h4>Lifetime Access</h4><p>Materials & updates</p></div>
-      <div class="feature-item"><i class="fas fa-certificate"></i><h4>Certificate</h4><p>Industry recognized</p></div>
+      <div class="feature-item"><i class="fas fa-laptop-code"></i><h4>100% Practical</h4><p>Live projects</p></div>
+      <div class="feature-item"><i class="fas fa-seedling"></i><h4>Beginner Friendly</h4><p>Step by step</p></div>
+      <div class="feature-item"><i class="fas fa-users"></i><h4>Community</h4><p>250+ members</p></div>
+      <div class="feature-item"><i class="fas fa-infinity"></i><h4>Lifetime Access</h4><p>Updates</p></div>
+      <div class="feature-item"><i class="fas fa-certificate"></i><h4>Certificate</h4><p>Recognized</p></div>
     </div>
   </section>
 
@@ -793,6 +756,50 @@
 </a>
 
 <script>
+  // 3D Typewriter Animation
+  const textLines = [
+    "I'm Nabin Khanal, a digital marketing strategist and stock market analyst with 3+ years in Digital Marketing (Facebook, TikTok, Instagram Ads) and 4+ years in Stock Market (IPO, NEPSE, technical analysis). I've run real ad campaigns, managed budgets, and traded safely using risk management & candlestick patterns.",
+    "I've built a community of 250+ active members where beginners learn practical skills without confusion. My goal is simple: give you real-world knowledge, not just theory."
+  ];
+  
+  let lineIndex = 0, charIndex = 0, currentLineElement = null;
+  let typingStarted = false;
+  
+  function typeNextLine() {
+    if (lineIndex < textLines.length) {
+      currentLineElement = document.getElementById(`typewriter-line${lineIndex + 1}`);
+      if (currentLineElement) {
+        charIndex = 0;
+        currentLineElement.textContent = '';
+        typeNextChar();
+      } else { lineIndex++; typeNextLine(); }
+    } else {
+      const lastLine = document.getElementById('typewriter-line2');
+      if (lastLine) lastLine.style.borderRight = 'none';
+    }
+  }
+  
+  function typeNextChar() {
+    if (charIndex < textLines[lineIndex].length) {
+      currentLineElement.textContent += textLines[lineIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(typeNextChar, 20);
+    } else {
+      lineIndex++;
+      setTimeout(typeNextLine, 200);
+    }
+  }
+  
+  function startTypewriter() {
+    if (!typingStarted) { typingStarted = true; lineIndex = 0; typeNextLine(); }
+  }
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting && !typingStarted) startTypewriter(); });
+  }, { threshold: 0.3 });
+  observer.observe(document.getElementById('about'));
+
+  // Course selection & payment logic
   let selectedCourse = null, selectedPrice = null;
   const cards = document.querySelectorAll('.course-card');
   const selectedDisplay = document.getElementById('selectedCourseDisplay');
@@ -852,7 +859,6 @@
 
   document.getElementById('exploreBtn').onclick = () => document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
   document.getElementById('enrollBtn').onclick = () => document.getElementById('payment-form-section').scrollIntoView({ behavior: 'smooth' });
-
   document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', function(e) {
     const hash = this.getAttribute('href');
     if (hash && hash !== '#') { e.preventDefault(); document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' }); }
