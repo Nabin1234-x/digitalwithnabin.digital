@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>DIGITAL WITH NABIN | Learn Digital Skills & Stock Market</title>
-  <!-- Google Fonts + Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -23,7 +22,6 @@
       scroll-behavior: smooth;
     }
 
-    /* premium animated gradient */
     .gradient-bg {
       position: fixed;
       top: 0;
@@ -59,7 +57,6 @@
       100% { opacity: 0.5; transform: scale(1.2);}
     }
 
-    /* navbar - LEFT ALIGNED LINKS (stable on desktop) + mobile responsive */
     .navbar {
       position: sticky;
       top: 0;
@@ -107,7 +104,6 @@
       margin: 5rem 0;
     }
 
-    /* Hero section */
     .hero {
       display: flex;
       flex-wrap: wrap;
@@ -193,9 +189,6 @@
       background-clip: text;
       color: transparent;
     }
-    .exp-card-adv p {
-      font-size: 0.9rem;
-    }
     .btn-group {
       display: flex;
       gap: 1.2rem;
@@ -248,7 +241,6 @@
       border-radius: 50%;
     }
 
-    /* Courses Grid */
     .courses-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
@@ -324,7 +316,6 @@
       color: #0a0f1a;
     }
 
-    /* Payment Section */
     .payment-section {
       background: rgba(10, 16, 24, 0.7);
       backdrop-filter: blur(12px);
@@ -387,7 +378,6 @@
       font-weight: bold;
     }
 
-    /* ABOUT SECTION */
     .about-wrap {
       display: flex;
       flex-wrap: wrap;
@@ -504,7 +494,6 @@
       font-size: 1.2rem;
     }
 
-    /* ========== MOBILE RESPONSIVE (nav left aligned remains, content big & clear) ========== */
     @media (max-width: 768px) {
       .navbar {
         flex-direction: column;
@@ -517,15 +506,8 @@
         flex-wrap: wrap;
         justify-content: center;
       }
-      .nav-links a {
-        font-size: 0.9rem;
-        padding: 0.3rem 0.5rem;
-      }
       .hero {
         flex-direction: column;
-        text-align: center;
-      }
-      .hero-content {
         text-align: center;
       }
       .hero-headline-main {
@@ -537,20 +519,6 @@
         white-space: normal;
         justify-content: center;
       }
-      .brand-top {
-        display: inline-block;
-      }
-      .exp-showcase {
-        justify-content: center;
-      }
-      .btn-group {
-        justify-content: center;
-      }
-      .hero-img-card {
-        max-width: 320px;
-        margin: 0 auto;
-        width: 100%;
-      }
       .courses-grid {
         grid-template-columns: 1fr;
       }
@@ -558,22 +526,9 @@
         flex-direction: column;
         text-align: center;
       }
-      .about-text-sharp {
-        text-align: center;
-      }
-      .signature-compact {
-        text-align: left;
-      }
-      .features-icons {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      }
       .contact-social {
         flex-direction: column;
         align-items: center;
-      }
-      .social-icon {
-        width: 80%;
-        justify-content: center;
       }
       .container {
         padding: 0 1rem;
@@ -590,16 +545,6 @@
       .hero-tagline-single {
         font-size: 0.8rem;
       }
-      .exp-card-adv h3 {
-        font-size: 1.2rem;
-      }
-      .exp-card-adv p {
-        font-size: 0.7rem;
-      }
-      .btn-primary, .btn-outline {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.85rem;
-      }
       .profile-photo {
         width: 130px;
         height: 130px;
@@ -607,12 +552,6 @@
       .profile-photo-lg {
         width: 150px;
         height: 150px;
-      }
-      .price {
-        font-size: 1.6rem;
-      }
-      .features-list li {
-        font-size: 0.85rem;
       }
     }
   </style>
@@ -633,7 +572,6 @@
 
 <main>
 <div class="container">
-  <!-- Hero Section -->
   <section id="home">
     <div class="hero">
       <div class="hero-content">
@@ -657,7 +595,8 @@
       </div>
       <div class="hero-img-card">
         <div class="profile-photo">
-          <img src="https://scontent.fkep2-1.fna.fbcdn.net/v/t39.30808-6/605529316_879123011256056_7745396520321915666_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=53a332&_nc_ohc=5u-M6_GQ7VYQ7kNvwERd67F&_nc_oc=AdpPcTrl2WZeg03aNaq_4p_li8BIZAo3dAEEDStq62S7Hl1rbVLcNH39w2E8rQRg7mUDPvsfbudy_-dOi4KSjnge&_nc_zt=23&_nc_ht=scontent.fkep2-1.fna&_nc_gid=vnH4Nk1xbEUgNGybFRMmig&_nc_ss=7b2a8&oh=00_Af24rTo9NJN6nOLPrYXRmfNxtFD2PdEgs1fX6w3K2OK3aA&oe=69EFA565" alt="Nabin Khanal">
+          <!-- FIRST PHOTO - Hero Section -->
+          <img src="https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg" alt="Nabin Khanal">
         </div>
         <h3>Nabin Khanal</h3>
         <p>Digital & Stock Market Mentor</p>
@@ -665,7 +604,6 @@
     </div>
   </section>
 
-  <!-- Courses Selection -->
   <section id="courses">
     <h2>🔥 Select Your <span style="color:#2aff9e;">Course</span></h2>
     <div class="courses-grid" id="coursesGrid">
@@ -691,11 +629,10 @@
     </div>
   </section>
 
-  <!-- Payment Form + QR -->
   <section id="payment-form-section">
     <h2>📋 Complete Your <span style="color:#2aff9e;">Enrollment</span></h2>
     <div class="payment-section">
-      <div id="selectedCourseDisplay" class="selected-course-info" style="display: none; background: #2aff9e20; padding: 0.8rem; border-radius: 28px; margin-bottom: 1rem;">
+      <div id="selectedCourseDisplay" style="display: none; background: #2aff9e20; padding: 0.8rem; border-radius: 28px; margin-bottom: 1rem;">
         <i class="fas fa-check-circle" style="color:#2aff9e;"></i> Selected: <strong id="selectedCourseName"></strong> | Amount: <strong id="selectedAmount"></strong>
       </div>
       <form id="paymentForm" class="payment-form">
@@ -719,14 +656,14 @@
     </div>
   </section>
 
-  <!-- ABOUT SECTION -->
   <section id="about">
     <div class="about-wrap">
       <div class="about-img-modern">
         <div class="profile-photo-lg">
-          <img src="https://scontent.fkep2-1.fna.fbcdn.net/v/t39.30808-6/672632481_964659366035753_1115533360492649382_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=qrWCaBWAHVQQ7kNvwEfDjjB&_nc_oc=AdrKfTSQLYIEL-mF7RMzjN4LRRU6lmJ1SsxE6m05PJWn4lZdwnovJinz46sgak6I-DNjmQ4rAAlUATII4CJMrKF-&_nc_zt=23&_nc_ht=scontent.fkep2-1.fna&_nc_gid=Nf5x2AnmX2BkWPmPQa86_g&_nc_ss=7b2a8&oh=00_Af2aYoq8A5pnoXTBgCtQerHhR3iaABRF0qpGriWzQaZWfw&oe=69EF7206" alt="Nabin Khanal">
+          <!-- SECOND PHOTO - About Section -->
+          <img src="https://i.postimg.cc/VNFZYZNf/nabin.jpg" alt="Nabin Khanal">
         </div>
-        <h3 style="margin-top:0.8rem;">Nabin Khanal</h3>
+        <h3>Nabin Khanal</h3>
         <p style="color:#2aff9e;">Digital Marketing & Stock Market Mentor</p>
       </div>
       <div class="about-text-sharp">
@@ -740,7 +677,6 @@
     </div>
   </section>
 
-  <!-- Why Join -->
   <section><h2 style="text-align:center;">✨ Why <span style="color:#2aff9e;">Learn With Me?</span></h2>
     <div class="features-icons">
       <div class="feature-item"><i class="fas fa-laptop-code"></i><h4>100% Practical</h4><p>Live projects & case studies</p></div>
@@ -751,9 +687,8 @@
     </div>
   </section>
 
-  <!-- Contact -->
   <section id="contact">
-    <h2 style="text-align:center;">📞 Let’s Connect</h2>
+    <h2 style="text-align:center;">📞 Let's Connect</h2>
     <div class="contact-social">
       <a href="https://wa.me/9779767664396?text=Hello%20Nabin%20sir,%20I'm%20interested%20in%20your%20courses." class="social-icon"><i class="fab fa-whatsapp"></i> WhatsApp</a>
       <a href="mailto:nabinkhanal0007@gmail.com?subject=Collaboration%20Request" class="social-icon"><i class="fas fa-envelope"></i> Email for Collab</a>
@@ -763,7 +698,6 @@
 <footer>© DIGITAL WITH NABIN — Empowering beginners with real digital & stock skills | 📧 nabinkhanal0007@gmail.com</footer>
 </main>
 
-<!-- Floating WhatsApp -->
 <a href="https://wa.me/9779767664396?text=Hello%20Nabin%20sir%2C%20maile%20course%20ko%20payment%20gareko%20xu.%20Yo%20screenshot%20ho.%20Please%20verify." target="_blank" class="floating-wa">
   <i class="fab fa-whatsapp"></i> <span>Support</span>
 </a>
