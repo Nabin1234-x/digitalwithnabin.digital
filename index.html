@@ -22,6 +22,7 @@
       scroll-behavior: smooth;
     }
 
+    /* premium animated gradient */
     .gradient-bg {
       position: fixed;
       top: 0;
@@ -57,6 +58,7 @@
       100% { opacity: 0.5; transform: scale(1.2);}
     }
 
+    /* navbar */
     .navbar {
       position: sticky;
       top: 0;
@@ -104,6 +106,7 @@
       margin: 5rem 0;
     }
 
+    /* Hero section */
     .hero {
       display: flex;
       flex-wrap: wrap;
@@ -164,23 +167,50 @@
       font-size: 1.2rem;
     }
 
+    /* 3D Automatic Sliding Stats Cards - Enhanced */
     .exp-showcase {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
       margin: 2rem 0;
+      justify-content: center;
     }
     .exp-card-adv {
-      background: linear-gradient(145deg, rgba(15, 25, 40, 0.8), rgba(5, 12, 22, 0.9));
+      background: linear-gradient(145deg, rgba(15, 25, 40, 0.9), rgba(5, 12, 22, 0.95));
       backdrop-filter: blur(8px);
       border-radius: 28px;
-      padding: 0.8rem 1.6rem;
+      padding: 1rem 1.8rem;
       border-left: 5px solid;
-      transition: all 0.2s;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      text-align: center;
+      min-width: 130px;
+      animation: floatCard 3s ease-in-out infinite;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
-    .exp-card-adv:nth-child(1) { border-left-color: #2aff9e; }
-    .exp-card-adv:nth-child(2) { border-left-color: #ffd966; }
-    .exp-card-adv:nth-child(3) { border-left-color: #3b82f6; }
+    .exp-card-adv:nth-child(1) { 
+      border-left-color: #2aff9e;
+      animation-delay: 0s;
+    }
+    .exp-card-adv:nth-child(2) { 
+      border-left-color: #ffd966;
+      animation-delay: 0.5s;
+    }
+    .exp-card-adv:nth-child(3) { 
+      border-left-color: #3b82f6;
+      animation-delay: 1s;
+    }
+    .exp-card-adv:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 45px rgba(42, 255, 158, 0.25);
+      border-left-width: 6px;
+    }
+    @keyframes floatCard {
+      0% { transform: translateY(0px) rotateX(0deg); }
+      50% { transform: translateY(-8px) rotateX(2deg); }
+      100% { transform: translateY(0px) rotateX(0deg); }
+    }
     .exp-card-adv h3 {
       font-size: 1.7rem;
       font-weight: 800;
@@ -189,6 +219,14 @@
       background-clip: text;
       color: transparent;
     }
+    .exp-card-adv p {
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
     .btn-group {
       display: flex;
       gap: 1.2rem;
@@ -241,6 +279,7 @@
       border-radius: 50%;
     }
 
+    /* Courses Grid */
     .courses-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
@@ -255,6 +294,11 @@
       transition: all 0.3s;
       border: 1px solid rgba(255,255,255,0.08);
       cursor: pointer;
+      animation: fadeSlideUp 0.6s ease-out;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .course-card:hover, .course-card.selected {
       transform: translateY(-8px);
@@ -280,6 +324,12 @@
       font-weight: bold;
       color: #0a0c10;
       font-size: 0.8rem;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     .price {
       font-size: 2rem;
@@ -316,6 +366,7 @@
       color: #0a0f1a;
     }
 
+    /* Payment Section */
     .payment-section {
       background: rgba(10, 16, 24, 0.7);
       backdrop-filter: blur(12px);
@@ -378,6 +429,7 @@
       font-weight: bold;
     }
 
+    /* About Section */
     .about-wrap {
       display: flex;
       flex-wrap: wrap;
@@ -401,6 +453,12 @@
       background: linear-gradient(145deg, #2aff9e, #ffb347);
       padding: 5px;
       overflow: hidden;
+      animation: profileGlow 3s ease-in-out infinite;
+    }
+    @keyframes profileGlow {
+      0% { box-shadow: 0 0 0 0 rgba(42, 255, 158, 0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(42, 255, 158, 0.1); }
+      100% { box-shadow: 0 0 0 0 rgba(42, 255, 158, 0); }
     }
     .profile-photo-lg img {
       width: 100%;
@@ -429,6 +487,7 @@
       font-weight: 500;
     }
 
+    /* Features Icons */
     .features-icons {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -441,6 +500,12 @@
       padding: 1.2rem;
       border-radius: 28px;
       text-align: center;
+      transition: all 0.3s ease;
+      animation: fadeSlideUp 0.5s ease-out;
+    }
+    .feature-item:hover {
+      transform: translateY(-5px);
+      background: rgba(42, 255, 158, 0.1);
     }
     .feature-item i {
       font-size: 2rem;
@@ -489,11 +554,17 @@
       font-weight: 600;
       font-size: 0.85rem;
       box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+      animation: bounceWa 2s infinite;
+    }
+    @keyframes bounceWa {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
     .floating-wa i {
       font-size: 1.2rem;
     }
 
+    /* Mobile Responsive - Stats Cards adjustment */
     @media (max-width: 768px) {
       .navbar {
         flex-direction: column;
@@ -519,6 +590,21 @@
         white-space: normal;
         justify-content: center;
       }
+      /* Stats cards become more compact on mobile but still elegant */
+      .exp-showcase {
+        gap: 0.8rem;
+        justify-content: center;
+      }
+      .exp-card-adv {
+        padding: 0.6rem 1.2rem;
+        min-width: 100px;
+      }
+      .exp-card-adv h3 {
+        font-size: 1.2rem;
+      }
+      .exp-card-adv p {
+        font-size: 0.7rem;
+      }
       .courses-grid {
         grid-template-columns: 1fr;
       }
@@ -536,15 +622,6 @@
       section {
         margin: 2.5rem 0;
       }
-    }
-
-    @media (max-width: 480px) {
-      .hero-headline-main {
-        font-size: 1.6rem;
-      }
-      .hero-tagline-single {
-        font-size: 0.8rem;
-      }
       .profile-photo {
         width: 130px;
         height: 130px;
@@ -552,6 +629,21 @@
       .profile-photo-lg {
         width: 150px;
         height: 150px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-headline-main {
+        font-size: 1.6rem;
+      }
+      .hero-tagline-single {
+        font-size: 0.75rem;
+      }
+      .exp-card-adv {
+        padding: 0.4rem 1rem;
+      }
+      .exp-card-adv h3 {
+        font-size: 1rem;
       }
     }
   </style>
@@ -595,7 +687,6 @@
       </div>
       <div class="hero-img-card">
         <div class="profile-photo">
-          <!-- FIRST PHOTO - Hero Section -->
           <img src="https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg" alt="Nabin Khanal">
         </div>
         <h3>Nabin Khanal</h3>
@@ -660,7 +751,6 @@
     <div class="about-wrap">
       <div class="about-img-modern">
         <div class="profile-photo-lg">
-          <!-- SECOND PHOTO - About Section -->
           <img src="https://i.postimg.cc/VNFZYZNf/nabin.jpg" alt="Nabin Khanal">
         </div>
         <h3>Nabin Khanal</h3>
