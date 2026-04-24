@@ -174,54 +174,78 @@
       white-space: nowrap;
     }
 
-    /* 3D Stats Cards */
-    .exp-showcase {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin: 2rem 0;
-      justify-content: flex-start;
-    }
-    .exp-card-adv {
-      background: linear-gradient(145deg, rgba(15, 25, 40, 0.9), rgba(5, 12, 22, 0.95));
-      backdrop-filter: blur(8px);
-      border-radius: 28px;
-      padding: 1rem 1.8rem;
-      border-left: 5px solid;
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    /* Profile Card with Stats Below */
+    .hero-img-card {
+      flex: 0.9;
+      background: linear-gradient(145deg, #111a24, #070e16);
+      border-radius: 48px;
+      padding: 1.8rem;
       text-align: center;
-      min-width: 140px;
-      animation: floatCard 3s ease-in-out infinite;
-      transform-style: preserve-3d;
-      perspective: 1000px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 217, 102, 0.4);
+      transition: transform 0.3s;
     }
-    .exp-card-adv:nth-child(1) { border-left-color: #2aff9e; animation-delay: 0s; }
-    .exp-card-adv:nth-child(2) { border-left-color: #ffd966; animation-delay: 0.5s; }
-    .exp-card-adv:nth-child(3) { border-left-color: #3b82f6; animation-delay: 1s; }
-    .exp-card-adv:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 25px 45px rgba(42, 255, 158, 0.25);
+    .hero-img-card:hover {
+      transform: scale(1.02);
     }
-    @keyframes floatCard {
-      0% { transform: translateY(0px) rotateX(0deg); }
-      50% { transform: translateY(-8px) rotateX(2deg); }
-      100% { transform: translateY(0px) rotateX(0deg); }
+    .profile-photo {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2aff9e, #ffd966);
+      padding: 4px;
+      overflow: hidden;
     }
-    .exp-card-adv h3 {
-      font-size: 1.7rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #eef2ff, #cafcbc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
-    .exp-card-adv p {
-      font-size: 0.9rem;
+    .hero-img-card h3 {
+      margin-top: 1rem;
+      font-size: 1.3rem;
+    }
+    .hero-img-card p {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      margin-bottom: 1rem;
+    }
+
+    /* Stats Cards - Now Below Profile Image (Horizontal row) */
+    .profile-stats {
       display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .stat-mini {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      padding: 0.5rem 0.8rem;
+      text-align: center;
+      min-width: 80px;
+      border-left: 3px solid;
+      transition: all 0.2s;
+    }
+    .stat-mini:nth-child(1) { border-left-color: #2aff9e; }
+    .stat-mini:nth-child(2) { border-left-color: #ffd966; }
+    .stat-mini:nth-child(3) { border-left-color: #3b82f6; }
+    .stat-mini:hover {
+      transform: translateY(-3px);
+      background: rgba(42, 255, 158, 0.15);
+    }
+    .stat-mini h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat-mini p {
+      font-size: 0.65rem;
+      margin: 0;
+      opacity: 0.8;
     }
 
     /* Premium Buttons with Icons */
@@ -267,35 +291,6 @@
     .btn-outline:hover {
       background: rgba(42,255,158,0.1);
       transform: translateY(-3px);
-    }
-
-    /* Profile Card */
-    .hero-img-card {
-      flex: 0.9;
-      background: linear-gradient(145deg, #111a24, #070e16);
-      border-radius: 48px;
-      padding: 1.8rem;
-      text-align: center;
-      border: 1px solid rgba(255, 217, 102, 0.4);
-      transition: transform 0.3s;
-    }
-    .hero-img-card:hover {
-      transform: scale(1.02);
-    }
-    .profile-photo {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2aff9e, #ffd966);
-      padding: 4px;
-      overflow: hidden;
-    }
-    .profile-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
     }
 
     /* Course Cards */
@@ -546,43 +541,32 @@
       font-style: italic;
     }
 
-    /* Features Icons - Premium Grid */
+    /* Features Icons */
     .features-icons {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       gap: 1.5rem;
       margin-top: 2rem;
     }
     .feature-item {
       background: rgba(0,0,0,0.35);
       backdrop-filter: blur(8px);
-      padding: 1.5rem 1rem;
+      padding: 1.2rem;
       border-radius: 28px;
       text-align: center;
       transition: all 0.3s ease;
       border: 1px solid rgba(255,255,255,0.05);
     }
     .feature-item:hover {
-      transform: translateY(-6px);
+      transform: translateY(-5px);
       background: rgba(42, 255, 158, 0.1);
       border-color: rgba(42, 255, 158, 0.3);
     }
     .feature-item i {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       color: #ffd966;
-      margin-bottom: 0.8rem;
-      display: inline-block;
+      margin-bottom: 0.5rem;
     }
-    .feature-item h4 {
-      font-size: 1.1rem;
-      margin: 0.5rem 0 0.3rem;
-    }
-    .feature-item p {
-      font-size: 0.8rem;
-      opacity: 0.8;
-    }
-
-    /* Contact Section */
     .contact-social {
       display: flex;
       gap: 2rem;
@@ -642,7 +626,6 @@
       .hero { flex-direction: column; text-align: center; }
       .hero-headline-main { font-size: 2rem; white-space: normal; }
       .hero-tagline-single { font-size: 0.85rem; white-space: normal; }
-      .exp-showcase { justify-content: center; }
       .btn-group { justify-content: center; }
       .courses-grid { grid-template-columns: 1fr; }
       .about-wrap { flex-direction: column; text-align: center; }
@@ -651,7 +634,9 @@
       section { margin: 2.5rem 0; }
       .profile-photo, .profile-photo-lg { width: 130px; height: 130px; }
       .typewriter-line-3d { font-size: 0.85rem; text-align: left; }
-      .features-icons { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+      .profile-stats { gap: 0.5rem; }
+      .stat-mini { padding: 0.3rem 0.6rem; min-width: 70px; }
+      .stat-mini h4 { font-size: 0.85rem; }
     }
   </style>
 </head>
@@ -683,22 +668,35 @@
             <i class="fas fa-chart-line"></i>
           </div>
         </div>
-        <div class="exp-showcase">
-          <div class="exp-card-adv"><h3>3+ Years</h3><p>📱 Digital Marketing</p></div>
-          <div class="exp-card-adv"><h3>4 Years</h3><p>📈 Stock Market</p></div>
-          <div class="exp-card-adv"><h3>250+</h3><p>👥 Active Community</p></div>
-        </div>
         <div class="btn-group">
           <button class="btn-primary" id="exploreBtn"><i class="fas fa-compass"></i> Explore Courses</button>
           <button class="btn-outline" id="enrollBtn"><i class="fas fa-graduation-cap"></i> Enroll Now</button>
         </div>
       </div>
+      
+      <!-- Profile Card with Stats Below -->
       <div class="hero-img-card">
         <div class="profile-photo">
           <img src="https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg" alt="Nabin Khanal">
         </div>
         <h3>Nabin Khanal</h3>
         <p>Digital & Stock Market Mentor</p>
+        
+        <!-- Stats Cards - Now directly below profile -->
+        <div class="profile-stats">
+          <div class="stat-mini">
+            <h4>3+ Years</h4>
+            <p>📱 Digital Marketing</p>
+          </div>
+          <div class="stat-mini">
+            <h4>4 Years</h4>
+            <p>📈 Stock Market</p>
+          </div>
+          <div class="stat-mini">
+            <h4>250+</h4>
+            <p>👥 Active Community</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
