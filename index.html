@@ -1327,6 +1327,15 @@ window.playNotificationBeep = function() {
     console.log('Beep error:', e);
   }
 };
+  // 🔊 Sound Test Function
+window.testSound = function() {
+  if (window.playNotificationBeep) {
+    window.playNotificationBeep();
+    if (window.toast) toast('🔊 Sound test!');
+  } else {
+    console.log('❌ Sound function not found');
+  }
+};
 console.log('✅ Sound function loaded');
 </script>
   <!-- 🔔 Foreground Notification -->
