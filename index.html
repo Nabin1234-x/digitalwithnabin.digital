@@ -1246,16 +1246,42 @@ function twChar(){ if(_ci<_tw[_li].length){ _curEl.textContent+=_tw[_li][_ci++];
 <script>
   const VAPID_KEY = "BIhr3EPCpFXORgnQ7HpoEwCxRwmhXJCFoAVbrHmG47njXcrktKp2cl3LZBi0imprOMINPL-qsvsbO7G_4In1CA0";
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(() => console.log('✅ sw.js loaded'))
-      .catch(e => console.log('sw error:', e));
-    
-    navigator.serviceWorker.register('/firebase-messaging-sw.js')
-      .then(() => console.log('✅ FCM SW loaded'))
-      .catch(e => console.log('FCM error:', e));
-  }
-
+  // 🔄 Service Worker with Force Update
+if ('serviceWorker' in navigator) {
+  // SW register
+  navigator.serviceWorker.register('/sw.js?v=4')
+    .then(reg => {
+      console.log('✅ sw.js loaded');
+      
+      // Update check
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            // नयाँ version आयो — user लाई सोध्ने
+            if (confirm('🎉 नयाँ version उपलब्ध छ! Update गर्नुहोस्?')) {
+              newWorker.postMessage('SKIP_WAITING');
+              setTimeout(() => window.location.reload(true), 500);
+            }
+          }
+        });
+      });
+    })
+    .catch(e => console.log('sw error:', e));
+  
+  navigator.serviceWorker.register('/firebase-messaging-sw.js?v=4')
+    .then(() => console.log('✅ FCM SW loaded'))
+    .catch(e => console.log('FCM error:', e));
+  
+  // जब SW update हुन्छ — page reload
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+      refreshing = true;
+      window.location.reload();
+    }
+  });
+}
   setTimeout(() => {
     if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission();
