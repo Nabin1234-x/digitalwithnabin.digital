@@ -13,20 +13,32 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  self.registration.showNotification(
-    payload.notification?.title || 'Digital With Nabin',
-    {
-      body: payload.notification?.body || 'New message',
-      icon: 'https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg',
-      badge: 'https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg',
-      vibrate: [200, 100, 200],
-      tag: 'dwn-msg',
-      renotify: true
-    }
-  );
+  const title = payload.notification?.title || 'Digital With Nabin';
+  const body = payload.notification?.body || 'New message';
+  
+  self.registration.showNotification(title, {
+    body: body,
+    icon: 'https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg',
+    badge: 'https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg',
+    vibrate: [200, 100, 200],
+    tag: 'dwn-msg',
+    renotify: true,
+    silent: false
+  });
 });
 
-self.addEventListener('notificationclick', (e) => {
-  e.notification.close();
-  e.waitUntil(clients.openWindow('/'));
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url.includes('digitalwithnabin') && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow('https://digitalwithnabin.digital');
+      }
+    })
+  );
 });
