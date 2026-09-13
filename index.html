@@ -1158,5 +1158,25 @@ window.startTw = function(){ window._twStarted=true; _li=0;_ci=0; twLine(); };
 function twLine(){ if(_li>=_tw.length)return; _curEl=document.getElementById('tw'+(_li+1)); if(!_curEl){_li++;twLine();return;} _ci=0; _curEl.textContent=''; twChar(); }
 function twChar(){ if(_ci<_tw[_li].length){ _curEl.textContent+=_tw[_li][_ci++]; setTimeout(twChar,15); } else { _li++; setTimeout(twLine,200); } }
 </script>
+  <!-- 🔔 Notification Setup -->
+<script>
+  const VAPID_KEY = "BIhr3EPCpFXORgnQ7HpoEwCxRwmhXJCFoAVbrHmG47njXcrktKp2cl3LZBi0imprOMINPL-qsvsbO7G_4In1CA0";
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('✅ sw.js loaded'))
+      .catch(e => console.log('sw error:', e));
+    
+    navigator.serviceWorker.register('/firebase-messaging-sw.js')
+      .then(() => console.log('✅ FCM SW loaded'))
+      .catch(e => console.log('FCM error:', e));
+  }
+
+  setTimeout(() => {
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+  }, 5000);
+</script>
 </body>
 </html>
