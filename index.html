@@ -313,6 +313,81 @@
   </style>
 </head>
 <body>
+  <!-- 🎬 SPLASH SCREEN - MOBILE PERFECT -->
+<div id="splashScreen" style="position:fixed;inset:0;z-index:99999;background:linear-gradient(145deg,#070c14,#0a1520,#070c14);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s ease;padding:1rem;overflow:hidden">
+  
+  <div style="position:absolute;width:min(350px,80vw);height:min(350px,80vw);border-radius:50%;background:radial-gradient(circle,rgba(42,255,158,.15),transparent 70%);animation:spPulse 2s ease infinite"></div>
+  
+  <div style="position:relative;z-index:2;text-align:center;width:100%;max-width:340px">
+    
+    <h1 style="font-size:clamp(.95rem,4.5vw,1.2rem);font-weight:900;letter-spacing:clamp(2px,1vw,3px);background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:clamp(1rem,4vw,1.8rem);padding:0 .5rem">⚡ DIGITAL WITH NABIN</h1>
+    
+    <div style="width:clamp(110px,32vw,130px);height:clamp(110px,32vw,130px);border-radius:50%;background:linear-gradient(135deg,#2aff9e,#ffd966);padding:3px;margin:0 auto clamp(1rem,3.5vw,1.5rem);animation:spPhoto 1s ease,spGlow 2.5s ease-in-out infinite">
+      <img src="https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg" alt="Nabin" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
+    </div>
+    
+    <h2 style="font-size:clamp(1.4rem,6vw,1.7rem);font-weight:900;color:#fff;margin-bottom:.25rem;animation:spUp .6s ease .3s both">Nabin Khanal</h2>
+    <p id="spType" style="font-size:clamp(.7rem,2.8vw,.82rem);color:#2aff9e;letter-spacing:clamp(1.5px,.8vw,2px);font-weight:700;margin-bottom:clamp(1.2rem,4vw,1.8rem);min-height:1.2em;animation:spUp .6s ease .5s both"></p>
+    
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.4rem,1.8vw,.6rem);margin-bottom:clamp(1.2rem,4vw,1.8rem);padding:0 .5rem">
+      <div style="background:rgba(42,255,158,.08);border:1px solid rgba(42,255,158,.2);border-radius:10px;padding:clamp(.4rem,1.8vw,.6rem) clamp(.3rem,1vw,.5rem);animation:spUp .5s ease .7s both">
+        <div style="font-size:clamp(.85rem,3.5vw,1rem);font-weight:800;color:#2aff9e;line-height:1.2">250+</div>
+        <div style="font-size:clamp(.5rem,1.8vw,.58rem);color:#7a8aaa;letter-spacing:.5px;margin-top:.1rem">MEMBERS</div>
+      </div>
+      <div style="background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:10px;padding:clamp(.4rem,1.8vw,.6rem) clamp(.3rem,1vw,.5rem);animation:spUp .5s ease .9s both">
+        <div style="font-size:clamp(.85rem,3.5vw,1rem);font-weight:800;color:#ffd966;line-height:1.2">3+ Yrs</div>
+        <div style="font-size:clamp(.5rem,1.8vw,.58rem);color:#7a8aaa;letter-spacing:.5px;margin-top:.1rem">DIGITAL</div>
+      </div>
+      <div style="background:rgba(100,150,255,.08);border:1px solid rgba(100,150,255,.2);border-radius:10px;padding:clamp(.4rem,1.8vw,.6rem) clamp(.3rem,1vw,.5rem);animation:spUp .5s ease 1.1s both">
+        <div style="font-size:clamp(.85rem,3.5vw,1rem);font-weight:800;color:#99aaff;line-height:1.2">4 Yrs</div>
+        <div style="font-size:clamp(.5rem,1.8vw,.58rem);color:#7a8aaa;letter-spacing:.5px;margin-top:.1rem">STOCK</div>
+      </div>
+    </div>
+    
+    <div style="width:clamp(150px,55vw,200px);height:3px;background:rgba(255,255,255,.08);border-radius:3px;margin:0 auto;overflow:hidden">
+      <div id="spBar" style="height:100%;width:0%;background:linear-gradient(90deg,#2aff9e,#ffd966);border-radius:3px;transition:width 2.5s ease"></div>
+    </div>
+    <p style="font-size:clamp(.6rem,2.2vw,.68rem);color:#5a6a7a;margin-top:.7rem">Loading...</p>
+    
+  </div>
+  
+  <p style="position:absolute;bottom:1rem;font-size:.6rem;color:#3a4a5a">v2.0.0</p>
+</div>
+
+<style>
+  @keyframes spPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.25);opacity:.8}}
+  @keyframes spPhoto{from{transform:scale(0) rotate(-180deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+  @keyframes spGlow{0%,100%{box-shadow:0 0 0 0 rgba(42,255,158,.3)}50%{box-shadow:0 0 0 15px rgba(42,255,158,.05)}}
+  @keyframes spUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  #splashScreen{max-height:100vh;overflow:hidden}
+  @media(max-height:600px){
+    #splashScreen > div:last-of-type > div:first-child{margin-bottom:.8rem !important}
+    #splashScreen h1{margin-bottom:.8rem !important}
+  }
+</style>
+
+<script>
+  window.addEventListener('load', () => {
+    const text = 'DIGITAL & STOCK MENTOR';
+    const el = document.getElementById('spType');
+    let i = 0;
+    setTimeout(() => {
+      const t = setInterval(() => {
+        if(i < text.length) el.textContent += text[i++];
+        else clearInterval(t);
+      }, 70);
+    }, 700);
+    setTimeout(() => { 
+      const b = document.getElementById('spBar'); 
+      if(b) b.style.width = '100%'; 
+    }, 200);
+    setTimeout(() => {
+      const s = document.getElementById('splashScreen');
+      if(s) { s.style.opacity = '0'; setTimeout(() => s.style.display = 'none', 500); }
+    }, 3500);
+  });
+</script>
+<!-- SPLASH END -->
 <div class="gbg"></div>
 <div class="toast" id="toast"></div>
 
@@ -1178,5 +1253,44 @@ function twChar(){ if(_ci<_tw[_li].length){ _curEl.textContent+=_tw[_li][_ci++];
     }
   }, 5000);
 </script>
+  <!-- 📱 BOTTOM NAV - MOBILE PERFECT -->
+<div id="bottomNav" style="position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(7,12,20,.96);backdrop-filter:blur(20px);border-top:1px solid rgba(42,255,158,.15);padding:.4rem 0 max(.4rem,env(safe-area-inset-bottom));display:none">
+  <div style="display:flex;justify-content:space-around;max-width:600px;margin:0 auto;padding:0 .5rem">
+    <button onclick="showPage('home');bnavSet('home')" class="bnav" data-p="home">
+      <i class="fas fa-home"></i><span>Home</span>
+    </button>
+    <button onclick="showPage('courses');bnavSet('courses')" class="bnav" data-p="courses">
+      <i class="fas fa-book"></i><span>Courses</span>
+    </button>
+    <button onclick="showPage('enroll');bnavSet('enroll')" class="bnav" data-p="enroll">
+      <i class="fas fa-graduation-cap"></i><span>Enroll</span>
+    </button>
+    <button onclick="showPage('profile');bnavSet('profile')" class="bnav" data-p="profile">
+      <i class="fas fa-user"></i><span>Profile</span>
+    </button>
+  </div>
+</div>
+
+<style>
+  .bnav{flex:1;background:none;border:none;color:#7a8aaa;padding:.35rem .2rem;cursor:pointer;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:.1rem;font-family:inherit}
+  .bnav i{font-size:clamp(1rem,4.5vw,1.15rem);transition:.2s}
+  .bnav span{font-size:clamp(.55rem,2.2vw,.62rem);font-weight:600;letter-spacing:.2px}
+  .bnav.active{color:#2aff9e}
+  .bnav.active i{transform:translateY(-2px);filter:drop-shadow(0 0 8px rgba(42,255,158,.5))}
+  @media(max-width:768px){
+    #bottomNav{display:block !important}
+    #userApp .page{padding-bottom:5rem !important}
+    #floatChatBtn{bottom:5.5rem !important}
+    #chatWin{bottom:10rem !important}
+  }
+</style>
+
+<script>
+  window.bnavSet = function(p){
+    document.querySelectorAll('.bnav').forEach(b => b.classList.toggle('active', b.dataset.p === p));
+  };
+  setTimeout(() => bnavSet('home'), 800);
+</script>
+<!-- BOTTOM NAV END -->
 </body>
 </html>
