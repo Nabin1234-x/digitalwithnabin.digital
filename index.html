@@ -1292,5 +1292,84 @@ function twChar(){ if(_ci<_tw[_li].length){ _curEl.textContent+=_tw[_li][_ci++];
   setTimeout(() => bnavSet('home'), 800);
 </script>
 <!-- BOTTOM NAV END -->
+  <!-- 🔊 Notification Sound Setup -->
+<script>
+window.playNotificationBeep = function() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    const osc1 = ctx.createOscillator();
+    const gain1 = ctx.createGain();
+    osc1.connect(gain1);
+    gain1.connect(ctx.destination);
+    osc1.frequency.value = 800;
+    osc1.type = 'sine';
+    gain1.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+    osc1.start(ctx.currentTime);
+    osc1.stop(ctx.currentTime + 0.2);
+    
+    setTimeout(() => {
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      osc2.frequency.value = 1000;
+      osc2.type = 'sine';
+      gain2.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+      osc2.start(ctx.currentTime);
+      osc2.stop(ctx.currentTime + 0.2);
+    }, 250);
+    
+    console.log('🔊 Beep played');
+  } catch(e) {
+    console.log('Beep error:', e);
+  }
+};
+console.log('✅ Sound function loaded');
+</script>
+  <!-- 🔔 Foreground Notification -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getMessaging, onMessage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js";
+
+const cfg = {
+  apiKey: "AIzaSyCcKYUIL8mICWxEk7qdK6ucGHhqRS08BbA",
+  authDomain: "digital-with-nabin-6ec1d.firebaseapp.com",
+  projectId: "digital-with-nabin-6ec1d",
+  storageBucket: "digital-with-nabin-6ec1d.firebasestorage.app",
+  messagingSenderId: "602694608782",
+  appId: "1:602694608782:web:62ce9fa1232de6187866df"
+};
+
+try {
+  const app2 = initializeApp(cfg, 'foregroundNotiApp');
+  const messaging = getMessaging(app2);
+  
+  onMessage(messaging, (payload) => {
+    console.log('🔔 Foreground:', payload);
+    
+    const title = payload.notification?.title || 'Digital With Nabin';
+    const body = payload.notification?.body || 'New message';
+    
+    if (window.playNotificationBeep) window.playNotificationBeep();
+    
+    if (Notification.permission === 'granted') {
+      new Notification(title, {
+        body: body,
+        icon: 'https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg',
+        vibrate: [200, 100, 200]
+      });
+    }
+    
+    if (window.toast) toast(`💬 ${title}`);
+  });
+  
+  console.log('✅ Foreground notification ready');
+} catch(e) {
+  console.log('Foreground error:', e);
+}
+</script>
 </body>
 </html>
