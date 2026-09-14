@@ -22,27 +22,54 @@ body{background:#070c14;color:#eef2ff;min-height:100vh;overflow-x:hidden;padding
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#070c14}::-webkit-scrollbar-thumb{background:#2aff9e60;border-radius:4px}
 input,select,textarea,button{font-size:16px!important;font-family:inherit}
 img{max-width:100%;height:auto}
+
 .gbg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:#070c14;overflow:hidden}
-.gbg::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(42,255,158,.08),transparent 70%);top:-100px;right:-100px}
-.gbg::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,217,102,.05),transparent 70%);bottom:-80px;left:-80px}
+.gbg::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(42,255,158,.08),transparent 70%);top:-100px;right:-100px;animation:gb1 20s infinite alternate}
+.gbg::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.06),transparent 70%);bottom:-80px;left:-80px;animation:gb2 18s infinite alternate}
+@keyframes gb1{to{transform:scale(1.2) translate(30px,-30px)}}
+@keyframes gb2{to{transform:scale(1.2) translate(-20px,20px)}}
+
+/* SPLASH */
+#splashScreen{position:fixed;inset:0;z-index:99999;background:linear-gradient(145deg,#070c14,#0a1520,#070c14);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .4s ease;padding:1rem;overflow:hidden}
+#splashScreen .glow{position:absolute;width:min(400px,90vw);height:min(400px,90vw);border-radius:50%;background:radial-gradient(circle,rgba(42,255,158,.15),transparent 70%);animation:spPulse 2s infinite}
+@keyframes spPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.15);opacity:.7}}
+#splashScreen .content{position:relative;z-index:2;text-align:center;width:100%;max-width:340px}
+#splashScreen h1{font-size:clamp(.9rem,4vw,1.15rem);font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#2aff9e,#0fcc73);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:1.5rem}
+#splashScreen .photo{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#0fcc73);padding:3px;margin:0 auto 1rem;box-shadow:0 0 0 0 rgba(42,255,158,.3);animation:spGlow 2.5s infinite}
+#splashScreen .photo img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+@keyframes spGlow{0%,100%{box-shadow:0 0 0 0 rgba(42,255,158,.3)}50%{box-shadow:0 0 0 15px rgba(42,255,158,.05)}}
+#splashScreen h2{font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:.3rem}
+#splashScreen .type{font-size:.78rem;color:#2aff9e;letter-spacing:1.5px;font-weight:700;margin-bottom:1.5rem;min-height:1.2em}
+#splashScreen .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.5rem}
+#splashScreen .stat{background:rgba(42,255,158,.06);border:1px solid rgba(42,255,158,.18);border-radius:12px;padding:.55rem .3rem}
+#splashScreen .stat:nth-child(2){background:rgba(255,215,0,.06);border-color:rgba(255,215,0,.18)}
+#splashScreen .stat:nth-child(3){background:rgba(59,130,246,.06);border-color:rgba(59,130,246,.18)}
+#splashScreen .stat .num{font-size:.9rem;font-weight:800;color:#2aff9e}
+#splashScreen .stat:nth-child(2) .num{color:#ffd966}
+#splashScreen .stat:nth-child(3) .num{color:#60a5fa}
+#splashScreen .stat .label{font-size:.55rem;color:#7a8aaa}
+#splashScreen .bar{width:180px;height:3px;background:rgba(255,255,255,.08);border-radius:3px;margin:0 auto;overflow:hidden}
+#splashScreen .bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#2aff9e,#ffd966,#60a5fa);border-radius:3px;transition:width 2s ease}
+
+/* AUTH */
 .auth-screen{display:none;min-height:100vh;align-items:center;justify-content:center;padding:1rem;flex-direction:column}
 .auth-screen.active{display:flex}
 .auth-logo{text-align:center;margin-bottom:1.5rem}
-.auth-logo h1{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#e0ffb0,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent}
+.auth-logo h1{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent}
 .auth-logo p{font-size:.82rem;color:#7a8aaa;margin-top:.3rem}
 .auth-card{background:rgba(10,16,26,.9);backdrop-filter:blur(20px);border:1px solid rgba(42,255,158,.2);border-radius:24px;padding:1.5rem;width:100%;max-width:400px;box-shadow:0 30px 60px rgba(0,0,0,.5)}
 .auth-tabs{display:flex;background:rgba(0,0,0,.3);border-radius:22px;padding:.3rem;margin-bottom:1.2rem;gap:.3rem}
 .auth-tab{flex:1;padding:.5rem;border:none;border-radius:18px;cursor:pointer;font-weight:700;font-size:.85rem;background:transparent;color:#7a8aaa}
 .auth-tab.active{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14}
 .field-group{margin-bottom:.9rem}
-.field-group label{display:block;font-size:.78rem;color:#ffd966;font-weight:700;margin-bottom:.35rem}
-.field-input{width:100%;background:#0a1520;border:1.5px solid #1a2535;border-radius:18px;padding:.7rem 1rem;color:#eef2ff;font-size:.88rem;transition:.2s;-webkit-appearance:none}
+.field-group label{display:block;font-size:.78rem;color:#2aff9e;font-weight:700;margin-bottom:.35rem}
+.field-input{width:100%;background:#0a1520;border:1.5px solid #1a2535;border-radius:18px;padding:.7rem 1rem;color:#eef2ff;font-size:.88rem;-webkit-appearance:none}
 .field-input:focus{outline:none;border-color:#2aff9e;box-shadow:0 0 0 3px rgba(42,255,158,.08)}
 .field-input::placeholder{color:#3a4a5a}
 .pass-wrap{position:relative}
 .pass-wrap .field-input{padding-right:2.8rem}
 .pass-eye{position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:#5a6a7a;cursor:pointer;font-size:.9rem}
-.btn-auth{width:100%;padding:.8rem;border-radius:22px;border:none;font-weight:800;font-size:.9rem;cursor:pointer;transition:.2s;margin-bottom:.6rem}
+.btn-auth{width:100%;padding:.8rem;border-radius:22px;border:none;font-weight:800;font-size:.9rem;cursor:pointer;margin-bottom:.6rem}
 .btn-auth.primary{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14;box-shadow:0 8px 20px rgba(42,255,158,.25)}
 .btn-auth.google{background:#fff;color:#333;display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.85rem}
 .divider-auth{text-align:center;margin:.4rem 0;color:#3a4a5a;font-size:.78rem;position:relative}
@@ -53,14 +80,18 @@ img{max-width:100%;height:auto}
 .auth-msg.ok{background:rgba(42,255,158,.1);border:1px solid rgba(42,255,158,.3);color:#2aff9e;display:block}
 .forgot-link{text-align:right;margin:-.4rem 0 .7rem}
 .forgot-link a{font-size:.75rem;color:#2aff9e;cursor:pointer}
+
+/* NAVBAR */
 .navbar{position:sticky;top:0;z-index:800;backdrop-filter:blur(20px);background:rgba(7,12,20,.92);border-bottom:1px solid rgba(42,255,158,.15);padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding-top:max(.7rem,env(safe-area-inset-top))}
 .nav-brand{font-size:1rem;font-weight:900;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55%}
 .nav-right{display:flex;align-items:center;gap:.4rem;flex-shrink:0}
 .nav-user{display:flex;align-items:center;gap:.4rem;background:rgba(42,255,158,.08);border:1px solid rgba(42,255,158,.2);border-radius:30px;padding:.3rem .6rem}
-.nav-user-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1.5px solid #2aff9e;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2aff9e,#ffd966);color:#070c14;font-size:.72rem;font-weight:800;flex-shrink:0}
+.nav-user-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1.5px solid #2aff9e;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14;font-size:.72rem;font-weight:800;flex-shrink:0}
 .nav-user-name{font-size:.75rem;color:#2aff9e;font-weight:700;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .btn-n{padding:.32rem .7rem;border-radius:20px;border:none;font-weight:700;font-size:.75rem;cursor:pointer}
 .btn-n.out{background:transparent;border:1.5px solid #ff5050;color:#ff8080}
+
+/* PAGES */
 .page{display:none;padding:1rem;max-width:1200px;margin:0 auto;padding-bottom:6rem;animation:fadeIn .3s ease}
 .page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -68,47 +99,209 @@ img{max-width:100%;height:auto}
 .sec-h{font-size:clamp(1.2rem,5vw,1.5rem);font-weight:900;margin-bottom:.4rem}
 .sec-h span{background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sec-sub{color:#7a8aaa;font-size:.82rem;margin-bottom:1.2rem}
-.hero-wrap{display:flex;flex-direction:column;gap:1rem;background:rgba(12,18,28,.7);border:1px solid rgba(42,255,158,.15);border-radius:22px;padding:1.2rem;margin-bottom:1.2rem}
-.hero-txt{width:100%}
-.brand-tag{font-size:.72rem;font-weight:800;letter-spacing:1.5px;color:#2aff9e;border-left:3px solid #2aff9e;padding-left:8px;margin-bottom:.5rem}
-.hero-txt h2{font-size:clamp(1.2rem,6vw,1.6rem);font-weight:900;background:linear-gradient(125deg,#fff,#b5ffdb,#ffea9e);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.4rem;line-height:1.2}
-.hero-txt p{font-size:.82rem;color:#7a8aaa;line-height:1.5}
-.hero-stats{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
-.hero-stat{background:rgba(0,0,0,.3);border-radius:14px;padding:.4rem .6rem;text-align:center;border-left:3px solid #2aff9e;flex:1;min-width:70px}
-.hero-stat:nth-child(2){border-left-color:#ffd966}
-.hero-stat:nth-child(3){border-left-color:#3b82f6}
-.hero-stat strong{display:block;font-size:.9rem;font-weight:800;color:#fff}
-.hero-stat span{font-size:.58rem;color:#7a8aaa}
-.hero-img-side{text-align:center}
-.h-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#ffd966);padding:3px;overflow:hidden;margin:0 auto}
-.h-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+/* HOME HERO */
+.hero{background:linear-gradient(135deg,rgba(42,255,158,.1),rgba(12,18,28,.9));border:1px solid rgba(42,255,158,.25);border-radius:24px;padding:1.5rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(42,255,158,.2),transparent 70%);border-radius:50%}
+.hero-content{position:relative;z-index:1}
+.hero-tag{font-size:.72rem;font-weight:800;letter-spacing:2px;color:#2aff9e;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+.hero h2{font-size:clamp(1.3rem,5.5vw,1.75rem);font-weight:900;background:linear-gradient(125deg,#fff,#2aff9e);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.5rem;line-height:1.2}
+.hero p{font-size:.85rem;color:#7a8aaa;line-height:1.6}
+
+/* STATS */
+.stats-home{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem}
+.stat-home{background:linear-gradient(145deg,rgba(42,255,158,.08),rgba(12,18,28,.9));border:1px solid rgba(42,255,158,.25);border-radius:16px;padding:.9rem .5rem;text-align:center}
+.stat-home:nth-child(2){background:linear-gradient(145deg,rgba(255,215,0,.08),rgba(12,18,28,.9));border-color:rgba(255,215,0,.25)}
+.stat-home:nth-child(3){background:linear-gradient(145deg,rgba(59,130,246,.08),rgba(12,18,28,.9));border-color:rgba(59,130,246,.25)}
+.stat-home i{font-size:1.2rem;color:#2aff9e;margin-bottom:.3rem;display:block}
+.stat-home:nth-child(2) i{color:#ffd966}
+.stat-home:nth-child(3) i{color:#60a5fa}
+.stat-home .num{font-size:1.1rem;font-weight:900;color:#fff;display:block}
+.stat-home .label{font-size:.6rem;color:#7a8aaa;text-transform:uppercase;letter-spacing:.5px}
+
+/* QUICK ACTIONS */
+.qa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1.2rem}
+.qa-btn{background:linear-gradient(145deg,rgba(12,18,28,.95),rgba(20,28,42,.9));border:1px solid rgba(42,255,158,.15);border-radius:18px;padding:1.1rem 1rem;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:.5rem;transition:.25s}
+.qa-btn:active{transform:scale(.97)}
+.qa-btn:nth-child(1){border-color:rgba(42,255,158,.2)}
+.qa-btn:nth-child(2){border-color:rgba(255,215,0,.2)}
+.qa-btn:nth-child(3){border-color:rgba(59,130,246,.2)}
+.qa-btn:nth-child(4){border-color:rgba(168,85,247,.2)}
+.qa-icon{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.qa-btn:nth-child(1) .qa-icon{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14}
+.qa-btn:nth-child(2) .qa-icon{background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14}
+.qa-btn:nth-child(3) .qa-icon{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff}
+.qa-btn:nth-child(4) .qa-icon{background:linear-gradient(135deg,#a855f7,#8b5cf6);color:#fff}
+.qa-title{font-weight:800;font-size:.9rem;color:#fff}
+.qa-sub{font-size:.7rem;color:#7a8aaa}
+
+/* ═══════════════════════════════════════════ */
+/* 🎨 PREMIUM PDF CARDS — FULL VIBRANT COLORS  */
+/* ═══════════════════════════════════════════ */
+
+.pdf-premium{
+  background:linear-gradient(145deg,rgba(20,28,42,.98),rgba(12,18,28,.99));
+  border-radius:20px;
+  padding:1.2rem;
+  margin-bottom:.8rem;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  border:1.5px solid;
+  transition:.3s;
+}
+.pdf-premium::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:4px;
+  border-radius:20px 20px 0 0;
+}
+.pdf-premium:active{transform:scale(.98)}
+
+/* 🔴 CARD 1 - RED/ORANGE */
+.pdf-premium:nth-of-type(1){
+  border-color:rgba(255,107,107,.6);
+  background:linear-gradient(145deg,rgba(255,107,107,.15),rgba(12,18,28,.98));
+}
+.pdf-premium:nth-of-type(1)::before{background:linear-gradient(90deg,#ff6b6b,#ffa500)}
+.pdf-premium:nth-of-type(1) .pdf-logo{background:linear-gradient(135deg,#ff6b6b,#ffa500)}
+.pdf-premium:nth-of-type(1) .pdf-premium-price{color:#ff8080}
+.pdf-premium:nth-of-type(1) .pdf-premium-badge{background:linear-gradient(135deg,#ff6b6b,#ffa500);color:#fff}
+.pdf-premium:nth-of-type(1) .hint{color:#ff8080}
+.pdf-premium:nth-of-type(1) .arrow{background:linear-gradient(135deg,#ff6b6b,#ffa500);color:#fff}
+
+/* 🟢 CARD 2 - GREEN */
+.pdf-premium:nth-of-type(2){
+  border-color:rgba(42,255,158,.6);
+  background:linear-gradient(145deg,rgba(42,255,158,.15),rgba(12,18,28,.98));
+}
+.pdf-premium:nth-of-type(2)::before{background:linear-gradient(90deg,#2aff9e,#0fcc73)}
+.pdf-premium:nth-of-type(2) .pdf-logo{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14}
+.pdf-premium:nth-of-type(2) .pdf-premium-price{color:#2aff9e}
+.pdf-premium:nth-of-type(2) .pdf-premium-badge{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14}
+.pdf-premium:nth-of-type(2) .hint{color:#2aff9e}
+.pdf-premium:nth-of-type(2) .arrow{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14}
+
+/* 🔵 CARD 3 - BLUE */
+.pdf-premium:nth-of-type(3){
+  border-color:rgba(59,130,246,.6);
+  background:linear-gradient(145deg,rgba(59,130,246,.15),rgba(12,18,28,.98));
+}
+.pdf-premium:nth-of-type(3)::before{background:linear-gradient(90deg,#60a5fa,#3b82f6)}
+.pdf-premium:nth-of-type(3) .pdf-logo{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff}
+.pdf-premium:nth-of-type(3) .pdf-premium-price{color:#60a5fa}
+.pdf-premium:nth-of-type(3) .pdf-premium-badge{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff}
+.pdf-premium:nth-of-type(3) .hint{color:#60a5fa}
+.pdf-premium:nth-of-type(3) .arrow{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff}
+
+/* 🟡 CARD 4 - YELLOW/GOLD */
+.pdf-premium:nth-of-type(4){
+  border-color:rgba(255,215,0,.6);
+  background:linear-gradient(145deg,rgba(255,215,0,.15),rgba(12,18,28,.98));
+}
+.pdf-premium:nth-of-type(4)::before{background:linear-gradient(90deg,#ffd966,#ffa117)}
+.pdf-premium:nth-of-type(4) .pdf-logo{background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14}
+.pdf-premium:nth-of-type(4) .pdf-premium-price{color:#ffd966}
+.pdf-premium:nth-of-type(4) .pdf-premium-badge{background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14}
+.pdf-premium:nth-of-type(4) .hint{color:#ffd966}
+.pdf-premium:nth-of-type(4) .arrow{background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14}
+
+/* PDF Card Inner Elements */
+.pdf-premium-head{display:flex;align-items:center;gap:.9rem;margin-bottom:.7rem}
+.pdf-logo{
+  width:56px;height:56px;
+  border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;color:#fff;
+  flex-shrink:0;
+  box-shadow:0 8px 20px rgba(0,0,0,.4);
+  position:relative;overflow:hidden;
+}
+.pdf-logo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);
+  animation:shine 3s infinite;
+}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.pdf-logo i{z-index:1;position:relative}
+
+.pdf-premium-info{flex:1;min-width:0}
+.pdf-premium-info h4{font-size:.9rem;font-weight:800;color:#fff;margin-bottom:.2rem;line-height:1.3}
+.pdf-premium-info p{font-size:.7rem;color:#7a8aaa}
+.pdf-premium-price{font-size:1rem;font-weight:900;color:#2aff9e}
+
+.pdf-premium-badge{
+  position:absolute;top:12px;right:12px;
+  color:#070c14;font-size:.58rem;font-weight:800;
+  padding:.22rem .6rem;border-radius:30px;
+}
+
+.pdf-premium-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:.7rem;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.pdf-premium-footer .hint{
+  font-size:.68rem;font-weight:700;
+  display:flex;align-items:center;gap:.3rem;
+}
+.pdf-premium-footer .arrow{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;
+}
+
+/* COURSES */
 .courses-grid{display:grid;grid-template-columns:1fr;gap:.9rem;margin-bottom:1.2rem}
-.course-card{background:rgba(12,18,28,.85);border:1.5px solid rgba(255,255,255,.07);border-radius:20px;padding:1.1rem;cursor:pointer;transition:.25s;position:relative;overflow:hidden;width:100%}
-.course-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#2aff9e,#ffd966);opacity:0;transition:.3s}
+.course-card{background:rgba(12,18,28,.85);border:1.5px solid rgba(42,255,158,.1);border-radius:20px;padding:1.1rem;cursor:pointer;transition:.25s;position:relative;overflow:hidden;width:100%}
+.course-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:.3s}
 .course-card:hover::before,.course-card.sel::before{opacity:1}
 .course-card:hover,.course-card.sel{border-color:#2aff9e;transform:translateY(-3px);box-shadow:0 12px 30px rgba(42,255,158,.15)}
 .course-card.sel{background:rgba(42,255,158,.05);border-color:#2aff9e;border-width:2px}
-.combo-card{border-color:#ffd96640;background:linear-gradient(145deg,rgba(22,30,22,.9),rgba(10,18,12,.95))}
-.best-tag{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#ffd966,#ffa117);padding:.2rem .6rem;border-radius:30px;font-size:.65rem;font-weight:800;color:#070c14}
+.combo-card{border-color:rgba(168,85,247,.3);background:linear-gradient(145deg,rgba(30,22,42,.9),rgba(18,10,26,.95))}
+.best-tag{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#a855f7,#8b5cf6);padding:.2rem .6rem;border-radius:30px;font-size:.65rem;font-weight:800;color:#fff}
 .c-icon{font-size:1.8rem;margin-bottom:.6rem}
 .c-price{font-size:1.5rem;font-weight:900;color:#fff;margin:.5rem 0}
-.c-old{text-decoration:line-through;font-size:.8rem;color:#5a6a7a;margin-left:.3rem;font-weight:400}
+.c-old{text-decoration:line-through;font-size:.8rem;color:#5a6a7a;margin-left:.3rem}
 .c-features{list-style:none;margin:.7rem 0}
 .c-features li{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:#cdd9ff;margin:.4rem 0}
 .c-features i{color:#2aff9e;font-size:.78rem;flex-shrink:0}
-.btn-enroll{width:100%;padding:.7rem;border-radius:18px;border:1.5px solid #2aff9e;background:rgba(42,255,158,.08);color:#eef2ff;font-weight:700;font-size:.85rem;cursor:pointer;transition:.25s;margin-top:.6rem}
+.btn-enroll{width:100%;padding:.7rem;border-radius:18px;border:1.5px solid #2aff9e;background:rgba(42,255,158,.08);color:#eef2ff;font-weight:700;font-size:.85rem;cursor:pointer;margin-top:.6rem}
 .btn-enroll:hover{background:#2aff9e;color:#070c14}
-.pdf-card{background:linear-gradient(145deg,rgba(22,30,42,.95),rgba(12,18,28,.98));border:2px solid rgba(255,255,255,.1);padding-top:1.1rem!important}
-.pdf-card::before{background:linear-gradient(90deg,#ff6b6b,#ffd966,#2aff9e,#3b82f6)}
-.pdf-badge{position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#ff6b6b,#ffa500);color:#fff;font-size:.62rem;font-weight:800;padding:.22rem .6rem;border-radius:30px;z-index:2}
-.pdf-cover{width:100%;height:85px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:.8rem;box-shadow:0 8px 20px rgba(0,0,0,.4)}
-.pdf-cover i{font-size:2.2rem;color:#fff}
-.pdf-card h3{font-size:.95rem!important;font-weight:800;color:#fff;margin-bottom:.3rem;line-height:1.3}
+
+/* PDF CARDS in Courses */
+.pdf-card{background:linear-gradient(145deg,rgba(20,28,42,.98),rgba(12,18,28,.99));border:2px solid;padding-top:1.1rem!important;border-radius:22px;box-shadow:0 8px 25px rgba(0,0,0,.3)}
+.pdf-card:nth-of-type(1){border-color:rgba(255,107,107,.5);background:linear-gradient(145deg,rgba(255,107,107,.12),rgba(12,18,28,.98))}
+.pdf-card:nth-of-type(1)::before{background:linear-gradient(90deg,#ff6b6b,#ffa500);height:4px}
+.pdf-card:nth-of-type(2){border-color:rgba(42,255,158,.5);background:linear-gradient(145deg,rgba(42,255,158,.12),rgba(12,18,28,.98))}
+.pdf-card:nth-of-type(2)::before{background:linear-gradient(90deg,#2aff9e,#0fcc73);height:4px}
+.pdf-card:nth-of-type(3){border-color:rgba(59,130,246,.5);background:linear-gradient(145deg,rgba(59,130,246,.12),rgba(12,18,28,.98))}
+.pdf-card:nth-of-type(3)::before{background:linear-gradient(90deg,#60a5fa,#3b82f6);height:4px}
+.pdf-card:nth-of-type(4){border-color:rgba(255,215,0,.5);background:linear-gradient(145deg,rgba(255,215,0,.12),rgba(12,18,28,.98))}
+.pdf-card:nth-of-type(4)::before{background:linear-gradient(90deg,#ffd966,#ffa117);height:4px}
+.pdf-card:hover{transform:translateY(-6px) scale(1.01)!important}
+.pdf-badge{position:absolute;top:10px;right:10px;color:#fff;font-size:.6rem;font-weight:800;padding:.25rem .65rem;border-radius:30px;z-index:2}
+.pdf-card:nth-of-type(1) .pdf-badge{background:linear-gradient(135deg,#ff6b6b,#ffa500)}
+.pdf-card:nth-of-type(2) .pdf-badge{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14}
+.pdf-card:nth-of-type(3) .pdf-badge{background:linear-gradient(135deg,#60a5fa,#3b82f6)}
+.pdf-card:nth-of-type(4) .pdf-badge{background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14}
+.pdf-cover{width:100%;height:100px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:.8rem;position:relative;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.4)}
+.pdf-card:nth-of-type(1) .pdf-cover{background:linear-gradient(135deg,#ff6b6b,#ffa500)}
+.pdf-card:nth-of-type(2) .pdf-cover{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14}
+.pdf-card:nth-of-type(3) .pdf-cover{background:linear-gradient(135deg,#60a5fa,#3b82f6)}
+.pdf-card:nth-of-type(4) .pdf-cover{background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14}
+.pdf-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.2) 50%,transparent 70%);animation:shine 3s infinite}
+.pdf-cover i{font-size:2.5rem;color:#fff;z-index:1;position:relative}
+.pdf-card:nth-of-type(2) .pdf-cover i,.pdf-card:nth-of-type(4) .pdf-cover i{color:#070c14}
+.pdf-card h3{font-size:1rem!important;font-weight:800;color:#fff;margin-bottom:.3rem;line-height:1.3}
 .pdf-desc{font-size:.72rem;color:#7a8aaa;margin-bottom:.5rem}
 .buy-now{background:linear-gradient(135deg,#2aff9e,#0fcc73)!important;border:none!important;color:#070c14!important;font-weight:800!important}
+
+/* FORMS */
 .form-grid{display:grid;grid-template-columns:1fr;gap:.8rem;margin-bottom:1rem}
 .f-group{display:flex;flex-direction:column;gap:.3rem}
-.f-label{font-size:.76rem;color:#ffd966;font-weight:700}
+.f-label{font-size:.76rem;color:#2aff9e;font-weight:700}
 .f-input{background:#0a1520;border:1.5px solid #1a2535;border-radius:16px;padding:.7rem 1rem;color:#eef2ff;font-size:.88rem;width:100%;-webkit-appearance:none}
 .f-input:focus{outline:none;border-color:#2aff9e}
 .f-input::placeholder{color:#3a4a5a}
@@ -120,10 +313,10 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .img-preview{max-width:100%;max-height:200px;border-radius:14px;margin-top:.7rem;display:none}
 .sel-course-info{background:rgba(42,255,158,.06);border:1px solid rgba(42,255,158,.2);border-radius:16px;padding:.7rem 1rem;display:none;align-items:center;gap:.6rem;margin-bottom:1rem;flex-wrap:wrap}
 .sel-course-info .course-name{font-weight:700;color:#2aff9e;font-size:.82rem}
-.sel-course-info .course-amt{color:#ffd966;font-weight:800}
+.sel-course-info .course-amt{color:#2aff9e;font-weight:800}
 .btn-submit{padding:.8rem 1.5rem;border-radius:22px;border:none;font-weight:800;font-size:.88rem;cursor:pointer;background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14;box-shadow:0 8px 20px rgba(42,255,158,.25);width:100%;justify-content:center;display:inline-flex;align-items:center;gap:.5rem}
 .btn-submit:disabled{opacity:.6}
-.step-indicator{display:flex;align-items:center;gap:.4rem;margin-bottom:1rem;overflow-x:auto;padding:.4rem 0}
+.step-indicator{display:flex;align-items:center;gap:.4rem;margin-bottom:1rem}
 .step-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0}
 .step-dot.done{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14}
 .step-dot.active{background:rgba(42,255,158,.15);border:2px solid #2aff9e;color:#2aff9e}
@@ -137,34 +330,30 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .success-box{text-align:center;padding:1.3rem .5rem}
 .success-box .tick{width:65px;height:65px;background:linear-gradient(135deg,#2aff9e,#0fcc73);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.8rem;color:#070c14}
 .work-types{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin:.6rem 0}
-.wt-btn{background:rgba(0,0,0,.3);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:.6rem;text-align:center;cursor:pointer;font-size:.78rem;color:#cdd9ff;font-weight:600}
+.wt-btn{background:rgba(0,0,0,.3);border:1.5px solid rgba(42,255,158,.1);border-radius:14px;padding:.6rem;text-align:center;cursor:pointer;font-size:.78rem;color:#cdd9ff;font-weight:600}
 .wt-btn.active{background:rgba(42,255,158,.08);border-color:#2aff9e;color:#2aff9e}
 .about-grid{display:flex;flex-direction:column;gap:1rem;align-items:center}
 .about-avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#ffd966);padding:3px;overflow:hidden;margin:0 auto}
 .about-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .tw-box{background:rgba(0,0,0,.3);border-left:4px solid #2aff9e;border-radius:0 14px 14px 0;padding:.8rem 1rem;margin-bottom:.7rem}
 .tw-line{color:#e0e7ff;font-size:.82rem;line-height:1.6;min-height:1.2em}
-.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-top:1rem}
-.feat-item{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:.8rem .5rem;text-align:center}
-.feat-item i{font-size:1.4rem;color:#ffd966;display:block;margin-bottom:.3rem}
-.feat-item h4{font-size:.75rem;font-weight:700;margin-bottom:.15rem}
-.feat-item p{font-size:.65rem;color:#7a8aaa}
 .profile-card{background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.15);border-radius:20px;padding:1.2rem;margin-bottom:1rem;width:100%}
 .p-header{display:flex;flex-direction:column;align-items:center;gap:.7rem;margin-bottom:1rem;text-align:center}
 .p-big-avatar{width:65px;height:65px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,#2aff9e,#ffd966);display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#070c14;border:2.5px solid #2aff9e}
 .p-big-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 #profEmail{word-break:break-all}
-.enrollment-row{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:.8rem .9rem;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.enrollment-row{background:rgba(0,0,0,.3);border:1px solid rgba(42,255,158,.1);border-radius:14px;padding:.8rem .9rem;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
 .status-pill{padding:.2rem .6rem;border-radius:20px;font-size:.65rem;font-weight:800}
 .sp-pending{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);color:#ffd966}
 .sp-verified{background:rgba(42,255,158,.12);border:1px solid rgba(42,255,158,.35);color:#2aff9e}
-.sp-completed{background:rgba(100,120,255,.12);border:1px solid rgba(100,120,255,.35);color:#99aaff}
-.pdf-owned-card{background:linear-gradient(145deg,rgba(42,255,158,.08),rgba(255,215,0,.05));border:1.5px solid rgba(42,255,158,.3);border-radius:18px;padding:1rem;margin-bottom:.7rem;display:flex;flex-direction:column;gap:.7rem}
-.pdf-owned-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ffa500);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff}
-.pdf-owned-info strong{font-size:.88rem;display:block;color:#fff}
-.pdf-owned-info span{font-size:.7rem;color:#7a8aaa}
-.btn-open-pdf{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14;padding:.65rem 1.2rem;border-radius:22px;font-weight:800;font-size:.8rem;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;width:100%;box-shadow:0 6px 18px rgba(42,255,158,.4)}
-.pdf-pending-pill{background:rgba(255,215,0,.15);border:1.5px solid rgba(255,215,0,.4);color:#ffd966;padding:.5rem 1rem;border-radius:22px;font-size:.75rem;font-weight:700;text-align:center;width:100%}
+.sp-completed{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.35);color:#60a5fa}
+.pdf-owned-card{background:linear-gradient(145deg,rgba(42,255,158,.08),rgba(12,18,28,.9));border:1.5px solid rgba(42,255,158,.3);border-radius:18px;padding:1rem;margin-bottom:.7rem;display:flex;flex-direction:column;gap:.7rem;position:relative;overflow:hidden}
+.pdf-owned-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(180deg,#2aff9e,#0fcc73)}
+.pdf-owned-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#2aff9e,#0fcc73);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#070c14}
+.pdf-owned-info strong{font-size:.9rem;display:block;color:#fff}
+.pdf-owned-info span{font-size:.72rem;color:#7a8aaa}
+.btn-open-pdf{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14;padding:.7rem 1.2rem;border-radius:22px;font-weight:800;font-size:.82rem;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;width:100%;border:none;cursor:pointer}
+.pdf-pending-pill{background:rgba(255,215,0,.12);border:1.5px solid rgba(255,215,0,.4);color:#ffd966;padding:.6rem 1rem;border-radius:22px;font-size:.78rem;font-weight:700;text-align:center;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
 .cert-card{background:linear-gradient(145deg,rgba(255,215,0,.05),rgba(42,255,158,.04));border:1px solid rgba(255,215,0,.2);border-radius:18px;padding:1rem;margin-top:1rem}
 .cert-card .cert-header{display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem}
 .cert-card .cert-header i{font-size:1.6rem;color:#ffd966}
@@ -173,29 +362,35 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .cert-preview .cert-title{font-size:.9rem;font-weight:800;color:#fff}
 .cert-preview .cert-sub{font-size:.7rem;color:#7a8aaa;margin-top:.2rem}
 .btn-cert-download{background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14;border:none;padding:.6rem 1.2rem;border-radius:22px;font-weight:800;font-size:.8rem;cursor:pointer;width:100%}
-.admin-header{background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(255,140,0,.04));border:1px solid rgba(255,215,0,.2);border-radius:16px;padding:1rem;margin-bottom:1rem;display:flex;flex-direction:column;gap:.5rem}
-.admin-title{font-size:.95rem;font-weight:800;color:#ffd966;display:flex;align-items:center;gap:.5rem}
+.admin-header{background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(12,18,28,.9));border:1px solid rgba(168,85,247,.25);border-radius:16px;padding:1rem;margin-bottom:1rem;display:flex;flex-direction:column;gap:.5rem}
+.admin-title{font-size:.95rem;font-weight:800;color:#a855f7;display:flex;align-items:center;gap:.5rem}
 .stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1rem}
-.s-card{background:rgba(12,18,28,.8);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:.8rem .5rem;text-align:center}
-.s-card strong{display:block;font-size:clamp(1.1rem,5vw,1.5rem);font-weight:900;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent}
+.s-card{background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:14px;padding:.8rem .5rem;text-align:center}
+.s-card:nth-child(1) strong{color:#2aff9e}
+.s-card:nth-child(2) strong{color:#ffd966}
+.s-card:nth-child(3) strong{color:#60a5fa}
+.s-card:nth-child(4) strong{color:#a855f7}
+.s-card:nth-child(5) strong{color:#ff8080}
+.s-card:nth-child(6) strong{color:#2aff9e}
+.s-card strong{display:block;font-size:clamp(1.1rem,5vw,1.5rem);font-weight:900}
 .s-card span{font-size:.62rem;color:#7a8aaa;margin-top:.2rem;display:block}
 .admin-tabs{display:flex;overflow-x:auto;gap:.3rem;background:rgba(0,0,0,.3);padding:.4rem;border-radius:16px;margin-bottom:1rem;scrollbar-width:none}
 .admin-tabs::-webkit-scrollbar{display:none}
 .a-tab{flex-shrink:0;padding:.45rem .9rem;border:none;border-radius:14px;cursor:pointer;font-weight:700;font-size:.75rem;background:transparent;color:#7a8aaa;white-space:nowrap;position:relative}
-.a-tab.active{background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14}
+.a-tab.active{background:linear-gradient(135deg,#a855f7,#8b5cf6);color:#fff}
 .a-tab .a-badge{position:absolute;top:-2px;right:-2px;background:#ff4444;color:#fff;border-radius:50%;width:14px;height:14px;font-size:.55rem;display:flex;align-items:center;justify-content:center;font-weight:800}
 .a-page{display:none}
 .a-page.active{display:block}
-.enr-card{background:rgba(12,18,28,.85);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:.9rem;margin-bottom:.6rem}
+.enr-card{background:rgba(12,18,28,.85);border:1px solid rgba(42,255,158,.1);border-radius:16px;padding:.9rem;margin-bottom:.6rem}
 .enr-top{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.6rem;flex-wrap:wrap}
-.enr-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#ffd966);display:flex;align-items:center;justify-content:center;font-weight:800;color:#070c14;font-size:.95rem;flex-shrink:0}
+.enr-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#0fcc73);display:flex;align-items:center;justify-content:center;font-weight:800;color:#070c14;font-size:.95rem;flex-shrink:0}
 .enr-meta{flex:1;min-width:0}
 .enr-meta strong{font-size:.85rem;display:block}
 .enr-meta .sub{font-size:.7rem;color:#7a8aaa;margin-top:.1rem;overflow:hidden;text-overflow:ellipsis}
-.enr-amount{font-size:.95rem;font-weight:900;color:#ffd966}
+.enr-amount{font-size:.95rem;font-weight:900;color:#2aff9e}
 .enr-info{display:flex;flex-direction:column;gap:.25rem;font-size:.7rem;color:#7a8aaa;margin-bottom:.6rem}
 .enr-info span{display:flex;align-items:center;gap:.3rem;overflow:hidden;text-overflow:ellipsis}
-.proof-img-full{max-width:100%;max-height:180px;border-radius:12px;margin-bottom:.6rem;cursor:pointer;border:1.5px solid rgba(42,255,158,.2);display:block}
+.proof-img-full{max-width:100%;max-height:200px;border-radius:12px;margin-bottom:.6rem;cursor:pointer;border:1.5px solid rgba(42,255,158,.2);display:block}
 .enr-actions{display:flex;gap:.4rem;flex-wrap:wrap}
 .float-chat-btn{position:fixed;bottom:5.5rem;right:1rem;z-index:700;background:linear-gradient(135deg,#2aff9e,#0fcc73);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(42,255,158,.4);border:none}
 .float-chat-btn i{font-size:1.1rem;color:#070c14}
@@ -203,7 +398,7 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .chat-win{position:fixed;bottom:10rem;left:1rem;right:1rem;max-width:340px;margin-left:auto;max-height:55vh;background:rgba(8,13,22,.97);border:1px solid rgba(42,255,158,.25);border-radius:20px;z-index:700;display:none;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.7);overflow:hidden}
 .chat-win.open{display:flex}
 .cw-header{background:rgba(42,255,158,.08);padding:.7rem .9rem;border-bottom:1px solid rgba(42,255,158,.15);display:flex;align-items:center;gap:.5rem}
-.cw-h-ava{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#ffd966);display:flex;align-items:center;justify-content:center;font-weight:800;color:#070c14;font-size:.78rem}
+.cw-h-ava{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#0fcc73);display:flex;align-items:center;justify-content:center;font-weight:800;color:#070c14;font-size:.78rem}
 .cw-h-info h5{font-size:.82rem;font-weight:700;color:#2aff9e}
 .cw-h-info p{font-size:.62rem;color:#7a8aaa}
 .cw-close{margin-left:auto;background:none;border:none;color:#7a8aaa;font-size:1rem;cursor:pointer}
@@ -217,9 +412,9 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .cw-input:focus{outline:none;border-color:#2aff9e}
 .cw-send{background:linear-gradient(135deg,#2aff9e,#0fcc73);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .cw-send i{color:#070c14;font-size:.78rem}
-.chat-row{background:rgba(12,18,28,.8);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:.8rem .9rem;margin-bottom:.5rem;cursor:pointer;display:flex;align-items:center;gap:.6rem}
+.chat-row{background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:14px;padding:.8rem .9rem;margin-bottom:.5rem;cursor:pointer;display:flex;align-items:center;gap:.6rem}
 .chat-row.unread-chat{border-color:rgba(42,255,158,.4)}
-.c-avatar-sm{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#ffd966);display:flex;align-items:center;justify-content:center;font-weight:800;color:#070c14;font-size:.82rem;flex-shrink:0}
+.c-avatar-sm{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#0fcc73);display:flex;align-items:center;justify-content:center;font-weight:800;color:#070c14;font-size:.82rem;flex-shrink:0}
 .c-info{flex:1;min-width:0}
 .c-info strong{font-size:.82rem;display:block}
 .c-info .last-msg{font-size:.7rem;color:#7a8aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.1rem}
@@ -238,7 +433,7 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .empty-state{text-align:center;padding:1.5rem 1rem;color:#3a4a5a}
 .empty-state i{font-size:2.2rem;display:block;margin-bottom:.6rem;opacity:.4}
 .empty-state p{font-size:.82rem}
-.settings-card{background:rgba(12,18,28,.8);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1.1rem;margin-bottom:.9rem}
+.settings-card{background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:16px;padding:1.1rem;margin-bottom:.9rem}
 .spinner{display:inline-block;width:14px;height:14px;border:2.5px solid rgba(7,12,20,.4);border-top-color:#070c14;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:.4rem}
 @keyframes spin{to{transform:rotate(360deg)}}
 .contact-link{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1rem;border-radius:22px;font-weight:700;font-size:.78rem;background:rgba(42,255,158,.12);border:1px solid rgba(42,255,158,.3);color:#2aff9e;word-break:break-all;text-decoration:none}
@@ -249,72 +444,55 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .bnav span{font-size:clamp(.48rem,2vw,.58rem);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .bnav.active{color:#2aff9e}
 .bnav.active i{transform:translateY(-2px);filter:drop-shadow(0 0 8px rgba(42,255,158,.5))}
-.qa-btn{background:rgba(12,18,28,.85);border-radius:16px;padding:1rem .8rem;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:.4rem;transition:.2s;width:100%}
-.qa-btn:active{transform:scale(.97)}
-.qa-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
-.qa-title{font-weight:800;font-size:.85rem;color:#fff}
-.qa-sub{font-size:.68rem;color:#7a8aaa}
 @media(min-width:769px){
   .page{padding:1.5rem;padding-bottom:6rem}
   .courses-grid{grid-template-columns:repeat(2,1fr)}
-  .features-grid{grid-template-columns:repeat(3,1fr)}
   .work-types{grid-template-columns:repeat(4,1fr)}
   .form-grid{grid-template-columns:repeat(2,1fr)}
   .stats-row{grid-template-columns:repeat(3,1fr)}
-  .hero-wrap{flex-direction:row;align-items:center}
-  .hero-img-side{flex-shrink:0}
   .about-grid{flex-direction:row}
   .p-header{flex-direction:row;text-align:left}
   .pdf-owned-card{flex-direction:row;align-items:center}
   .pdf-owned-card .btn-open-pdf,.pdf-owned-card .pdf-pending-pill{width:auto}
-  .enr-info{flex-direction:row;flex-wrap:wrap;gap:.4rem .7rem}
 }
 @media(min-width:1025px){
   .courses-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
   .page{max-width:1200px}
-  .chat-win{right:1.5rem;left:auto;width:340px}
-}
-@media(max-width:380px){
-  .nav-brand{font-size:.85rem}
-  .bnav span{font-size:.46rem}
-  .features-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<div id="splashScreen" style="position:fixed;inset:0;z-index:99999;background:linear-gradient(145deg,#070c14,#0a1520,#070c14);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .3s ease;padding:1rem;overflow:hidden">
-  <div style="position:relative;z-index:2;text-align:center;width:100%;max-width:340px">
-    <h1 style="font-size:clamp(.9rem,4vw,1.1rem);font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:1.2rem">⚡ DIGITAL WITH NABIN</h1>
-    <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#ffd966);padding:3px;margin:0 auto 1rem">
-      <img src="https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg" alt="Nabin" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
+<div id="splashScreen">
+  <div class="glow"></div>
+  <div class="content">
+    <h1>⚡ DIGITAL WITH NABIN</h1>
+    <div class="photo"><img src="https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg" alt="Nabin"></div>
+    <h2>Nabin Khanal</h2>
+    <p class="type" id="spType"></p>
+    <div class="stats">
+      <div class="stat"><div class="num">250+</div><div class="label">MEMBERS</div></div>
+      <div class="stat"><div class="num">3+ Yrs</div><div class="label">DIGITAL</div></div>
+      <div class="stat"><div class="num">4 Yrs</div><div class="label">STOCK</div></div>
     </div>
-    <h2 style="font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:.25rem">Nabin Khanal</h2>
-    <p id="spType" style="font-size:.75rem;color:#2aff9e;letter-spacing:1.5px;font-weight:700;margin-bottom:1.2rem;min-height:1.2em"></p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-bottom:1.2rem">
-      <div style="background:rgba(42,255,158,.08);border:1px solid rgba(42,255,158,.2);border-radius:10px;padding:.5rem .3rem">
-        <div style="font-size:.9rem;font-weight:800;color:#2aff9e">250+</div>
-        <div style="font-size:.55rem;color:#7a8aaa">MEMBERS</div>
-      </div>
-      <div style="background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:10px;padding:.5rem .3rem">
-        <div style="font-size:.9rem;font-weight:800;color:#ffd966">3+ Yrs</div>
-        <div style="font-size:.55rem;color:#7a8aaa">DIGITAL</div>
-      </div>
-      <div style="background:rgba(100,150,255,.08);border:1px solid rgba(100,150,255,.2);border-radius:10px;padding:.5rem .3rem">
-        <div style="font-size:.9rem;font-weight:800;color:#99aaff">4 Yrs</div>
-        <div style="font-size:.55rem;color:#7a8aaa">STOCK</div>
-      </div>
-    </div>
-    <div style="width:180px;height:3px;background:rgba(255,255,255,.08);border-radius:3px;margin:0 auto;overflow:hidden">
-      <div id="spBar" style="height:100%;width:0%;background:linear-gradient(90deg,#2aff9e,#ffd966);border-radius:3px;transition:width 1.2s ease"></div>
-    </div>
+    <div class="bar"><div class="bar-fill" id="spBar"></div></div>
   </div>
 </div>
 
 <script>
-  setTimeout(()=>{const b=document.getElementById('spBar');if(b)b.style.width='100%';},100);
-  setTimeout(()=>{const el=document.getElementById('spType');if(!el)return;const t='DIGITAL & STOCK MENTOR';let i=0;const x=setInterval(()=>{if(i<t.length)el.textContent+=t[i++];else clearInterval(x);},30);},150);
-  setTimeout(()=>{const s=document.getElementById('splashScreen');if(s){s.style.opacity='0';setTimeout(()=>s.remove(),300);}},1500);
+(function(){
+  setTimeout(()=>{document.getElementById('spBar').style.width='100%';},100);
+  setTimeout(()=>{
+    const el=document.getElementById('spType');
+    const t='DIGITAL & STOCK MENTOR';
+    let i=0;
+    const x=setInterval(()=>{if(i<t.length){el.textContent+=t[i++];}else{clearInterval(x);}},40);
+  },300);
+  setTimeout(()=>{
+    const s=document.getElementById('splashScreen');
+    if(s){s.style.opacity='0';setTimeout(()=>s.remove(),400);}
+  },2500);
+})();
 </script>
 
 <div class="gbg"></div>
@@ -355,80 +533,72 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 <div id="userApp" style="display:none">
   <nav class="navbar"><div class="nav-brand">⚡ DIGITAL WITH NABIN</div><div class="nav-right" id="navRight"></div></nav>
 
-  <!-- HOME -->
   <div class="page active" id="page-home">
-    <div style="background:linear-gradient(135deg,rgba(42,255,158,.08),rgba(255,215,0,.04));border:1px solid rgba(42,255,158,.2);border-radius:22px;padding:1.5rem;margin-bottom:1.2rem;position:relative;overflow:hidden">
-      <div style="position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:radial-gradient(circle,rgba(42,255,158,.15),transparent 70%);border-radius:50%"></div>
-      <div style="position:relative;z-index:1">
-        <div style="font-size:.72rem;font-weight:800;letter-spacing:2px;color:#2aff9e;margin-bottom:.4rem">✦ DIGITAL WITH NABIN ✦</div>
-        <h2 id="welcomeMsg" style="font-size:clamp(1.3rem,5.5vw,1.7rem);font-weight:900;background:linear-gradient(125deg,#fff,#b5ffdb,#ffea9e);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.4rem;line-height:1.2">Welcome!</h2>
-        <p style="font-size:.85rem;color:#7a8aaa;line-height:1.5;margin-bottom:1rem">Learn Digital Marketing & Stock Market from scratch. Practical, hands-on learning.</p>
-        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-          <button onclick="showPage('courses')" style="flex:1;min-width:140px;background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14;border:none;padding:.7rem 1rem;border-radius:18px;font-weight:800;font-size:.82rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.4rem"><i class="fas fa-compass"></i> Explore Courses</button>
-          <button onclick="showPage('profile')" style="flex:1;min-width:140px;background:transparent;border:1.5px solid #2aff9e;color:#2aff9e;padding:.7rem 1rem;border-radius:18px;font-weight:800;font-size:.82rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.4rem"><i class="fas fa-user"></i> My Profile</button>
-        </div>
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-tag"><i class="fas fa-fire"></i> PREMIUM LEARNING PLATFORM</div>
+        <h2 id="welcomeMsg">Welcome!</h2>
+        <p>Master Digital Marketing & Stock Market from scratch. Learn from real campaigns & live trading strategies.</p>
       </div>
     </div>
 
-    <div style="margin-bottom:1.2rem">
-      <div style="font-size:.78rem;font-weight:800;color:#ffd966;letter-spacing:.5px;margin-bottom:.7rem;padding-left:.2rem">⚡ QUICK ACTIONS</div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem">
-        <button onclick="showPage('courses')" class="qa-btn" style="border:1px solid rgba(42,255,158,.2)">
-          <div class="qa-icon" style="background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14"><i class="fas fa-play"></i></div>
-          <div class="qa-title">Start Learning</div><div class="qa-sub">Browse all courses</div>
-        </button>
-        <button onclick="showPage('enroll')" class="qa-btn" style="border:1px solid rgba(255,215,0,.2)">
-          <div class="qa-icon" style="background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14"><i class="fas fa-graduation-cap"></i></div>
-          <div class="qa-title">Enroll Now</div><div class="qa-sub">Complete enrollment</div>
-        </button>
-        <button onclick="showPage('collab')" class="qa-btn" style="border:1px solid rgba(100,150,255,.2)">
-          <div class="qa-icon" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff"><i class="fas fa-handshake"></i></div>
-          <div class="qa-title">Work With Me</div><div class="qa-sub">Collaborate now</div>
-        </button>
-        <button onclick="toggleChatWin()" class="qa-btn" style="border:1px solid rgba(255,107,107,.2)">
-          <div class="qa-icon" style="background:linear-gradient(135deg,#ff6b6b,#ffa500);color:#fff"><i class="fas fa-comments"></i></div>
-          <div class="qa-title">Live Chat</div><div class="qa-sub">Talk to mentor</div>
-        </button>
-      </div>
+    <div class="stats-home">
+      <div class="stat-home"><i class="fas fa-users"></i><span class="num">250+</span><span class="label">Members</span></div>
+      <div class="stat-home"><i class="fas fa-bullhorn"></i><span class="num">3+ Yrs</span><span class="label">Digital</span></div>
+      <div class="stat-home"><i class="fas fa-chart-line"></i><span class="num">4 Yrs</span><span class="label">Stock</span></div>
     </div>
 
-    <div style="margin-bottom:1.2rem">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;padding-left:.2rem">
-        <div style="font-size:.78rem;font-weight:800;color:#ffd966;letter-spacing:.5px">📕 FEATURED PDFS</div>
-        <a onclick="showPage('courses')" style="font-size:.72rem;color:#2aff9e;cursor:pointer;font-weight:700">View All →</a>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr;gap:.6rem">
-        <div onclick="buyPdfFromHome('The Complete Guide to Forex Trading','999','1AeG7SbLHVPwmcqxs3S3mG6cLr666JuvT')" style="background:linear-gradient(135deg,rgba(255,107,107,.15),rgba(255,165,0,.08));border:1.5px solid rgba(255,107,107,.3);border-radius:16px;padding:1rem;cursor:pointer;display:flex;align-items:center;gap:.8rem">
-          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ffa500);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;flex-shrink:0"><i class="fas fa-chart-line"></i></div>
-          <div style="flex:1;min-width:0"><div style="font-weight:800;font-size:.85rem;color:#fff;margin-bottom:.1rem">The Complete Guide to Forex Trading</div><div style="font-size:.7rem;color:#7a8aaa">By Nabin Khanal</div></div>
-          <div style="font-weight:900;color:#ffd966;font-size:.9rem">Rs.999</div>
-        </div>
-        <div onclick="buyPdfFromHome('Chart Pattern Cheat Sheet','499','1k5ouYrS7nuExa5QsLBAzWd95adkq6EPB')" style="background:linear-gradient(135deg,rgba(42,255,158,.12),rgba(15,204,115,.05));border:1.5px solid rgba(42,255,158,.3);border-radius:16px;padding:1rem;cursor:pointer;display:flex;align-items:center;gap:.8rem">
-          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#2aff9e,#0fcc73);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#070c14;flex-shrink:0"><i class="fas fa-chart-bar"></i></div>
-          <div style="flex:1;min-width:0"><div style="font-weight:800;font-size:.85rem;color:#fff;margin-bottom:.1rem">Chart Pattern Cheat Sheet</div><div style="font-size:.7rem;color:#7a8aaa">Quick Reference</div></div>
-          <div style="font-weight:900;color:#ffd966;font-size:.9rem">Rs.499</div>
-        </div>
-        <div onclick="buyPdfFromHome('Trading Book in Nepali','699','18o2W453v_Z7yP5vF_EJJQa6ImmnTvafm')" style="background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(139,92,246,.05));border:1.5px solid rgba(59,130,246,.3);border-radius:16px;padding:1rem;cursor:pointer;display:flex;align-items:center;gap:.8rem">
-          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;flex-shrink:0"><i class="fas fa-book"></i></div>
-          <div style="flex:1;min-width:0"><div style="font-weight:800;font-size:.85rem;color:#fff;margin-bottom:.1rem">Trading Book in Nepali</div><div style="font-size:.7rem;color:#7a8aaa">नेपाली भाषामा</div></div>
-          <div style="font-weight:900;color:#ffd966;font-size:.9rem">Rs.699</div>
-        </div>
-        <div onclick="buyPdfFromHome('Price Action Setup in NEPSE & Forex','999','1P1JG1BEIgHesStalCerxztJYWUo9iioQ')" style="background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,161,23,.05));border:1.5px solid rgba(255,215,0,.3);border-radius:16px;padding:1rem;cursor:pointer;display:flex;align-items:center;gap:.8rem">
-          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#ffd966,#ffa117);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#070c14;flex-shrink:0"><i class="fas fa-bolt"></i></div>
-          <div style="flex:1;min-width:0"><div style="font-weight:800;font-size:.85rem;color:#fff;margin-bottom:.1rem">Price Action Setup in NEPSE & Forex</div><div style="font-size:.7rem;color:#7a8aaa">Advanced Strategies</div></div>
-          <div style="font-weight:900;color:#ffd966;font-size:.9rem">Rs.999</div>
-        </div>
-      </div>
+    <div style="font-size:.78rem;font-weight:800;color:#2aff9e;letter-spacing:.5px;margin-bottom:.7rem;padding-left:.2rem">⚡ QUICK ACTIONS</div>
+    <div class="qa-grid">
+      <div class="qa-btn" onclick="showPage('courses')"><div class="qa-icon"><i class="fas fa-play"></i></div><div class="qa-title">Start Learning</div><div class="qa-sub">Browse all courses</div></div>
+      <div class="qa-btn" onclick="showPage('enroll')"><div class="qa-icon"><i class="fas fa-graduation-cap"></i></div><div class="qa-title">Enroll Now</div><div class="qa-sub">Complete enrollment</div></div>
+      <div class="qa-btn" onclick="showPage('collab')"><div class="qa-icon"><i class="fas fa-handshake"></i></div><div class="qa-title">Work With Me</div><div class="qa-sub">Collaborate now</div></div>
+      <div class="qa-btn" onclick="toggleChatWin()"><div class="qa-icon"><i class="fas fa-comments"></i></div><div class="qa-title">Live Chat</div><div class="qa-sub">Talk to mentor</div></div>
     </div>
 
-    <div style="margin-bottom:1.2rem">
-      <div style="font-size:.78rem;font-weight:800;color:#ffd966;letter-spacing:.5px;margin-bottom:.7rem;padding-left:.2rem">✨ WHY DIGITAL WITH NABIN</div>
-      <div style="display:grid;grid-template-columns:1fr;gap:.5rem">
-        <div style="background:rgba(12,18,28,.7);border-left:3px solid #2aff9e;border-radius:12px;padding:.8rem 1rem;display:flex;align-items:center;gap:.7rem"><i class="fas fa-check-circle" style="color:#2aff9e;font-size:1.1rem"></i><div style="font-size:.82rem;color:#e0e7ff;font-weight:600">100% Practical — Real campaigns & live projects</div></div>
-        <div style="background:rgba(12,18,28,.7);border-left:3px solid #ffd966;border-radius:12px;padding:.8rem 1rem;display:flex;align-items:center;gap:.7rem"><i class="fas fa-check-circle" style="color:#ffd966;font-size:1.1rem"></i><div style="font-size:.82rem;color:#e0e7ff;font-weight:600">Beginner Friendly — Step-by-step roadmap</div></div>
-        <div style="background:rgba(12,18,28,.7);border-left:3px solid #3b82f6;border-radius:12px;padding:.8rem 1rem;display:flex;align-items:center;gap:.7rem"><i class="fas fa-check-circle" style="color:#3b82f6;font-size:1.1rem"></i><div style="font-size:.82rem;color:#e0e7ff;font-weight:600">Lifetime Access — All updates included</div></div>
-        <div style="background:rgba(12,18,28,.7);border-left:3px solid #ff6b6b;border-radius:12px;padding:.8rem 1rem;display:flex;align-items:center;gap:.7rem"><i class="fas fa-check-circle" style="color:#ff6b6b;font-size:1.1rem"></i><div style="font-size:.82rem;color:#e0e7ff;font-weight:600">Live Support — Direct mentor chat</div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;padding-left:.2rem">
+      <div style="font-size:.78rem;font-weight:800;color:#2aff9e;letter-spacing:.5px">📕 FEATURED PDFS</div>
+      <a onclick="showPage('courses')" style="font-size:.72rem;color:#2aff9e;cursor:pointer;font-weight:700">View All →</a>
+    </div>
+
+    <div class="pdf-premium" onclick="buyPdfFromHome('The Complete Guide to Forex Trading','999','1AeG7SbLHVPwmcqxs3S3mG6cLr666JuvT')">
+      <div class="pdf-premium-badge">🔥 BESTSELLER</div>
+      <div class="pdf-premium-head">
+        <div class="pdf-logo"><i class="fas fa-chart-line"></i></div>
+        <div class="pdf-premium-info"><h4>The Complete Guide to Forex Trading</h4><p>By Nabin Khanal — Complete Forex Mastery</p></div>
+        <div class="pdf-premium-price">Rs.999</div>
       </div>
+      <div class="pdf-premium-footer"><span class="hint"><i class="fas fa-bolt"></i> Instant Access After Payment</span><span class="arrow"><i class="fas fa-arrow-right"></i></span></div>
+    </div>
+
+    <div class="pdf-premium" onclick="buyPdfFromHome('Chart Pattern Cheat Sheet','499','1k5ouYrS7nuExa5QsLBAzWd95adkq6EPB')">
+      <div class="pdf-premium-badge">📗 CHEAT SHEET</div>
+      <div class="pdf-premium-head">
+        <div class="pdf-logo"><i class="fas fa-chart-bar"></i></div>
+        <div class="pdf-premium-info"><h4>Chart Pattern Cheat Sheet</h4><p>Quick Reference — All Patterns</p></div>
+        <div class="pdf-premium-price">Rs.499</div>
+      </div>
+      <div class="pdf-premium-footer"><span class="hint"><i class="fas fa-bolt"></i> Lifetime Access</span><span class="arrow"><i class="fas fa-arrow-right"></i></span></div>
+    </div>
+
+    <div class="pdf-premium" onclick="buyPdfFromHome('Trading Book in Nepali','699','18o2W453v_Z7yP5vF_EJJQa6ImmnTvafm')">
+      <div class="pdf-premium-badge">🇳🇵 NEPALI</div>
+      <div class="pdf-premium-head">
+        <div class="pdf-logo"><i class="fas fa-book"></i></div>
+        <div class="pdf-premium-info"><h4>Trading Book in Nepali</h4><p>नेपाली भाषामा ट्रेडिङ सिक्नुस्</p></div>
+        <div class="pdf-premium-price">Rs.699</div>
+      </div>
+      <div class="pdf-premium-footer"><span class="hint"><i class="fas fa-bolt"></i> Beginner Friendly</span><span class="arrow"><i class="fas fa-arrow-right"></i></span></div>
+    </div>
+
+    <div class="pdf-premium" onclick="buyPdfFromHome('Price Action Setup in NEPSE & Forex','999','1P1JG1BEIgHesStalCerxztJYWUo9iioQ')">
+      <div class="pdf-premium-badge">⚡ PRO</div>
+      <div class="pdf-premium-head">
+        <div class="pdf-logo"><i class="fas fa-bolt"></i></div>
+        <div class="pdf-premium-info"><h4>Price Action Setup in NEPSE & Forex</h4><p>Advanced Price Action Strategies</p></div>
+        <div class="pdf-premium-price">Rs.999</div>
+      </div>
+      <div class="pdf-premium-footer"><span class="hint"><i class="fas fa-bolt"></i> Advanced Setup</span><span class="arrow"><i class="fas fa-arrow-right"></i></span></div>
     </div>
   </div>
 
@@ -440,10 +610,10 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
       <div class="course-card" data-course="Digital Marketing" data-price="2999"><div class="c-icon">📱</div><h3>Digital Marketing</h3><div class="c-price">Rs. 2,999</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> Facebook / TikTok / Instagram Ads</li><li><i class="fas fa-check-circle"></i> Audience Targeting</li><li><i class="fas fa-check-circle"></i> Freelancing Roadmap</li><li><i class="fas fa-check-circle"></i> Live Ad Practice</li></ul><button class="btn-enroll" onclick="pickCourse(this.closest('.course-card'))">Enroll Now →</button></div>
       <div class="course-card" data-course="Stock Market" data-price="3333"><div class="c-icon">📈</div><h3>Stock Market</h3><div class="c-price">Rs. 3,333</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> IPO + NEPSE Analysis</li><li><i class="fas fa-check-circle"></i> Candlestick Analysis</li><li><i class="fas fa-check-circle"></i> Risk Management</li><li><i class="fas fa-check-circle"></i> Trading Psychology</li></ul><button class="btn-enroll" onclick="pickCourse(this.closest('.course-card'))">Enroll Now →</button></div>
       <div class="course-card combo-card" data-course="Combo Offer" data-price="4999"><div class="best-tag">🔥 BEST</div><div class="c-icon">🚀</div><h3>Combo Offer</h3><div class="c-price">Rs. 4,999 <span class="c-old">Rs. 6,332</span></div><ul class="c-features"><li><i class="fas fa-check-circle"></i> All Digital + Stock</li><li><i class="fas fa-check-circle"></i> Lifetime Community</li><li><i class="fas fa-check-circle"></i> Industry Certificate</li><li><i class="fas fa-check-circle"></i> 1-on-1 Mentoring</li></ul><button class="btn-enroll" onclick="pickCourse(this.closest('.course-card'))">Enroll Now →</button></div>
-      <div class="course-card pdf-card" data-course="The Complete Guide to Forex Trading" data-price="999" data-pdf="1AeG7SbLHVPwmcqxs3S3mG6cLr666JuvT"><div class="pdf-badge">🔥 BEST</div><div class="pdf-cover" style="background:linear-gradient(135deg,#ff6b6b,#ffa500)"><i class="fas fa-chart-line"></i></div><h3>The Complete Guide to Forex Trading</h3><p class="pdf-desc">By Nabin Khanal</p><div class="c-price">Rs. 999</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> Complete Forex Guide</li><li><i class="fas fa-check-circle"></i> By Nabin Khanal</li><li><i class="fas fa-check-circle"></i> Lifetime Access</li></ul><button class="btn-enroll buy-now" onclick="pickPdfCourse(this.closest('.pdf-card'))"><i class="fas fa-shopping-cart"></i> Buy Now</button></div>
-      <div class="course-card pdf-card" data-course="Chart Pattern Cheat Sheet" data-price="499" data-pdf="1k5ouYrS7nuExa5QsLBAzWd95adkq6EPB"><div class="pdf-badge">📗 CHEAT</div><div class="pdf-cover" style="background:linear-gradient(135deg,#2aff9e,#0fcc73)"><i class="fas fa-chart-bar"></i></div><h3>Chart Pattern Cheat Sheet</h3><p class="pdf-desc">Quick Reference</p><div class="c-price">Rs. 499</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> All Chart Patterns</li><li><i class="fas fa-check-circle"></i> Quick Reference</li><li><i class="fas fa-check-circle"></i> Lifetime Access</li></ul><button class="btn-enroll buy-now" onclick="pickPdfCourse(this.closest('.pdf-card'))"><i class="fas fa-shopping-cart"></i> Buy Now</button></div>
-      <div class="course-card pdf-card" data-course="Trading Book in Nepali" data-price="699" data-pdf="18o2W453v_Z7yP5vF_EJJQa6ImmnTvafm"><div class="pdf-badge">🇳🇵 NEPALI</div><div class="pdf-cover" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)"><i class="fas fa-book"></i></div><h3>Trading Book in Nepali</h3><p class="pdf-desc">नेपाली भाषामा</p><div class="c-price">Rs. 699</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> नेपाली भाषामा</li><li><i class="fas fa-check-circle"></i> Beginner Friendly</li><li><i class="fas fa-check-circle"></i> Lifetime Access</li></ul><button class="btn-enroll buy-now" onclick="pickPdfCourse(this.closest('.pdf-card'))"><i class="fas fa-shopping-cart"></i> Buy Now</button></div>
-      <div class="course-card pdf-card" data-course="Price Action Setup in NEPSE & Forex" data-price="999" data-pdf="1P1JG1BEIgHesStalCerxztJYWUo9iioQ"><div class="pdf-badge">⚡ PRO</div><div class="pdf-cover" style="background:linear-gradient(135deg,#ffd966,#ffa117)"><i class="fas fa-bolt"></i></div><h3>Price Action Setup in NEPSE & Forex</h3><p class="pdf-desc">Advanced Strategies</p><div class="c-price">Rs. 999</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> NEPSE + Forex</li><li><i class="fas fa-check-circle"></i> Advanced Setups</li><li><i class="fas fa-check-circle"></i> Lifetime Access</li></ul><button class="btn-enroll buy-now" onclick="pickPdfCourse(this.closest('.pdf-card'))"><i class="fas fa-shopping-cart"></i> Buy Now</button></div>
+      <div class="course-card pdf-card" data-course="The Complete Guide to Forex Trading" data-price="999" data-pdf="1AeG7SbLHVPwmcqxs3S3mG6cLr666JuvT"><div class="pdf-badge">🔥 BEST</div><div class="pdf-cover"><i class="fas fa-chart-line"></i></div><h3>The Complete Guide to Forex Trading</h3><p class="pdf-desc">By Nabin Khanal</p><div class="c-price">Rs. 999</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> Complete Forex Guide</li><li><i class="fas fa-check-circle"></i> By Nabin Khanal</li><li><i class="fas fa-check-circle"></i> Lifetime Access</li></ul><button class="btn-enroll buy-now" onclick="pickPdfCourse(this.closest('.pdf-card'))"><i class="fas fa-shopping-cart"></i> Buy Now</button></div>
+      <div class="course-card pdf-card" data-course="Chart Pattern Cheat Sheet" data-price="499" data-pdf="1k5ouYrS7nuExa5QsLBAzWd95adkq6EPB"><div class="pdf-badge">📗 CHEAT</div><div class="pdf-cover"><i class="fas fa-chart-bar"></i></div><h3>Chart Pattern Cheat Sheet</h3><p class="pdf-desc">Quick Reference</p><div class="c-price">Rs. 499</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> All Chart Patterns</li><li><i class="fas fa-check-circle"></i> Quick Reference</li><li><i class="fas fa-check-circle"></i> Lifetime Access</li></ul><button class="btn-enroll buy-now" onclick="pickPdfCourse(this.closest('.pdf-card'))"><i class="fas fa-shopping-cart"></i> Buy Now</button></div>
+      <div class="course-card pdf-card" data-course="Trading Book in Nepali" data-price="699" data-pdf="18o2W453v_Z7yP5vF_EJJQa6ImmnTvafm"><div class="pdf-badge">🇳🇵 NEPALI</div><div class="pdf-cover"><i class="fas fa-book"></i></div><h3>Trading Book in Nepali</h3><p class="pdf-desc">नेपाली भाषामा</p><div class="c-price">Rs. 699</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> नेपाली भाषामा</li><li><i class="fas fa-check-circle"></i> Beginner Friendly</li><li><i class="fas fa-check-circle"></i> Lifetime Access</li></ul><button class="btn-enroll buy-now" onclick="pickPdfCourse(this.closest('.pdf-card'))"><i class="fas fa-shopping-cart"></i> Buy Now</button></div>
+      <div class="course-card pdf-card" data-course="Price Action Setup in NEPSE & Forex" data-price="999" data-pdf="1P1JG1BEIgHesStalCerxztJYWUo9iioQ"><div class="pdf-badge">⚡ PRO</div><div class="pdf-cover"><i class="fas fa-bolt"></i></div><h3>Price Action Setup in NEPSE & Forex</h3><p class="pdf-desc">Advanced Strategies</p><div class="c-price">Rs. 999</div><ul class="c-features"><li><i class="fas fa-check-circle"></i> NEPSE + Forex</li><li><i class="fas fa-check-circle"></i> Advanced Setups</li><li><i class="fas fa-check-circle"></i> Lifetime Access</li></ul><button class="btn-enroll buy-now" onclick="pickPdfCourse(this.closest('.pdf-card'))"><i class="fas fa-shopping-cart"></i> Buy Now</button></div>
     </div>
   </div>
 
@@ -451,12 +621,12 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
     <div class="sec-tag">📋 ENROLLMENT</div>
     <h2 class="sec-h">Complete Your <span>Enrollment</span></h2>
     <div class="sel-course-info" id="selCourseInfo"><i class="fas fa-check-circle" style="color:#2aff9e;font-size:1.1rem"></i><div><div style="font-size:.68rem;color:#7a8aaa">Selected</div><span class="course-name" id="selCourseName"></span></div><div style="margin-left:auto"><div style="font-size:.68rem;color:#7a8aaa">Amount</div><span class="course-amt" id="selCourseAmt"></span></div><button class="btn-sm out" onclick="showPage('courses')">Change</button></div>
-    <div id="noCourseHint" style="display:none;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:16px;padding:1.1rem;text-align:center;margin-bottom:1rem"><i class="fas fa-exclamation-triangle" style="color:#ffd966;font-size:1.3rem;display:block;margin-bottom:.4rem"></i><p style="color:#ffd966;font-weight:700;margin-bottom:.3rem">No course selected</p><p style="color:#7a8aaa;font-size:.78rem;margin-bottom:.7rem">Please choose a course first</p><button class="btn-submit" onclick="showPage('courses')"><i class="fas fa-compass"></i> Browse Courses</button></div>
+    <div id="noCourseHint" style="display:none;background:rgba(42,255,158,.06);border:1px solid rgba(42,255,158,.2);border-radius:16px;padding:1.1rem;text-align:center;margin-bottom:1rem"><i class="fas fa-exclamation-triangle" style="color:#2aff9e;font-size:1.3rem;display:block;margin-bottom:.4rem"></i><p style="color:#2aff9e;font-weight:700;margin-bottom:.3rem">No course selected</p><p style="color:#7a8aaa;font-size:.78rem;margin-bottom:.7rem">Please choose a course first</p><button class="btn-submit" onclick="showPage('courses')"><i class="fas fa-compass"></i> Browse Courses</button></div>
     <div id="enrollFlow" style="display:none">
       <div class="step-indicator"><div style="text-align:center"><div class="step-dot active" id="sdot1">1</div><div class="step-label">Details</div></div><div class="step-line" id="sline1"></div><div style="text-align:center"><div class="step-dot idle" id="sdot2">2</div><div class="step-label">Pay</div></div><div class="step-line" id="sline2"></div><div style="text-align:center"><div class="step-dot idle" id="sdot3">3</div><div class="step-label">Confirm</div></div></div>
-      <div id="enrollStep1" style="background:rgba(12,18,28,.8);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:1.1rem"><h4 style="color:#ffd966;margin-bottom:.9rem;font-size:.88rem"><i class="fas fa-user"></i> Your Details</h4><div class="form-grid"><div class="f-group"><label class="f-label">Full Name *</label><input type="text" id="eFullName" class="f-input" placeholder="Your Name"></div><div class="f-group"><label class="f-label">WhatsApp *</label><input type="tel" id="ePhone" class="f-input" placeholder="+977 98xxxxxxxx"></div><div class="f-group"><label class="f-label">Email *</label><input type="email" id="eEmail" class="f-input" placeholder="you@example.com"></div><div class="f-group"><label class="f-label">Address</label><input type="text" id="eAddr" class="f-input" placeholder="Kathmandu"></div></div><button class="btn-submit" onclick="proceedToPayment()"><i class="fas fa-qrcode"></i> Proceed to Payment</button></div>
-      <div id="enrollStep2" style="display:none;background:rgba(12,18,28,.8);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:1.1rem"><h4 style="color:#ffd966;margin-bottom:.9rem;font-size:.88rem"><i class="fas fa-qrcode"></i> Scan & Pay</h4><div class="qr-wrap"><p style="color:#7a8aaa;font-size:.78rem;margin-bottom:.7rem">Scan eSewa QR to pay <strong id="qrAmount" style="color:#ffd966"></strong></p><div class="qr-card"><img src="https://i.ibb.co/LzF8CFnP/image.jpg" alt="QR"></div><p style="margin-top:.7rem;font-size:.72rem;color:#7a8aaa">After paying, upload <strong style="color:#2aff9e">screenshot</strong></p></div><div style="margin:1rem 0"><label class="f-label" style="display:block;margin-bottom:.4rem">Upload Screenshot *</label><div class="upload-box" id="uploadBox" onclick="document.getElementById('proofFile').click()"><i class="fas fa-cloud-upload-alt"></i><p><strong>Click to Upload</strong></p><p>JPG, PNG — Max 5MB</p></div><input type="file" id="proofFile" accept="image/*" style="display:none" onchange="handleProofUpload(this)"><img class="img-preview" id="proofPreview"></div><button class="btn-submit" id="btnFinalSubmit" onclick="submitEnrollment()"><i class="fas fa-paper-plane"></i> Submit Enrollment</button><button onclick="backToDetails()" style="width:100%;margin-top:.5rem;background:transparent;border:1.5px solid #1a2535;color:#7a8aaa;border-radius:20px;padding:.65rem;cursor:pointer;font-weight:600;font-size:.8rem">← Back</button></div>
-      <div id="enrollStep3" style="display:none;background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.2);border-radius:20px;padding:1.2rem"><div class="success-box"><div class="tick">✓</div><h3 style="color:#2aff9e;margin-bottom:.3rem;font-size:1rem">Submitted!</h3><p style="color:#7a8aaa;font-size:.8rem;max-width:300px;margin:0 auto 1rem">Nabin will verify soon.</p><div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap"><button class="btn-submit" onclick="showPage('profile')"><i class="fas fa-user"></i> Profile</button><button class="btn-submit" style="background:rgba(42,255,158,.1);border:1.5px solid #2aff9e;color:#2aff9e;box-shadow:none" onclick="resetEnrollFlow()"><i class="fas fa-plus"></i> Another</button></div></div></div>
+      <div id="enrollStep1" style="background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:20px;padding:1.1rem"><h4 style="color:#2aff9e;margin-bottom:.9rem;font-size:.88rem"><i class="fas fa-user"></i> Your Details</h4><div class="form-grid"><div class="f-group"><label class="f-label">Full Name *</label><input type="text" id="eFullName" class="f-input" placeholder="Your Name"></div><div class="f-group"><label class="f-label">WhatsApp *</label><input type="tel" id="ePhone" class="f-input" placeholder="+977 98xxxxxxxx"></div><div class="f-group"><label class="f-label">Email *</label><input type="email" id="eEmail" class="f-input" placeholder="you@example.com"></div><div class="f-group"><label class="f-label">Address</label><input type="text" id="eAddr" class="f-input" placeholder="Kathmandu"></div></div><button class="btn-submit" onclick="proceedToPayment()"><i class="fas fa-qrcode"></i> Proceed to Payment</button></div>
+      <div id="enrollStep2" style="display:none;background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:20px;padding:1.1rem"><h4 style="color:#2aff9e;margin-bottom:.9rem;font-size:.88rem"><i class="fas fa-qrcode"></i> Scan & Pay</h4><div class="qr-wrap"><p style="color:#7a8aaa;font-size:.78rem;margin-bottom:.7rem">Scan eSewa QR to pay <strong id="qrAmount" style="color:#2aff9e"></strong></p><div class="qr-card"><img src="https://i.ibb.co/LzF8CFnP/image.jpg" alt="QR"></div><p style="margin-top:.7rem;font-size:.72rem;color:#7a8aaa">After paying, upload <strong style="color:#2aff9e">screenshot</strong></p></div><div style="margin:1rem 0"><label class="f-label" style="display:block;margin-bottom:.4rem">Upload Screenshot *</label><div class="upload-box" id="uploadBox" onclick="document.getElementById('proofFile').click()"><i class="fas fa-cloud-upload-alt"></i><p><strong>Click to Upload</strong></p><p>JPG, PNG — Max 5MB</p></div><input type="file" id="proofFile" accept="image/*" style="display:none" onchange="handleProofUpload(this)"><img class="img-preview" id="proofPreview"></div><button class="btn-submit" id="btnFinalSubmit" onclick="submitEnrollment()"><i class="fas fa-paper-plane"></i> Submit Enrollment</button><button onclick="backToDetails()" style="width:100%;margin-top:.5rem;background:transparent;border:1.5px solid #1a2535;color:#7a8aaa;border-radius:20px;padding:.65rem;cursor:pointer;font-weight:600;font-size:.8rem">← Back</button></div>
+      <div id="enrollStep3" style="display:none;background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.2);border-radius:20px;padding:1.2rem"><div class="success-box"><div class="tick">✓</div><h3 style="color:#2aff9e;margin-bottom:.3rem;font-size:1rem">Submitted!</h3><p style="color:#7a8aaa;font-size:.8rem;max-width:300px;margin:0 auto 1rem">Nabin will verify your payment soon.</p><div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap"><button class="btn-submit" onclick="showPage('profile')"><i class="fas fa-user"></i> Profile</button><button class="btn-submit" style="background:rgba(42,255,158,.1);border:1.5px solid #2aff9e;color:#2aff9e;box-shadow:none" onclick="resetEnrollFlow()"><i class="fas fa-plus"></i> Another</button></div></div></div>
     </div>
   </div>
 
@@ -464,7 +634,7 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
     <div class="sec-tag">🤝 WORK WITH ME</div>
     <h2 class="sec-h">Collaboration <span>Requests</span></h2>
     <p class="sec-sub">I'll get back within 24 hours!</p>
-    <div style="background:rgba(12,18,28,.8);border:1px solid rgba(255,215,0,.12);border-radius:20px;padding:1.2rem">
+    <div style="background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.12);border-radius:20px;padding:1.2rem">
       <div class="form-grid"><div class="f-group"><label class="f-label">Name *</label><input type="text" id="cName" class="f-input" placeholder="Your Name"></div><div class="f-group"><label class="f-label">WhatsApp *</label><input type="tel" id="cPhone" class="f-input" placeholder="+977 98xxxxxxxx"></div></div>
       <div style="margin-bottom:.9rem"><label class="f-label" style="display:block;margin-bottom:.4rem">Work Type *</label><div class="work-types"><button class="wt-btn" onclick="pickWorkType(this,'Freelance')">💼 Freelance</button><button class="wt-btn" onclick="pickWorkType(this,'Full Project')">🚀 Project</button><button class="wt-btn" onclick="pickWorkType(this,'Consultation')">💬 Consult</button><button class="wt-btn" onclick="pickWorkType(this,'Other')">✨ Other</button></div></div>
       <div class="f-group" style="margin-bottom:.9rem"><label class="f-label">Description *</label><textarea id="cDesc" class="f-input" rows="4" placeholder="Describe your project..."></textarea></div>
@@ -478,10 +648,10 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
     <div style="background:rgba(12,18,28,.7);border:1px solid rgba(42,255,158,.15);border-radius:20px;padding:1.2rem;margin-bottom:1.1rem">
       <div class="about-grid">
         <div><div class="about-avatar"><img src="https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg" alt="Nabin"></div><h3 style="margin-top:.6rem;text-align:center;font-size:1rem">Nabin Khanal</h3><p style="color:#2aff9e;font-size:.75rem;text-align:center">Digital & Stock Mentor</p></div>
-        <div style="flex:1"><h3 style="color:#ffd966;margin-bottom:.9rem;font-size:.95rem"><i class="fas fa-user-astronaut"></i> My Story</h3><div class="tw-box"><div class="tw-line" id="tw1"></div></div><div class="tw-box"><div class="tw-line" id="tw2"></div></div><div style="border-left:3px solid #2aff9e;padding-left:.9rem;color:#2aff9e;font-style:italic;font-size:.82rem;margin-top:.9rem">"Learn by doing — master digital & stock."</div></div>
+        <div style="flex:1"><h3 style="color:#2aff9e;margin-bottom:.9rem;font-size:.95rem"><i class="fas fa-user-astronaut"></i> My Story</h3><div class="tw-box"><div class="tw-line" id="tw1"></div></div><div class="tw-box"><div class="tw-line" id="tw2"></div></div><div style="border-left:3px solid #2aff9e;padding-left:.9rem;color:#2aff9e;font-style:italic;font-size:.82rem;margin-top:.9rem">"Learn by doing — master digital & stock."</div></div>
       </div>
     </div>
-    <div style="text-align:center;padding:1.2rem;background:rgba(12,18,28,.7);border:1px solid rgba(255,255,255,.07);border-radius:18px"><h3 style="margin-bottom:.9rem;font-size:.95rem">📞 Let's Connect</h3><a href="mailto:nabinkhanal0007@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> nabinkhanal0007@gmail.com</a></div>
+    <div style="text-align:center;padding:1.2rem;background:rgba(12,18,28,.7);border:1px solid rgba(42,255,158,.1);border-radius:18px"><h3 style="margin-bottom:.9rem;font-size:.95rem">📞 Let's Connect</h3><a href="mailto:nabinkhanal0007@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> nabinkhanal0007@gmail.com</a></div>
   </div>
 
   <div class="page" id="page-profile">
@@ -489,9 +659,9 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
     <h2 class="sec-h">My <span>Account</span></h2>
     <div class="profile-card">
       <div class="p-header"><div class="p-big-avatar" id="profAvatar"></div><div><h3 id="profName" style="font-size:1rem"></h3><p id="profEmail" style="color:#7a8aaa;font-size:.75rem;margin-top:.2rem"></p></div></div>
-      <h4 style="color:#ffd966;margin-bottom:.7rem;font-size:.85rem"><i class="fas fa-book"></i> My Enrollments</h4>
+      <h4 style="color:#2aff9e;margin-bottom:.7rem;font-size:.85rem"><i class="fas fa-book"></i> My Enrollments</h4>
       <div id="myEnrollments"><div class="empty-state"><i class="fas fa-inbox"></i><p>No enrollments yet.</p></div></div>
-      <h4 style="color:#ffd966;margin:1.1rem 0 .7rem;font-size:.85rem"><i class="fas fa-file-pdf"></i> My PDF Courses</h4>
+      <h4 style="color:#2aff9e;margin:1.1rem 0 .7rem;font-size:.85rem"><i class="fas fa-file-pdf"></i> My PDF Courses</h4>
       <div id="myPdfs"><div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDF purchased yet.</p></div></div>
       <div id="certificateSection"></div>
     </div>
@@ -508,7 +678,7 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 <div id="adminApp" style="display:none">
   <nav class="navbar"><div class="nav-brand">🛡️ ADMIN</div><div class="nav-right" id="adminNavRight"></div></nav>
   <div style="padding:1rem;max-width:1200px;margin:0 auto;padding-bottom:6rem">
-    <div class="admin-header"><div class="admin-title"><i class="fas fa-shield-alt"></i> Admin Dashboard</div><div style="font-size:.68rem;color:#ffd966;background:rgba(255,215,0,.08);padding:.25rem .6rem;border-radius:20px;border:1px solid rgba(255,215,0,.2);word-break:break-all">nabinkhanal0007@gmail.com</div></div>
+    <div class="admin-header"><div class="admin-title"><i class="fas fa-shield-alt"></i> Admin Dashboard</div><div style="font-size:.68rem;color:#a855f7;background:rgba(168,85,247,.08);padding:.25rem .6rem;border-radius:20px;border:1px solid rgba(168,85,247,.25);word-break:break-all">nabinkhanal0007@gmail.com</div></div>
     <div class="stats-row"><div class="s-card"><strong id="st1">0</strong><span>Enrollments</span></div><div class="s-card"><strong id="st2">0</strong><span>⏳ Pending</span></div><div class="s-card"><strong id="st3">Rs.0</strong><span>Revenue</span></div><div class="s-card"><strong id="st4">0</strong><span>Chats</span></div><div class="s-card"><strong id="st5">0</strong><span>Collabs</span></div><div class="s-card"><strong id="st6">0</strong><span>Users</span></div></div>
     <div class="admin-tabs">
       <button class="a-tab active" onclick="switchATab('overview',this)">📊 Overview</button>
@@ -516,16 +686,16 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
       <button class="a-tab" onclick="switchATab('users',this)">👥 Users</button>
       <button class="a-tab" onclick="switchATab('chats',this)">💬 Chats<span class="a-badge" id="chatBadge" style="display:none">0</span></button>
       <button class="a-tab" onclick="switchATab('collabs',this)">🤝 Collabs<span class="a-badge" id="collBadge" style="display:none">0</span></button>
-      <button class="a-tab" onclick="switchATab('pdfs',this)">📕 PDFs<span class="a-badge" id="pdfBadge" style="display:none">0</span></button>
+      <button class="a-tab" onclick="switchATab('pdfs',this)">📕 PDF Sales<span class="a-badge" id="pdfBadge" style="display:none">0</span></button>
       <button class="a-tab" onclick="switchATab('settings',this)">⚙️ Settings</button>
     </div>
-    <div class="a-page active" id="ap-overview"><div style="background:rgba(12,18,28,.7);border:1px solid rgba(42,255,158,.1);border-radius:16px;padding:1.1rem"><h3 style="margin-bottom:.6rem;color:#2aff9e;font-size:.95rem"><i class="fas fa-chart-line"></i> Welcome!</h3><p style="color:#7a8aaa;font-size:.82rem">Manage everything real-time.</p></div></div>
+    <div class="a-page active" id="ap-overview"><div style="background:rgba(12,18,28,.7);border:1px solid rgba(168,85,247,.1);border-radius:16px;padding:1.1rem"><h3 style="margin-bottom:.6rem;color:#a855f7;font-size:.95rem"><i class="fas fa-chart-line"></i> Welcome!</h3><p style="color:#7a8aaa;font-size:.82rem">Manage everything real-time.</p></div></div>
     <div class="a-page" id="ap-enrollments"><div id="enrollmentList"><div class="empty-state"><i class="fas fa-inbox"></i><p>Loading...</p></div></div></div>
     <div class="a-page" id="ap-users"><div id="userList"><div class="empty-state"><i class="fas fa-users"></i><p>Loading...</p></div></div></div>
     <div class="a-page" id="ap-chats"><div id="chatList"><div class="empty-state"><i class="fas fa-comments"></i><p>Loading...</p></div></div><div id="adminChatPanel" style="display:none;background:rgba(5,10,18,.95);border:1px solid rgba(42,255,158,.2);border-radius:16px;padding:1rem;margin-top:1rem"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem"><h4 id="adminChatTitle" style="color:#2aff9e;font-size:.82rem"></h4><button class="btn-sm red" onclick="closeAdminChatPanel()"><i class="fas fa-times"></i></button></div><div id="adminMsgsArea" style="max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:.4rem;margin-bottom:.7rem"></div><div style="display:flex;gap:.4rem"><input type="text" class="f-input" id="adminReplyIn" placeholder="Reply..." onkeypress="if(event.key==='Enter')sendAdminReply()" style="flex:1;border-radius:16px;padding:.5rem .8rem;font-size:.82rem"><button class="btn-sm gr" onclick="sendAdminReply()"><i class="fas fa-paper-plane"></i></button></div></div></div>
     <div class="a-page" id="ap-collabs"><div id="collabList"><div class="empty-state"><i class="fas fa-handshake"></i><p>Loading...</p></div></div></div>
     <div class="a-page" id="ap-pdfs"><div id="pdfList"><div class="empty-state"><i class="fas fa-file-pdf"></i><p>Loading...</p></div></div></div>
-    <div class="a-page" id="ap-settings"><div class="settings-card"><h3 style="color:#ffd966;margin-bottom:.9rem;font-size:.9rem"><i class="fas fa-lock"></i> Change Password</h3><div class="f-group" style="margin-bottom:.9rem"><label class="f-label">Current</label><input type="password" id="curPass" class="f-input" placeholder="••••••••"></div><div class="f-group" style="margin-bottom:.9rem"><label class="f-label">New</label><input type="password" id="newPass" class="f-input" placeholder="Min 6"></div><div class="f-group" style="margin-bottom:1rem"><label class="f-label">Confirm</label><input type="password" id="confPass" class="f-input" placeholder="Re-enter"></div><button class="btn-submit" onclick="changeAdminPass()"><i class="fas fa-save"></i> Update</button></div></div>
+    <div class="a-page" id="ap-settings"><div class="settings-card"><h3 style="color:#a855f7;margin-bottom:.9rem;font-size:.9rem"><i class="fas fa-lock"></i> Change Password</h3><div class="f-group" style="margin-bottom:.9rem"><label class="f-label">Current</label><input type="password" id="curPass" class="f-input" placeholder="••••••••"></div><div class="f-group" style="margin-bottom:.9rem"><label class="f-label">New</label><input type="password" id="newPass" class="f-input" placeholder="Min 6"></div><div class="f-group" style="margin-bottom:1rem"><label class="f-label">Confirm</label><input type="password" id="confPass" class="f-input" placeholder="Re-enter"></div><button class="btn-submit" onclick="changeAdminPass()"><i class="fas fa-save"></i> Update</button></div></div>
   </div>
 </div>
 
@@ -565,7 +735,7 @@ async function showUserApp(u){
   document.getElementById('userApp').style.display='block';
   document.getElementById('bottomNav').style.display='block';
   const name=u.displayName||u.email.split('@')[0];
-  document.getElementById('welcomeMsg').textContent=`Welcome, ${name}! 👋`;
+  document.getElementById('welcomeMsg').textContent=`Welcome back, ${name}! 👋`;
   document.getElementById('eEmail').value=u.email;
   document.getElementById('navRight').innerHTML=`<div class="nav-user"><div class="nav-user-avatar">${u.photoURL?`<img src="${u.photoURL}" style="width:26px;height:26px;border-radius:50%">`:name[0].toUpperCase()}</div><span class="nav-user-name">${name}</span></div><button class="btn-n out" onclick="logout()">Logout</button>`;
   await setDoc(doc(db,'users',u.uid),{name,email:u.email,photoURL:u.photoURL||'',isAdmin:false,updatedAt:serverTimestamp()},{merge:true});
@@ -578,7 +748,7 @@ function showAdminApp(u){
   document.getElementById('userApp').style.display='none';
   document.getElementById('adminApp').style.display='block';
   document.getElementById('bottomNav').style.display='none';
-  document.getElementById('adminNavRight').innerHTML=`<div class="nav-user"><span class="nav-user-name" style="color:#ffd966">Admin</span></div><button class="btn-n out" onclick="logout()">Logout</button>`;
+  document.getElementById('adminNavRight').innerHTML=`<div class="nav-user"><span class="nav-user-name" style="color:#a855f7">Admin</span></div><button class="btn-n out" onclick="logout()">Logout</button>`;
   loadAdminData();
 }
 
@@ -601,9 +771,8 @@ async function submitEnrollment(){
   try{
     const base64=await fileToBase64(file);
     await addDoc(collection(db,'enrollments'),{userId:_user.uid,userName:name,phone,email,address:addr||'Not provided',courseName:course,amount:parseInt(price),paymentScreenshotBase64:base64,status:'pending',certificateIssued:false,createdAt:serverTimestamp()});
-    // PDF — instant verified
     if(window._selPdfId){
-      await addDoc(collection(db,'pdf_purchases'),{userId:_user.uid,userName:name,email,phone,courseName:course,amount:parseInt(price),pdfId:window._selPdfId,status:'verified',autoVerified:true,createdAt:serverTimestamp()});
+      await addDoc(collection(db,'pdf_purchases'),{userId:_user.uid,userName:name,email,phone,courseName:course,amount:parseInt(price),pdfId:window._selPdfId,paymentScreenshotBase64:base64,status:'pending',createdAt:serverTimestamp()});
     }
     goToEnrollStep(3);toast('🎉 Submitted!');
   }catch(e){console.error(e);toast('❌ '+e.message);}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Submit Enrollment';}
@@ -641,9 +810,9 @@ function renderUsers(list){const c=document.getElementById('userList');if(!list.
 
 function renderChats(list){const c=document.getElementById('chatList');if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-comments"></i><p>No chats.</p></div>';return;}const sorted=[...list].sort((a,b)=>(b.unreadCount||0)-(a.unreadCount||0));c.innerHTML=sorted.map(ch=>{const sn=(ch.userName||ch.userEmail||'User').replace(/'/g,"\\'");return `<div class="chat-row ${ch.unreadCount>0?'unread-chat':''}" onclick="openAdminChat('${ch.id}','${sn}')"><div class="c-avatar-sm">${(ch.userName||ch.userEmail||'?')[0].toUpperCase()}</div><div class="c-info"><strong>${escHtml(ch.userName||ch.userEmail||'?')}</strong><div class="last-msg">${escHtml(ch.lastMessage||'No messages')}</div></div>${ch.unreadCount>0?`<div class="unread-dot">${ch.unreadCount}</div>`:''}</div>`;}).join('');}
 
-function renderCollabs(list){const c=document.getElementById('collabList');if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-handshake"></i><p>No collabs.</p></div>';return;}c.innerHTML=list.map(co=>{const dt=co.createdAt?.toDate?co.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'N/A';const sp=co.status==='pending'?'sp-pending':'sp-verified';return `<div class="enr-card"><div class="enr-top"><div class="enr-avatar" style="background:linear-gradient(135deg,#ffd966,#ffa117)">${(co.userName||'?')[0].toUpperCase()}</div><div class="enr-meta"><strong>${escHtml(co.userName||'')}</strong><div class="sub">${escHtml(co.workType||'')} • ${dt}</div></div><span class="status-pill ${sp}">${co.status}</span></div><p style="font-size:.78rem;color:#cdd9ff;line-height:1.5;margin-bottom:.6rem">${escHtml(co.description||'')}</p><div style="display:flex;gap:.4rem;flex-wrap:wrap;align-items:center">${co.status==='pending'?`<button class="btn-sm gr" onclick="updateCollabStatus('${co.id}','contacted')"><i class="fas fa-check"></i> Contacted</button>`:'<span class="status-pill sp-verified">✓</span>'}<span style="font-size:.7rem;color:#7a8aaa"><i class="fas fa-phone"></i> ${escHtml(co.whatsappNumber||'')}</span></div></div>`;}).join('');}
+function renderCollabs(list){const c=document.getElementById('collabList');if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-handshake"></i><p>No collabs.</p></div>';return;}c.innerHTML=list.map(co=>{const dt=co.createdAt?.toDate?co.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'N/A';const sp=co.status==='pending'?'sp-pending':'sp-verified';return `<div class="enr-card"><div class="enr-top"><div class="enr-avatar">${(co.userName||'?')[0].toUpperCase()}</div><div class="enr-meta"><strong>${escHtml(co.userName||'')}</strong><div class="sub">${escHtml(co.workType||'')} • ${dt}</div></div><span class="status-pill ${sp}">${co.status}</span></div><p style="font-size:.78rem;color:#cdd9ff;line-height:1.5;margin-bottom:.6rem">${escHtml(co.description||'')}</p><div style="display:flex;gap:.4rem;flex-wrap:wrap;align-items:center">${co.status==='pending'?`<button class="btn-sm gr" onclick="updateCollabStatus('${co.id}','contacted')"><i class="fas fa-check"></i> Contacted</button>`:'<span class="status-pill sp-verified">✓</span>'}<span style="font-size:.7rem;color:#7a8aaa"><i class="fas fa-phone"></i> ${escHtml(co.whatsappNumber||'')}</span></div></div>`;}).join('');}
 
-function renderPdfSales(list){const c=document.getElementById('pdfList');if(!c)return;if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDFs.</p></div>';return;}c.innerHTML=list.map(p=>{const dt=p.createdAt?.toDate?p.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'N/A';const sp=p.status==='pending'?'sp-pending':'sp-verified';const ab=p.status==='pending'?`<button class="btn-sm gr" onclick="verifyPdfSale('${p.id}')"><i class="fas fa-check"></i> Verify</button>`:`<a href="https://drive.google.com/uc?export=download&id=${p.pdfId}" target="_blank" class="btn-sm out">Preview</a>`;return `<div class="enr-card" style="border-left:4px solid #ff6b6b"><div class="enr-top"><div class="enr-avatar" style="background:linear-gradient(135deg,#ff6b6b,#ffa500)">${(p.userName||'?')[0].toUpperCase()}</div><div class="enr-meta"><strong>${escHtml(p.userName||'')}</strong><div class="sub">${escHtml(p.courseName||'')} • ${dt}</div></div><span class="status-pill ${sp}">${p.status}</span></div><div class="enr-amount" style="margin-bottom:.4rem">Rs.${p.amount}</div><div class="enr-actions">${ab}</div></div>`;}).join('');}
+function renderPdfSales(list){const c=document.getElementById('pdfList');if(!c)return;if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDF sales.</p></div>';return;}c.innerHTML=list.map(p=>{const dt=p.createdAt?.toDate?p.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'N/A';const sp=p.status==='pending'?'sp-pending':'sp-verified';const img=p.paymentScreenshotBase64?`<img src="${p.paymentScreenshotBase64}" class="proof-img-full" onclick="openLb('${p.paymentScreenshotBase64}')">`:'<p style="font-size:.7rem;color:#5a6a7a">No screenshot</p>';const ab=p.status==='pending'?`<button class="btn-sm gr" onclick="verifyPdfSale('${p.id}')"><i class="fas fa-check"></i> Verify & Open PDF</button>`:`<span class="status-pill sp-verified">✅ Verified</span> <a href="https://drive.google.com/uc?export=download&id=${p.pdfId}" target="_blank" class="btn-sm out">Preview</a>`;return `<div class="enr-card" style="border-left:4px solid #2aff9e"><div class="enr-top"><div class="enr-avatar">${(p.userName||'?')[0].toUpperCase()}</div><div class="enr-meta"><strong>${escHtml(p.userName||'')}</strong><div class="sub">${escHtml(p.courseName||'')} • ${dt}</div></div><span class="status-pill ${sp}">${p.status}</span></div><div class="enr-amount" style="margin-bottom:.4rem">Rs.${p.amount}</div><div class="enr-info"><span><i class="fas fa-envelope"></i>${escHtml(p.email||'N/A')}</span></div>${img}<div class="enr-actions">${ab}</div></div>`;}).join('');}
 
 async function approveCertificate(eid,uid,un,cn){try{await updateDoc(doc(db,'enrollments',eid),{certificateIssued:true,certificateIssuedAt:serverTimestamp()});const cid=`cert_${eid}_${Date.now()}`;await setDoc(doc(db,'certificates',cid),{userId:uid,userName:un,courseName:cn,issuedAt:serverTimestamp(),enrollmentId:eid,certId:cid});toast('✅ Issued!');}catch(e){toast('❌ '+e.message);}}
 
@@ -656,14 +825,14 @@ function genCertHTML(name,course,ia){const date=ia?.toDate?ia.toDate().toLocaleD
 async function verifyEnroll(id){try{await updateDoc(doc(db,'enrollments',id),{status:'verified',verifiedAt:serverTimestamp()});toast('✅ Verified!');}catch(e){toast('❌ '+e.message);}}
 async function setEnrollStatus(id,s){try{await updateDoc(doc(db,'enrollments',id),{status:s,updatedAt:serverTimestamp()});toast(`✅ ${s}`);}catch(e){toast('❌ '+e.message);}}
 async function updateCollabStatus(id,s){try{await updateDoc(doc(db,'collaborations',id),{status:s,updatedAt:serverTimestamp()});toast(`✅ ${s}`);}catch(e){toast('❌ '+e.message);}}
-async function verifyPdfSale(id){try{await updateDoc(doc(db,'pdf_purchases',id),{status:'verified',verifiedAt:serverTimestamp()});toast('✅ PDF verified!');}catch(e){toast('❌ '+e.message);}}
+async function verifyPdfSale(id){try{await updateDoc(doc(db,'pdf_purchases',id),{status:'verified',verifiedAt:serverTimestamp()});toast('✅ PDF unlocked!');}catch(e){toast('❌ '+e.message);}}
 async function changeAdminPass(){const c=document.getElementById('curPass').value,n=document.getElementById('newPass').value,cf=document.getElementById('confPass').value;if(!c||!n||!cf)return toast('❌ Fill all');if(n!==cf)return toast('❌ Mismatch');if(n.length<6)return toast('❌ Min 6');try{const cr=EmailAuthProvider.credential(_user.email,c);await reauthenticateWithCredential(_user,cr);await updatePassword(_user,n);toast('✅ Updated!');document.getElementById('curPass').value='';document.getElementById('newPass').value='';document.getElementById('confPass').value='';}catch(e){toast('❌ '+fe(e.code));}}
 
 function loadProfile(u,name){document.getElementById('profName').textContent=name;document.getElementById('profEmail').textContent=u.email;const pa=document.getElementById('profAvatar');if(u.photoURL)pa.innerHTML=`<img src="${u.photoURL}">`;else pa.textContent=name[0].toUpperCase();}
 
-function loadMyEnrollments(uid){const c=document.getElementById('myEnrollments');onSnapshot(query(collection(db,'enrollments'),where('userId','==',uid),orderBy('createdAt','desc')),s=>{if(s.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-inbox"></i><p>No enrollments yet.</p></div>';document.getElementById('certificateSection').innerHTML='';return;}let h='',hc=false,cd=null;s.docs.forEach(d=>{const e=d.data();const sp=e.status==='pending'?'sp-pending':e.status==='verified'?'sp-verified':'sp-completed';const dt=e.createdAt?.toDate?e.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'';if(e.status==='completed')hc=true;if(e.certificateIssued)cd={course:e.courseName,certId:`cert_${d.id}`};h+=`<div class="enrollment-row"><div><strong style="font-size:.82rem">${escHtml(e.courseName||'')}</strong><div style="font-size:.68rem;color:#7a8aaa;margin-top:.1rem">Rs.${parseInt(e.amount||0).toLocaleString('en-NP')} • ${dt}</div></div><span class="status-pill ${sp}">${e.status}</span></div>`;});c.innerHTML=h;const cDiv=document.getElementById('certificateSection');if(hc){cDiv.innerHTML=`<div class="cert-card"><div class="cert-header"><i class="fas fa-certificate"></i><div><h4 style="color:#ffd966;font-size:.85rem">Certificate</h4></div></div><div class="cert-preview" onclick="requestCertificate()"><span class="cert-icon">📜</span><div class="cert-title">Request Certificate</div></div></div>`;}else{cDiv.innerHTML='';}},e=>console.error(e));}
+function loadMyEnrollments(uid){const c=document.getElementById('myEnrollments');onSnapshot(query(collection(db,'enrollments'),where('userId','==',uid),orderBy('createdAt','desc')),s=>{if(s.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-inbox"></i><p>No enrollments yet.</p></div>';document.getElementById('certificateSection').innerHTML='';return;}let h='',hc=false;s.docs.forEach(d=>{const e=d.data();const sp=e.status==='pending'?'sp-pending':e.status==='verified'?'sp-verified':'sp-completed';const dt=e.createdAt?.toDate?e.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'';if(e.status==='completed')hc=true;h+=`<div class="enrollment-row"><div><strong style="font-size:.82rem">${escHtml(e.courseName||'')}</strong><div style="font-size:.68rem;color:#7a8aaa;margin-top:.1rem">Rs.${parseInt(e.amount||0).toLocaleString('en-NP')} • ${dt}</div></div><span class="status-pill ${sp}">${e.status}</span></div>`;});c.innerHTML=h;const cDiv=document.getElementById('certificateSection');if(hc){cDiv.innerHTML=`<div class="cert-card"><div class="cert-header"><i class="fas fa-certificate"></i><div><h4 style="color:#2aff9e;font-size:.85rem">Certificate</h4></div></div><div class="cert-preview" onclick="requestCertificate()"><span class="cert-icon">📜</span><div class="cert-title">Request Certificate</div></div></div>`;}else{cDiv.innerHTML='';}},e=>console.error(e));}
 
-function loadMyPdfs(uid){const c=document.getElementById('myPdfs');if(!c)return;onSnapshot(query(collection(db,'pdf_purchases'),where('userId','==',uid)),s=>{if(s.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDF purchased yet.</p></div>';return;}const l=s.docs.map(d=>({id:d.id,...d.data()}));c.innerHTML=l.map(p=>{const dt=p.createdAt?.toDate?p.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'';let a='';if(p.pdfId){a=`<a href="https://drive.google.com/uc?export=download&id=${p.pdfId}" target="_blank" rel="noopener" class="btn-open-pdf"><i class="fas fa-file-pdf"></i> PDF खोल्नुस्</a>`;}else{a=`<span class="pdf-pending-pill"><i class="fas fa-clock"></i> Processing</span>`;}return `<div class="pdf-owned-card"><div style="display:flex;align-items:center;gap:.6rem"><div class="pdf-owned-icon"><i class="fas fa-file-pdf"></i></div><div class="pdf-owned-info"><strong>${escHtml(p.courseName)}</strong><span>Rs. ${p.amount} • ${dt}</span></div></div>${a}</div>`;}).join('');});}
+function loadMyPdfs(uid){const c=document.getElementById('myPdfs');if(!c)return;onSnapshot(query(collection(db,'pdf_purchases'),where('userId','==',uid)),s=>{if(s.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDF purchased yet.</p></div>';return;}const l=s.docs.map(d=>({id:d.id,...d.data()}));c.innerHTML=l.map(p=>{const dt=p.createdAt?.toDate?p.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'';let a='';if(p.status==='verified'&&p.pdfId){a=`<a href="https://drive.google.com/uc?export=download&id=${p.pdfId}" target="_blank" rel="noopener" class="btn-open-pdf"><i class="fas fa-file-pdf"></i> PDF खोल्नुस्</a>`;}else{a=`<span class="pdf-pending-pill"><i class="fas fa-hourglass-half"></i> Admin Verification Pending</span>`;}return `<div class="pdf-owned-card"><div style="display:flex;align-items:center;gap:.6rem"><div class="pdf-owned-icon"><i class="fas fa-file-pdf"></i></div><div class="pdf-owned-info"><strong>${escHtml(p.courseName)}</strong><span>Rs. ${p.amount} • ${dt}</span></div></div>${a}</div>`;}).join('');});}
 
 function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function aMsg(m,t){const x=document.getElementById('authMsg');x.textContent=m;x.className=`auth-msg ${t}`;x.style.display='block';}
@@ -702,7 +871,7 @@ function twChar(){if(_ci<_tw[_li].length){_ce.textContent+=_tw[_li][_ci++];setTi
 
 <script>
 window.playNotificationBeep=function(){try{const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=800;o.type='sine';g.gain.setValueAtTime(.3,c.currentTime);g.gain.exponentialRampToValueAtTime(.01,c.currentTime+.2);o.start(c.currentTime);o.stop(c.currentTime+.2);}catch(e){}};
-if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js?v=14').catch(e=>console.log('SW:',e));}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js?v=19').catch(e=>console.log('SW:',e));}
 setTimeout(()=>{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission();},5000);
 </script>
 
