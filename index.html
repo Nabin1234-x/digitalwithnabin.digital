@@ -769,7 +769,11 @@
     <div class="a-page" id="ap-chats"><div id="chatList"><div class="empty-state"><i class="fas fa-comments"></i><p>Loading chats...</p></div></div><div class="admin-chat-panel" id="adminChatPanel" style="display:none"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem"><h4 id="adminChatTitle" style="color:#2aff9e;font-size:.9rem"></h4><button class="btn-sm red" onclick="closeAdminChatPanel()"><i class="fas fa-times"></i> Close</button></div><div class="admin-msgs-area" id="adminMsgsArea"></div><div style="display:flex;gap:.5rem;margin-top:.5rem"><input type="text" class="f-input" id="adminReplyIn" placeholder="Type reply..." onkeypress="if(event.key==='Enter')sendAdminReply()" style="flex:1;border-radius:18px;padding:.55rem .9rem;font-size:.85rem"><button class="btn-sm gr" onclick="sendAdminReply()"><i class="fas fa-paper-plane"></i></button></div></div></div>
 
     <div class="a-page" id="ap-collabs"><div id="collabList"><div class="empty-state"><i class="fas fa-handshake"></i><p>Loading collaborations...</p></div></div></div>
-
+<div class="a-page" id="ap-pdfs">
+  <div id="pdfList">
+    <div class="empty-state"><i class="fas fa-file-pdf"></i><p>Loading PDF sales...</p></div>
+  </div>
+</div>
     <div class="a-page" id="ap-settings"><div class="settings-card"><h3 style="color:#ffd966;margin-bottom:1rem"><i class="fas fa-lock"></i> Change Admin Password</h3><div class="f-group" style="margin-bottom:1rem"><label class="f-label">Current Password</label><input type="password" id="curPass" class="f-input" placeholder="••••••••"></div><div class="f-group" style="margin-bottom:1rem"><label class="f-label">New Password</label><input type="password" id="newPass" class="f-input" placeholder="Min 6 characters"></div><div class="f-group" style="margin-bottom:1.2rem"><label class="f-label">Confirm New</label><input type="password" id="confPass" class="f-input" placeholder="Re-enter"></div><button class="btn-submit" onclick="changeAdminPass()"><i class="fas fa-save"></i> Update Password</button></div></div>
   </div>
 </div>
