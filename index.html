@@ -476,23 +476,32 @@
 
 <script>
   window.addEventListener('load', () => {
+    if (sessionStorage.getItem('splash_shown')) {
+      const s = document.getElementById('splashScreen');
+      if (s) s.style.display = 'none';
+      return;
+    }
+    sessionStorage.setItem('splash_shown', 'true');
     const text = 'DIGITAL & STOCK MENTOR';
     const el = document.getElementById('spType');
     let i = 0;
     setTimeout(() => {
       const t = setInterval(() => {
-        if(i < text.length) el.textContent += text[i++];
+        if (i < text.length) el.textContent += text[i++];
         else clearInterval(t);
       }, 70);
     }, 700);
     setTimeout(() => { 
       const b = document.getElementById('spBar'); 
-      if(b) b.style.width = '100%'; 
+      if (b) b.style.width = '100%'; 
     }, 200);
     setTimeout(() => {
       const s = document.getElementById('splashScreen');
-      if(s) { s.style.opacity = '0'; setTimeout(() => s.style.display = 'none', 500); }
-    }, 3500);
+      if (s) { 
+        s.style.opacity = '0'; 
+        setTimeout(() => s.style.display = 'none', 500); 
+      }
+    }, 2500);
   });
 </script>
 <!-- SPLASH END -->
@@ -681,7 +690,8 @@
       <div class="form-grid"><div class="f-group"><label class="f-label">Full Name *</label><input type="text" id="cName" class="f-input" placeholder="Your Name"></div><div class="f-group"><label class="f-label">WhatsApp *</label><input type="tel" id="cPhone" class="f-input" placeholder="+977 98xxxxxxxx"></div></div>
       <div style="margin-bottom:1rem"><label class="f-label" style="display:block;margin-bottom:.5rem">Work Type *</label><div class="work-types"><button class="wt-btn" onclick="pickWorkType(this,'Freelance')">💼 Freelance</button><button class="wt-btn" onclick="pickWorkType(this,'Full Project')">🚀 Full Project</button><button class="wt-btn" onclick="pickWorkType(this,'Consultation')">💬 Consultation</button><button class="wt-btn" onclick="pickWorkType(this,'Other')">✨ Other</button></div></div>
       <div class="f-group" style="margin-bottom:1rem"><label class="f-label">Description *</label><textarea id="cDesc" class="f-input" rows="4" placeholder="Describe your project idea..."></textarea></div>
-      <button class="btn-submit full" id="btnCollab" onclick="submitCollab()"><i class="fas fa-paper-plane"></i> Send Request</button>
+      <button class="btn-submit full" id
+        ="btnCollab" onclick="submitCollab()"><i class="fas fa-paper-plane"></i> Send Request</button>
     </div>
   </div>
 
