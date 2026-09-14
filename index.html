@@ -1307,7 +1307,72 @@ function loadMyEnrollments(uid) {
     }
   }, err=>console.error(err));
 }
+// ============ PDF SYSTEM ============
+window.pickPdfCourse = function(card) {
+  document.querySelectorAll('.pdf-card').forEach(c => c.classList.remove('sel'));
+  card.classList.add('sel');
+  
+  window._selCourse = card.dataset.course;
+  window._selPrice = card.dataset.price;
+  window._selPdfId = card.dataset.pdf;
+  
+  document.getElementById('selCourseName').textContent = window._selCourse;
+  document.getElementById('selCourseAmt').textContent = `Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;
+  document.getElementById('qrAmount').textContent = `Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;
+  
+  showPage('enroll');
+  goToEnrollStep(1);
+  
+  if (_user) {
+    const name = _user.displayName || _user.email.split('@')[0];
+    document.getElementById('eFullName').value = name;
+    document.getElementById('eEmail').value = _user.email;
+  }
+  
+  toast(`📕 ${window._selCourse} selected!`);
+};
 
+function loadMyPdfs(uid) {
+  const c = document.getElementById('myPdfs');
+  if (!c) return;
+  
+  onSnapshot(
+    query(collection(db, 'pdf_purchases'), where('userId', '==', uid)),
+    snap => {
+      if (snap.empty) {
+        c.innerHTML = '<div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDF purchased yet. <a style="color:#2aff9e;cursor:pointer" onclick="showPage(\'courses\')">Browse PDFs →</a></p></div>';
+        return;
+      }
+      
+      const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      
+      c.innerHTML = list.map(p => {
+        const dt = p.createdAt?.toDate 
+          ? p.createdAt.toDate().toLocaleDateString('en-NP', { day: '2-digit', month: 'short', year: 'numeric' }) 
+          : '';
+        
+        let actionHtml = '';
+        if (p.status === 'verified' && p.pdfId) {
+          const directLink = `https://drive.google.com/uc?export=download&id=${p.pdfId}`;
+          actionHtml = `<a href="${directLink}" target="_blank" class="btn-open-pdf"><i class="fas fa-download"></i> Open PDF</a>`;
+        } else {
+          actionHtml = `<span class="pdf-pending-pill"><i class="fas fa-clock"></i> Pending</span>`;
+        }
+        
+        return `<div class="pdf-owned-card">
+          <div class="pdf-owned-icon"><i class="fas fa-file-pdf"></i></div>
+          <div class="pdf-owned-info">
+            <strong>${escHtml(p.courseName)}</strong>
+            <span>Rs. ${p.amount} • ${dt}</span>
+          </div>
+          ${actionHtml}
+        </div>`;
+      }).join('');
+    }
+  );
+}
+
+// ── HELPERS ──
 // ── HELPERS ──
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function aMsg(msg,type){ const m=document.getElementById('authMsg'); m.textContent=msg; m.className=`auth-msg ${type}`; m.style.display='block'; }
