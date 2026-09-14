@@ -898,6 +898,20 @@ async function submitEnrollment() {
       certificateIssued: false,
       createdAt: serverTimestamp()
     });
+        // PDF course save
+    if (window._selPdfId) {
+      await addDoc(collection(db, 'pdf_purchases'), {
+        userId: _user.uid,
+        userName: name,
+        email,
+        phone,
+        courseName: course,
+        amount: parseInt(price),
+        pdfId: window._selPdfId,
+        status: 'pending',
+        createdAt: serverTimestamp()
+      });
+    }
     goToEnrollStep(3);
     toast('🎉 Enrollment submitted!');
   } catch(e) { console.error(e); toast('❌ Error: '+e.message); } finally { btn.disabled=false; btn.innerHTML='<i class="fas fa-paper-plane"></i> Submit Enrollment'; }
