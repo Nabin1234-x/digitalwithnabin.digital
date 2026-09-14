@@ -1570,12 +1570,22 @@ function twChar(){ if(_ci<_tw[_li].length){ _curEl.textContent+=_tw[_li][_ci++];
   if ('serviceWorker' in navigator) {
     let refreshing = false;
     
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (!refreshing) {
-        refreshing = true;
-        window.location.reload();
-      }
-    });
+   navigator.serviceWorker.addEventListener('controllerchange', () => {
+  if (!refreshing) {
+    refreshing = true;
+    
+    // 10 सेकेन्ड cooldown — loop बन्द
+    const lastReload = sessionStorage.getItem('sw_last_reload');
+    const now = Date.now();
+    
+    if (!lastReload || (now - parseInt(lastReload)) > 10000) {
+      sessionStorage.setItem('sw_last_reload', now.toString());
+      window.location.reload();
+    } else {
+      console.log('⏸️ Reload skipped — cooldown active');
+    }
+  }
+});
 
     navigator.serviceWorker.register('/sw.js?v=6').then(reg => {
       reg.addEventListener('updatefound', () => {
