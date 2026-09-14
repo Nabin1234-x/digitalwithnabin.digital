@@ -1,55 +1,32 @@
-// 🔥 FORCE CACHE CLEAR - v6 (Date.now() हटाइयो)
-const VERSION = 'dwn-v6';
+// Service Worker — force update
+const CACHE_NAME = 'dwn-v5';
 
-self.addEventListener('install', e => {
-  console.log('📦 SW installing:', VERSION);
+self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', e => {
-  console.log('✅ SW activated:', VERSION);
-  e.waitUntil(
-    caches.keys().then(keys => {
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
       return Promise.all(
-        keys.map(k => caches.delete(k))
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
       );
     }).then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', e => {
-  const url = new URL(e.request.url);
-  
-  // HTML — network first
-  if (e.request.mode === 'navigate' || 
-      e.request.destination === 'document' ||
-      url.pathname.endsWith('.html') ||
-      url.pathname === '/') {
-    e.respondWith(
-      fetch(e.request, { cache: 'no-store' })
-        .catch(() => caches.match(e.request))
-    );
-    return;
-  }
-  
-  // JS/CSS — network first
-  if (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
-    e.respondWith(
-      fetch(e.request, { cache: 'no-store' })
-        .catch(() => caches.match(e.request))
-    );
-    return;
-  }
-  
-  // बाँकी — network first
-  e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match(event.request))
   );
 });
 
-// Force update message
-self.addEventListener('message', e => {
-  if (e.data === 'SKIP_WAITING') {
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') {
     self.skipWaiting();
   }
 });
