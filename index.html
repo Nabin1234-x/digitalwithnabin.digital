@@ -1533,41 +1533,43 @@ function twChar(){ if(_ci<_tw[_li].length){ _curEl.textContent+=_tw[_li][_ci++];
   <!-- 🔔 Notification Setup -->
 <script>
   const VAPID_KEY = "BIhr3EPCpFXORgnQ7HpoEwCxRwmhXJCFoAVbrHmG47njXcrktKp2cl3LZBi0imprOMINPL-qsvsbO7G_4In1CA0";
+  // 🔄 Service Worker — Auto Update (v6)
+  if ('serviceWorker' in navigator) {
+    let refreshing = false;
+    
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) {
+        refreshing = true;
+        window.location.reload();
+      }
+    });
 
-  // 🔄 Service Worker with Force Update
-if ('serviceWorker' in navigator) {
-   // SW register
-  navigator.serviceWorker.register('/sw.js?v=4')
-    .then(reg => {
-      console.log('✅ sw.js loaded');
-      
+    navigator.serviceWorker.register('/sw.js?v=6').then(reg => {
       reg.addEventListener('updatefound', () => {
         const newWorker = reg.installing;
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            console.log('🔄 New version detected, auto-updating...');
             newWorker.postMessage('SKIP_WAITING');
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000);
           }
         });
       });
-    })
-    .catch(e => console.log('sw error:', e));
-  navigator.serviceWorker.register('/firebase-messaging-sw.js?v=4')
-    .then(() => console.log('✅ FCM SW loaded'))
-    .catch(e => console.log('FCM error:', e));
-  
-  // जब SW update हुन्छ — page reload
-  let refreshing = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!refreshing) {
-      refreshing = true;
-      window.location.reload();
+    }).catch(e => console.log('SW err:', e));
+
+    navigator.serviceWorker.register('/firebase-messaging-sw.js?v=6')
+      .catch(e => console.log('FCM err:', e));
+  }
+
+  // 🌐 Auto cache-bust
+  (function() {
+    const v = '6';
+    const stored = localStorage.getItem('dwn_version');
+    if (stored !== v) {
+      localStorage.setItem('dwn_version', v);
+      if (stored) {
+        setTimeout(() => window.location.reload(), 100);
+      }
     }
-  });
-}
+  })();
   setTimeout(() => {
     if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission();
