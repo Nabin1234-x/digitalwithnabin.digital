@@ -1536,32 +1536,25 @@ function twChar(){ if(_ci<_tw[_li].length){ _curEl.textContent+=_tw[_li][_ci++];
 
   // 🔄 Service Worker with Force Update
 if ('serviceWorker' in navigator) {
-  // SW register
+   // SW register
   navigator.serviceWorker.register('/sw.js?v=4')
     .then(reg => {
       console.log('✅ sw.js loaded');
       
-      // Update check
       reg.addEventListener('updatefound', () => {
         const newWorker = reg.installing;
         newWorker.addEventListener('statechange', () => {
-         // 🎉 Silent auto-update (confirm dialog हटाइयो)
-if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-  // नयाँ version — silent update
-  console.log('🔄 New version detected, auto-updating...');
-  newWorker.postMessage('SKIP_WAITING');
-  // 2 सेकेन्ड पछि reload
-  setTimeout(() => {
-    window.location.reload();
-  }, 2000);
-}
-            }
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            console.log('🔄 New version detected, auto-updating...');
+            newWorker.postMessage('SKIP_WAITING');
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           }
         });
       });
     })
     .catch(e => console.log('sw error:', e));
-  
   navigator.serviceWorker.register('/firebase-messaging-sw.js?v=4')
     .then(() => console.log('✅ FCM SW loaded'))
     .catch(e => console.log('FCM error:', e));
