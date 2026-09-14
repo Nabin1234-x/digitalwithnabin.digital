@@ -21,6 +21,73 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- 🔔 FCM Notification Setup -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js";
+  import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+  const fcmConfig = {
+    apiKey: "AIzaSyCcKYUIL8mICWxEk7qdK6ucGHhqRS08BbA",
+    authDomain: "digital-with-nabin-6ec1d.firebaseapp.com",
+    projectId: "digital-with-nabin-6ec1d",
+    storageBucket: "digital-with-nabin-6ec1d.firebasestorage.app",
+    messagingSenderId: "602694608782",
+    appId: "1:602694608782:web:62ce9fa1232de6187866df"
+  };
+
+  try {
+    const fcmApp = initializeApp(fcmConfig, 'fcmApp');
+    const messaging = getMessaging(fcmApp);
+    const db = getFirestore(fcmApp);
+    const auth = getAuth(fcmApp);
+
+    window.collectFCMToken = async function() {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+          console.log('❌ Permission denied');
+          return;
+        }
+
+        // ✅ तपाईंको VAPID Key
+        const vapidKey = 'BIhr3EPCpFXORgnQ7HpoEwCxRwmhXJCFoAVbrHmG47njXcrktKp2cl3LZBi0imprOMINPL-qsvsbO7G_4In1CA0';
+
+        const token = await getToken(messaging, { vapidKey: vapidKey });
+        
+        if (!token) {
+          console.log('❌ No token');
+          return;
+        }
+        
+        console.log('✅ FCM Token:', token);
+
+        const user = auth.currentUser;
+        if (user) {
+          await setDoc(doc(db, 'fcm_tokens', user.uid), {
+            token: token,
+            email: user.email,
+            name: user.displayName || user.email.split('@')[0],
+            updatedAt: serverTimestamp()
+          });
+          console.log('✅ Token saved!');
+        }
+      } catch (error) {
+        console.error('❌ FCM Error:', error);
+      }
+    };
+
+    onMessage(messaging, (payload) => {
+      console.log('📬 Foreground message:', payload);
+      if (window.toast) {
+        toast(`💬 ${payload.notification?.title || 'Notification'}`);
+      }
+    });
+  } catch (error) {
+    console.log('FCM setup error:', error);
+  }
+</script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif}
