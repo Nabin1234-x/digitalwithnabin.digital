@@ -833,6 +833,7 @@ async function showUserApp(u) {
   await setDoc(doc(db,'users',u.uid), { name, email:u.email, photoURL:u.photoURL||'', isAdmin:false, updatedAt:serverTimestamp() }, { merge:true });
   loadProfile(u, name);
   loadMyEnrollments(u.uid);
+  loadMyPdfs(u.uid);
   initChat(u);
 }
 
