@@ -12,16 +12,16 @@
 <meta name="theme-color" content="#070c14">
 <link rel="manifest" href="/manifest.json">
 
-<!-- ✅ APP ICON — तपाईंको Custom Logo (ImgBB Direct Link) -->
 <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png">
-<link rel="icon" type="image/jpeg" sizes="32x32" href="https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png">
-<link rel="icon" type="image/jpeg" sizes="16x16" href="https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png">
-<link rel="icon" type="image/jpeg" sizes="192x192" href="https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png">
-<link rel="icon" type="image/jpeg" sizes="512x512" href="https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png">
+<link rel="icon" type="image/png" sizes="512x512" href="https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <!-- 🔔 FCM Notification Setup -->
+
+<!-- 🔔 FCM Notification Setup -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
   import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js";
@@ -51,7 +51,6 @@
           return;
         }
 
-        // ✅ तपाईंको VAPID Key
         const vapidKey = 'BIhr3EPCpFXORgnQ7HpoEwCxRwmhXJCFoAVbrHmG47njXcrktKp2cl3LZBi0imprOMINPL-qsvsbO7G_4In1CA0';
 
         const token = await getToken(messaging, { vapidKey: vapidKey });
@@ -103,96 +102,27 @@ img{max-width:100%;height:auto}
 @keyframes gb1{to{transform:scale(1.2) translate(30px,-30px)}}
 @keyframes gb2{to{transform:scale(1.2) translate(-20px,20px)}}
 
-/* ✅ SPLASH SCREEN — PHOTO सहित + ANIMATION (तपाईंको original) */
-#splashScreen{
-  position:fixed;inset:0;z-index:99999;
-  background:linear-gradient(145deg,#070c14,#0a1520,#070c14);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  transition:opacity .4s ease;
-  padding:1rem;overflow:hidden;
-}
-#splashScreen .glow{
-  position:absolute;
-  width:min(400px,90vw);height:min(400px,90vw);
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(42,255,158,.15),transparent 70%);
-  animation:spPulse 2s infinite;
-}
-@keyframes spPulse{
-  0%,100%{transform:scale(1);opacity:.5}
-  50%{transform:scale(1.15);opacity:.7}
-}
-#splashScreen .content{
-  position:relative;z-index:2;
-  text-align:center;width:100%;max-width:340px;
-}
-#splashScreen h1{
-  font-size:clamp(.9rem,4vw,1.15rem);
-  font-weight:900;letter-spacing:2px;
-  background:linear-gradient(135deg,#2aff9e,#0fcc73);
-  -webkit-background-clip:text;background-clip:text;
-  color:transparent;margin-bottom:1.5rem;
-}
-#splashScreen .photo{
-  width:120px;height:120px;border-radius:50%;
-  background:linear-gradient(135deg,#2aff9e,#0fcc73);
-  padding:3px;margin:0 auto 1rem;
-  box-shadow:0 0 0 0 rgba(42,255,158,.3);
-  animation:spGlow 2.5s infinite;
-}
-#splashScreen .photo img{
-  width:100%;height:100%;
-  object-fit:cover;border-radius:50%;display:block;
-}
-@keyframes spGlow{
-  0%,100%{box-shadow:0 0 0 0 rgba(42,255,158,.3)}
-  50%{box-shadow:0 0 0 15px rgba(42,255,158,.05)}
-}
-#splashScreen h2{
-  font-size:1.6rem;font-weight:900;
-  color:#fff;margin-bottom:.3rem;
-}
-#splashScreen .type{
-  font-size:.78rem;color:#2aff9e;
-  letter-spacing:1.5px;font-weight:700;
-  margin-bottom:1.5rem;min-height:1.2em;
-}
-#splashScreen .stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:.5rem;margin-bottom:1.5rem;
-}
-#splashScreen .stat{
-  background:rgba(42,255,158,.06);
-  border:1px solid rgba(42,255,158,.18);
-  border-radius:12px;padding:.55rem .3rem;
-}
-#splashScreen .stat:nth-child(2){
-  background:rgba(255,215,0,.06);
-  border-color:rgba(255,215,0,.18);
-}
-#splashScreen .stat:nth-child(3){
-  background:rgba(59,130,246,.06);
-  border-color:rgba(59,130,246,.18);
-}
-#splashScreen .stat .num{
-  font-size:.9rem;font-weight:800;color:#2aff9e;
-}
+#splashScreen{position:fixed;inset:0;z-index:99999;background:linear-gradient(145deg,#070c14,#0a1520,#070c14);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .4s ease;padding:1rem;overflow:hidden}
+#splashScreen .glow{position:absolute;width:min(400px,90vw);height:min(400px,90vw);border-radius:50%;background:radial-gradient(circle,rgba(42,255,158,.15),transparent 70%);animation:spPulse 2s infinite}
+@keyframes spPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.15);opacity:.7}}
+#splashScreen .content{position:relative;z-index:2;text-align:center;width:100%;max-width:340px}
+#splashScreen h1{font-size:clamp(.9rem,4vw,1.15rem);font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#2aff9e,#0fcc73);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:1.5rem}
+#splashScreen .photo{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#0fcc73);padding:3px;margin:0 auto 1rem;box-shadow:0 0 0 0 rgba(42,255,158,.3);animation:spGlow 2.5s infinite}
+#splashScreen .photo img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+@keyframes spGlow{0%,100%{box-shadow:0 0 0 0 rgba(42,255,158,.3)}50%{box-shadow:0 0 0 15px rgba(42,255,158,.05)}}
+#splashScreen h2{font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:.3rem}
+#splashScreen .type{font-size:.78rem;color:#2aff9e;letter-spacing:1.5px;font-weight:700;margin-bottom:1.5rem;min-height:1.2em}
+#splashScreen .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.5rem}
+#splashScreen .stat{background:rgba(42,255,158,.06);border:1px solid rgba(42,255,158,.18);border-radius:12px;padding:.55rem .3rem}
+#splashScreen .stat:nth-child(2){background:rgba(255,215,0,.06);border-color:rgba(255,215,0,.18)}
+#splashScreen .stat:nth-child(3){background:rgba(59,130,246,.06);border-color:rgba(59,130,246,.18)}
+#splashScreen .stat .num{font-size:.9rem;font-weight:800;color:#2aff9e}
 #splashScreen .stat:nth-child(2) .num{color:#ffd966}
 #splashScreen .stat:nth-child(3) .num{color:#60a5fa}
 #splashScreen .stat .label{font-size:.55rem;color:#7a8aaa}
-#splashScreen .bar{
-  width:180px;height:3px;
-  background:rgba(255,255,255,.08);
-  border-radius:3px;margin:0 auto;overflow:hidden;
-}
-#splashScreen .bar-fill{
-  height:100%;width:0%;
-  background:linear-gradient(90deg,#2aff9e,#ffd966,#60a5fa);
-  border-radius:3px;transition:width 2s ease;
-}
+#splashScreen .bar{width:180px;height:3px;background:rgba(255,255,255,.08);border-radius:3px;margin:0 auto;overflow:hidden}
+#splashScreen .bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#2aff9e,#ffd966,#60a5fa);border-radius:3px;transition:width 2s ease}
 
-/* AUTH */
 .auth-screen{display:none;min-height:100vh;align-items:center;justify-content:center;padding:1rem;flex-direction:column}
 .auth-screen.active{display:flex}
 .auth-logo{text-align:center;margin-bottom:1.5rem}
@@ -222,7 +152,6 @@ img{max-width:100%;height:auto}
 .forgot-link{text-align:right;margin:-.4rem 0 .7rem}
 .forgot-link a{font-size:.75rem;color:#2aff9e;cursor:pointer}
 
-/* NAVBAR */
 .navbar{position:sticky;top:0;z-index:800;backdrop-filter:blur(20px);background:rgba(7,12,20,.92);border-bottom:1px solid rgba(42,255,158,.15);padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding-top:max(.7rem,env(safe-area-inset-top))}
 .nav-brand{font-size:1rem;font-weight:900;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55%}
 .nav-right{display:flex;align-items:center;gap:.4rem;flex-shrink:0}
@@ -232,7 +161,6 @@ img{max-width:100%;height:auto}
 .btn-n{padding:.32rem .7rem;border-radius:20px;border:none;font-weight:700;font-size:.75rem;cursor:pointer}
 .btn-n.out{background:transparent;border:1.5px solid #ff5050;color:#ff8080}
 
-/* PAGES */
 .page{display:none;padding:1rem;max-width:1200px;margin:0 auto;padding-bottom:6rem;animation:fadeIn .3s ease}
 .page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -241,7 +169,6 @@ img{max-width:100%;height:auto}
 .sec-h span{background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sec-sub{color:#7a8aaa;font-size:.82rem;margin-bottom:1.2rem}
 
-/* HOME HERO */
 .hero{background:linear-gradient(135deg,rgba(42,255,158,.1),rgba(12,18,28,.9));border:1px solid rgba(42,255,158,.25);border-radius:24px;padding:1.5rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(42,255,158,.2),transparent 70%);border-radius:50%}
 .hero-content{position:relative;z-index:1}
@@ -249,7 +176,6 @@ img{max-width:100%;height:auto}
 .hero h2{font-size:clamp(1.3rem,5.5vw,1.75rem);font-weight:900;background:linear-gradient(125deg,#fff,#2aff9e);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.5rem;line-height:1.2}
 .hero p{font-size:.85rem;color:#7a8aaa;line-height:1.6}
 
-/* STATS */
 .stats-home{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem}
 .stat-home{background:linear-gradient(145deg,rgba(42,255,158,.08),rgba(12,18,28,.9));border:1px solid rgba(42,255,158,.25);border-radius:16px;padding:.9rem .5rem;text-align:center}
 .stat-home:nth-child(2){background:linear-gradient(145deg,rgba(255,215,0,.08),rgba(12,18,28,.9));border-color:rgba(255,215,0,.25)}
@@ -260,7 +186,6 @@ img{max-width:100%;height:auto}
 .stat-home .num{font-size:1.1rem;font-weight:900;color:#fff;display:block}
 .stat-home .label{font-size:.6rem;color:#7a8aaa;text-transform:uppercase;letter-spacing:.5px}
 
-/* QUICK ACTIONS */
 .qa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1.2rem}
 .qa-btn{background:linear-gradient(145deg,rgba(12,18,28,.95),rgba(20,28,42,.9));border:1px solid rgba(42,255,158,.15);border-radius:18px;padding:1.1rem 1rem;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:.5rem;transition:.25s}
 .qa-btn:active{transform:scale(.97)}
@@ -276,7 +201,6 @@ img{max-width:100%;height:auto}
 .qa-title{font-weight:800;font-size:.9rem;color:#fff}
 .qa-sub{font-size:.7rem;color:#7a8aaa}
 
-/* PREMIUM PDF CARDS */
 .pdf-premium{background:linear-gradient(145deg,rgba(20,28,42,.98),rgba(12,18,28,.99));border-radius:20px;padding:1.2rem;margin-bottom:.8rem;cursor:pointer;position:relative;overflow:hidden;border:1.5px solid;transition:.3s}
 .pdf-premium::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:20px 20px 0 0}
 .pdf-premium:active{transform:scale(.98)}
@@ -322,7 +246,6 @@ img{max-width:100%;height:auto}
 .pdf-premium-footer .hint{font-size:.68rem;font-weight:700;display:flex;align-items:center;gap:.3rem}
 .pdf-premium-footer .arrow{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem}
 
-/* COURSES */
 .courses-grid{display:grid;grid-template-columns:1fr;gap:.9rem;margin-bottom:1.2rem}
 .course-card{background:rgba(12,18,28,.85);border:1.5px solid rgba(42,255,158,.1);border-radius:20px;padding:1.1rem;cursor:pointer;transition:.25s;position:relative;overflow:hidden;width:100%}
 .course-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:.3s}
@@ -340,7 +263,6 @@ img{max-width:100%;height:auto}
 .btn-enroll{width:100%;padding:.7rem;border-radius:18px;border:1.5px solid #2aff9e;background:rgba(42,255,158,.08);color:#eef2ff;font-weight:700;font-size:.85rem;cursor:pointer;margin-top:.6rem}
 .btn-enroll:hover{background:#2aff9e;color:#070c14}
 
-/* PDF CARDS in Courses */
 .pdf-card{background:linear-gradient(145deg,rgba(20,28,42,.98),rgba(12,18,28,.99));border:2px solid;padding-top:1.1rem!important;border-radius:22px;box-shadow:0 8px 25px rgba(0,0,0,.3)}
 .pdf-card:nth-of-type(1){border-color:rgba(255,107,107,.5);background:linear-gradient(145deg,rgba(255,107,107,.12),rgba(12,18,28,.98))}
 .pdf-card:nth-of-type(1)::before{background:linear-gradient(90deg,#ff6b6b,#ffa500);height:4px}
@@ -368,7 +290,6 @@ img{max-width:100%;height:auto}
 .pdf-desc{font-size:.72rem;color:#7a8aaa;margin-bottom:.5rem}
 .buy-now{background:linear-gradient(135deg,#2aff9e,#0fcc73)!important;border:none!important;color:#070c14!important;font-weight:800!important}
 
-/* FORMS */
 .form-grid{display:grid;grid-template-columns:1fr;gap:.8rem;margin-bottom:1rem}
 .f-group{display:flex;flex-direction:column;gap:.3rem}
 .f-label{font-size:.76rem;color:#2aff9e;font-weight:700}
@@ -533,7 +454,6 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 </head>
 <body>
 
-<!-- ✅ SPLASH SCREEN — PHOTO सहित (तपाईंको original design) -->
 <div id="splashScreen">
   <div class="glow"></div>
   <div class="content">
@@ -811,14 +731,12 @@ async function showUserApp(u){
   document.getElementById('navRight').innerHTML=`<div class="nav-user"><div class="nav-user-avatar">${u.photoURL?`<img src="${u.photoURL}" style="width:26px;height:26px;border-radius:50%">`:name[0].toUpperCase()}</div><span class="nav-user-name">${name}</span></div><button class="btn-n out" onclick="logout()">Logout</button>`;
   await setDoc(doc(db,'users',u.uid),{name,email:u.email,photoURL:u.photoURL||'',isAdmin:false,updatedAt:serverTimestamp()},{merge:true});
   loadProfile(u,name);loadMyEnrollments(u.uid);loadMyPdfs(u.uid);initChat(u);
-  loadProfile(u,name);loadMyEnrollments(u.uid);loadMyPdfs(u.uid);initChat(u);
 
-// 🔔 FCM Token collect (3 seconds पछि)
-setTimeout(() => {
-  if (window.collectFCMToken) {
-    window.collectFCMToken();
-  }
-}, 3000);
+  setTimeout(() => {
+    if (window.collectFCMToken) {
+      window.collectFCMToken();
+    }
+  }, 3000);
 }
 
 function showAdminApp(u){
@@ -966,7 +884,7 @@ setTimeout(()=>{if('Notification' in window&&Notification.permission==='default'
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getMessaging, onMessage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js";
 const cfg={apiKey:"AIzaSyCcKYUIL8mICWxEk7qdK6ucGHhqRS08BbA",authDomain:"digital-with-nabin-6ec1d.firebaseapp.com",projectId:"digital-with-nabin-6ec1d",storageBucket:"digital-with-nabin-6ec1d.firebasestorage.app",messagingSenderId:"602694608782",appId:"1:602694608782:web:62ce9fa1232de6187866df"};
-try{const a2=initializeApp(cfg,'fgNoti');const m=getMessaging(a2);onMessage(m,p=>{const t=p.notification?.title||'DWN';const b=p.notification?.body||'New';if(window.playNotificationBeep)window.playNotificationBeep();if(Notification.permission==='granted')new Notification(t,{body:b,icon:'https://i.ibb.co/3mF4Cw5H/28b9e198-7e61-4359-a0f5-fef54ae38743.jpg'});if(window.toast)toast(`💬 ${t}`);});}catch(e){}
+try{const a2=initializeApp(cfg,'fgNoti');const m=getMessaging(a2);onMessage(m,p=>{const t=p.notification?.title||'DWN';const b=p.notification?.body||'New';if(window.playNotificationBeep)window.playNotificationBeep();if(Notification.permission==='granted')new Notification(t,{body:b,icon:'https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png'});if(window.toast)toast(`💬 ${t}`);});}catch(e){}
 </script>
 </body>
 </html>
