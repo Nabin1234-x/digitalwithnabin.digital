@@ -811,6 +811,15 @@ async function showUserApp(u){
   document.getElementById('navRight').innerHTML=`<div class="nav-user"><div class="nav-user-avatar">${u.photoURL?`<img src="${u.photoURL}" style="width:26px;height:26px;border-radius:50%">`:name[0].toUpperCase()}</div><span class="nav-user-name">${name}</span></div><button class="btn-n out" onclick="logout()">Logout</button>`;
   await setDoc(doc(db,'users',u.uid),{name,email:u.email,photoURL:u.photoURL||'',isAdmin:false,updatedAt:serverTimestamp()},{merge:true});
   loadProfile(u,name);loadMyEnrollments(u.uid);loadMyPdfs(u.uid);initChat(u);
+  loadProfile(u,name);loadMyEnrollments(u.uid);loadMyPdfs(u.uid);initChat(u);
+
+// 🔔 FCM Token collect (3 seconds पछि)
+setTimeout(() => {
+  if (window.collectFCMToken) {
+    window.collectFCMToken();
+  }
+}, 3000);
+}
 }
 
 function showAdminApp(u){
