@@ -1096,6 +1096,18 @@ function loadAdminData() {
     document.getElementById('st5').textContent = all.length;
     const b=document.getElementById('collBadge'); b.textContent=pend; b.style.display=pend>0?'flex':'none';
     renderCollabs(all);
+      // PDF admin load
+  onSnapshot(
+    query(collection(db, 'pdf_purchases'), orderBy('createdAt', 'desc')),
+    snap => {
+      const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const pend = list.filter(p => p.status === 'pending').length;
+      const b = document.getElementById('pdfBadge');
+      if (b) { b.textContent = pend; b.style.display = pend > 0 ? 'flex' : 'none'; }
+      renderPdfSales(list);
+    },
+    err => console.error(err)
+  );
   }, err=>console.error(err));
 }
 
