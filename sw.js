@@ -1,4 +1,3 @@
-// Service Worker — force update
 const CACHE_NAME = 'dwn-v5';
 
 self.addEventListener('install', (event) => {
