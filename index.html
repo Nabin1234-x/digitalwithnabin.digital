@@ -407,22 +407,364 @@
       font-size: .78rem;
       font-weight: 700;
     }
-    @media(max-width:640px){
-      .navbar{padding:.7rem 1rem}
-      .nav-brand{font-size:1rem}
-      .nav-user-name{display:none}
-      .page{padding:1rem}
-      .hero-wrap{padding:1.2rem}
-      .hero-txt h2{font-size:1.5rem}
-      .h-avatar{width:100px;height:100px}
-      .sec-h{font-size:1.3rem}
-      .courses-grid{grid-template-columns:1fr}
-      .about-grid{flex-direction:column}
-      .stats-row{grid-template-columns:repeat(2,1fr)}
-      .chat-win{width:calc(100vw - 2.4rem);right:1.2rem}
-      .auth-card{border-radius:24px;padding:1.5rem}
-    }
-    @media(max-width:400px){.stats-row{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}}
+   /* ============================================================
+   📱 APP-LIKE RESPONSIVE — सबै device
+   ============================================================ */
+
+/* Global fix */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#userApp, #adminApp {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+/* Top tabs — HIDE (app-like) */
+.main-tabs {
+  display: none !important;
+}
+
+/* Bottom nav — SHOW */
+#bottomNav {
+  display: block !important;
+}
+
+/* ===== SMARTPHONE (< 768px) ===== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: .7rem 1rem !important;
+    max-width: 100vw !important;
+  }
+  
+  .nav-brand {
+    font-size: clamp(.85rem, 4vw, 1.05rem) !important;
+    max-width: 55% !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .nav-user-name {
+    display: none !important;
+  }
+  
+  .page {
+    padding: 1rem !important;
+    padding-bottom: 6rem !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  .hero-wrap {
+    flex-direction: column !important;
+    padding: 1.2rem !important;
+    width: 100% !important;
+    gap: 1rem !important;
+  }
+  
+  .hero-txt {
+    width: 100% !important;
+  }
+  
+  .hero-txt h2 {
+    font-size: clamp(1.3rem, 6vw, 1.6rem) !important;
+    line-height: 1.2 !important;
+    word-break: break-word;
+  }
+  
+  .h-avatar {
+    width: clamp(90px, 25vw, 110px) !important;
+    height: clamp(90px, 25vw, 110px) !important;
+  }
+  
+  .sec-h {
+    font-size: clamp(1.2rem, 5vw, 1.5rem) !important;
+  }
+  
+  .sec-sub {
+    font-size: .82rem !important;
+  }
+  
+  .courses-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    width: 100% !important;
+  }
+  
+  .course-card, .pdf-card, .card, .profile-card, 
+  .enr-card, .collab-card, .pdf-owned-card,
+  .enrollment-row, .settings-card, .qr-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1.2rem !important;
+  }
+  
+  .course-card h3, .pdf-card h3 {
+    font-size: clamp(.95rem, 4vw, 1.1rem) !important;
+    line-height: 1.3 !important;
+  }
+  
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: .7rem !important;
+    width: 100% !important;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .f-input, .field-input {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 16px !important;
+  }
+  
+  .hero-txt > div[style*="margin-top"] {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: .6rem !important;
+  }
+  
+  .hero-txt .btn-submit {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  .hero-stats {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  
+  .hero-stat {
+    flex: 1 1 calc(33.333% - .5rem) !important;
+    min-width: 80px !important;
+  }
+  
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .admin-tabs {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .admin-header {
+    flex-direction: column !important;
+    gap: .5rem !important;
+  }
+  
+  .chat-win {
+    width: calc(100vw - 2rem) !important;
+    right: 1rem !important;
+    left: 1rem !important;
+    bottom: 10rem !important;
+  }
+  
+  .float-chat-btn {
+    bottom: 5.5rem !important;
+    right: 1rem !important;
+  }
+  
+  .p-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  .pdf-owned-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  
+  .pdf-owned-card .btn-open-pdf,
+  .pdf-owned-card .pdf-pending-pill {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  .about-grid {
+    flex-direction: column !important;
+  }
+  
+  .qr-card img {
+    width: min(200px, 60vw) !important;
+  }
+  
+  .auth-card {
+    border-radius: 24px !important;
+    padding: 1.5rem !important;
+    max-width: 100% !important;
+  }
+  
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  h1, h2, h3, h4, h5, p, span, div, a, strong {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  
+  #bottomNav {
+    display: block !important;
+  }
+}
+
+/* ===== SMALL PHONES (< 400px) ===== */
+@media (max-width: 400px) {
+  .page {
+    padding: .7rem !important;
+    padding-bottom: 6rem !important;
+  }
+  
+  .navbar {
+    padding: .6rem .7rem !important;
+  }
+  
+  .nav-brand {
+    font-size: .85rem !important;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .hero-stat {
+    flex: 1 1 calc(50% - .5rem) !important;
+  }
+  
+  .stats-row {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .bnav span {
+    font-size: .52rem !important;
+  }
+  
+  .bnav i {
+    font-size: .95rem !important;
+  }
+}
+
+/* ===== TABLET (769px - 1024px) ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .page {
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    padding: 1.5rem !important;
+    padding-bottom: 6rem !important;
+  }
+  
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  
+  #bottomNav {
+    display: block !important;
+  }
+  
+  .main-tabs {
+    display: none !important;
+  }
+}
+
+/* ===== DESKTOP (1025px+) — App-like ===== */
+@media (min-width: 1025px) {
+  #bottomNav {
+    display: block !important;
+  }
+  
+  .main-tabs {
+    display: none !important;
+  }
+  
+  .page {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 1.5rem !important;
+    padding-bottom: 6rem !important;
+  }
+  
+  .courses-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  }
+  
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  
+  .hero-wrap {
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+  
+  .hero-txt {
+    flex: 1 !important;
+  }
+  
+  body::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #070c14;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background: rgba(42,255,158,.3);
+    border-radius: 6px;
+  }
+}
+
+/* ===== PWA standalone mode ===== */
+@media (display-mode: standalone), (display-mode: fullscreen) {
+  html, body {
+    overscroll-behavior: none !important;
+  }
+  
+  body {
+    padding-top: env(safe-area-inset-top) !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+  }
+  
+  .navbar {
+    padding-top: max(.7rem, env(safe-area-inset-top)) !important;
+  }
+  
+  #bottomNav {
+    padding-bottom: max(.5rem, env(safe-area-inset-bottom)) !important;
+  }
+  
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+  }
+  
+  input, textarea {
+    -webkit-user-select: text !important;
+    user-select: text !important;
+  }
+}
   </style>
 </head>
 <body>
