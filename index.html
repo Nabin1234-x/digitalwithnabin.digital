@@ -481,33 +481,51 @@
 
 <script>
   window.addEventListener('load', () => {
-    if (sessionStorage.getItem('splash_shown')) {
-      const s = document.getElementById('splashScreen');
-      if (s) s.style.display = 'none';
-      return;
+  const s = document.getElementById('splashScreen');
+  
+  // PWA mode check
+  const isPWA = window.matchMedia('(display-mode: standalone)').matches 
+                || window.navigator.standalone 
+                || document.referrer.includes('android-app://');
+  
+  // एक पटक मात्र splash
+  if (sessionStorage.getItem('splash_shown')) {
+    if (s) s.style.display = 'none';
+    return;
+  }
+  
+  sessionStorage.setItem('splash_shown', 'true');
+  
+  // PWA मा छिटो
+  const splashDuration = isPWA ? 600 : 1800;
+  
+  const text = 'DIGITAL & STOCK MENTOR';
+  const el = document.getElementById('spType');
+  let i = 0;
+  
+  setTimeout(() => {
+    const t = setInterval(() => {
+      if (i < text.length) el.textContent += text[i++];
+      else clearInterval(t);
+    }, 40);
+  }, 200);
+  
+  setTimeout(() => { 
+    const b = document.getElementById('spBar'); 
+    if (b) b.style.width = '100%'; 
+  }, 100);
+  
+  setTimeout(() => {
+    if (s) { 
+      s.style.transition = 'opacity .3s ease';
+      s.style.opacity = '0'; 
+      setTimeout(() => { 
+        s.style.display = 'none'; 
+        s.remove(); // पूरा हटाउनुस्
+      }, 300); 
     }
-    sessionStorage.setItem('splash_shown', 'true');
-    const text = 'DIGITAL & STOCK MENTOR';
-    const el = document.getElementById('spType');
-    let i = 0;
-    setTimeout(() => {
-      const t = setInterval(() => {
-        if (i < text.length) el.textContent += text[i++];
-        else clearInterval(t);
-      }, 70);
-    }, 700);
-    setTimeout(() => { 
-      const b = document.getElementById('spBar'); 
-      if (b) b.style.width = '100%'; 
-    }, 200);
-    setTimeout(() => {
-      const s = document.getElementById('splashScreen');
-      if (s) { 
-        s.style.opacity = '0'; 
-        setTimeout(() => s.style.display = 'none', 500); 
-      }
-    }, 2500);
-  });
+  }, splashDuration);
+});
 </script>
 <!-- SPLASH END -->
 <div class="gbg"></div>
