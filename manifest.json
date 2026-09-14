@@ -1,0 +1,40 @@
+{
+  "name": "Digital With Nabin",
+  "short_name": "DWN",
+  "description": "Learn Digital Marketing & Stock Market",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#070c14",
+  "theme_color": "#070c14",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["education", "business"],
+  "lang": "ne",
+  "dir": "ltr"
+}
