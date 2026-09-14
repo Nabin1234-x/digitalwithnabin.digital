@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dwn-v5';
+const CACHE_NAME = 'dwn-v6';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -19,6 +19,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
   event.respondWith(
     fetch(event.request).catch(() => caches.match(event.request))
   );
