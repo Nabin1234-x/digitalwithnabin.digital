@@ -1060,26 +1060,37 @@ const cfg={apiKey:"AIzaSyCcKYUIL8mICWxEk7qdK6ucGHhqRS08BbA",authDomain:"digital-
 try{const a2=initializeApp(cfg,'fgNoti');const m=getMessaging(a2);onMessage(m,p=>{const t=p.notification?.title||'DWN';const b=p.notification?.body||'New';if(window.playNotificationBeep)window.playNotificationBeep();if(Notification.permission==='granted')new Notification(t,{body:b,icon:'https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png'});if(window.toast)toast(`💬 ${t}`);});}catch(e){}
 </script>
   <script>
-// ================= OPEN TMS ACCOUNT =================
+// ================= OPEN TMS ACCOUNT (Advanced Modal) =================
 function openTMS() {
-    console.log('✅ openTMS called!');
-    
-    const confirmed = confirm(
-        '📊 Linch Stock Broker को Official C-KYC Form खोल्न लाग्दैछ।\n\n' +
-        '✅ 100% Online Process\n' +
-        '✅ २४ घण्टामा Account Active\n' +
-        '✅ Free Demat Account\n\n' +
-        'के तपाईं तयार हुनुहुन्छ?'
-    );
-    
-    if (confirmed) {
-        window.open(
-            'https://ckyc.linch.com.np/auth/individual-registration',
-            '_blank',
-            'noopener,noreferrer'
-        );
-    }
+    document.getElementById('tmsModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
 }
+
+function closeTMSModal() {
+    document.getElementById('tmsModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function confirmTMS() {
+    window.open(
+        'https://ckyc.linch.com.np/auth/individual-registration',
+        '_blank',
+        'noopener,noreferrer'
+    );
+    closeTMSModal();
+}
+
+setTimeout(function() {
+    var modal = document.getElementById('tmsModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) closeTMSModal();
+        });
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeTMSModal();
+    });
+}, 500);
 </script>
 </body>
 </html>
