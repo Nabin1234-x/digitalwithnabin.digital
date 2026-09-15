@@ -105,7 +105,6 @@ img{max-width:100%;height:auto}
 #splashScreen .bar{width:180px;height:3px;background:rgba(255,255,255,.08);border-radius:3px;margin:0 auto;overflow:hidden}
 #splashScreen .bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#2aff9e,#ffd966,#60a5fa);border-radius:3px;transition:width 2s ease}
 
-/* Splash Version v1.1 */
 .splash-version {
     display: block;
     background: linear-gradient(90deg, #2aff9e, #ffd966, #60a5fa, #a855f7, #2aff9e);
@@ -202,7 +201,6 @@ img{max-width:100%;height:auto}
 .qa-title{font-weight:800;font-size:.9rem;color:#fff}
 .qa-sub{font-size:.7rem;color:#7a8aaa}
 
-/* TMS Button Special */
 .tms-btn{background:linear-gradient(135deg,#2aff9e,#0fcc73) !important;border:none !important}
 .tms-btn .qa-icon{background:rgba(7,12,20,.3) !important;color:#070c14 !important}
 .tms-btn .qa-title{color:#070c14 !important;font-weight:900 !important}
@@ -659,7 +657,6 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
     <div class="sec-tag">📋 ENROLLMENT</div>
     <h2 class="sec-h">Complete Your <span>Enrollment</span></h2>
     <div class="sel-course-info" id="selCourseInfo"><i class="fas fa-check-circle" style="color:#2aff9e;font-size:1.1rem"></i><div><div style="font-size:.68rem;color:#7a8aaa">Selected</div><span class="course-name" id="selCourseName"></span></div><div style="margin-left:auto"><div style="font-size:.68rem;color:#7a8aaa">Amount</div><span class="course-amt" id="selCourseAmt"></span></div><button class="btn-sm out" onclick="showPage('courses')">Change</button></div>
-    <div id="noCourseHint" style="display:none;background:rgba(42,255,158,.06);border:1px solid rgba(42,255,158,.2);border-radius:16px;padding:1.1rem;text-align:center;margin-bottom:1rem"><i class="fas fa-exclamation-triangle" style="color:#2aff9e;font-size:1.3rem;display:block;margin-bottom:.4rem"></i><p style="color:#2aff9e;font-weight:700;margin-bottom:.3rem">No course selected</p><p style="color:#7a8aaa;font-size:.78rem;margin-bottom:.7rem">Please choose a course first</p><button class="btn-submit" onclick="showPage('courses')"><i class="fas fa-compass"></i> Browse Courses</button></div>
     <div id="enrollFlow" style="display:none">
       <div class="step-indicator"><div style="text-align:center"><div class="step-dot active" id="sdot1">1</div><div class="step-label">Details</div></div><div class="step-line" id="sline1"></div><div style="text-align:center"><div class="step-dot idle" id="sdot2">2</div><div class="step-label">Pay</div></div><div class="step-line" id="sline2"></div><div style="text-align:center"><div class="step-dot idle" id="sdot3">3</div><div class="step-label">Confirm</div></div></div>
       <div id="enrollStep1" style="background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:20px;padding:1.1rem"><h4 style="color:#2aff9e;margin-bottom:.9rem;font-size:.88rem"><i class="fas fa-user"></i> Your Details</h4><div class="form-grid"><div class="f-group"><label class="f-label">Full Name *</label><input type="text" id="eFullName" class="f-input" placeholder="Your Name"></div><div class="f-group"><label class="f-label">WhatsApp *</label><input type="tel" id="ePhone" class="f-input" placeholder="+977 98xxxxxxxx"></div><div class="f-group"><label class="f-label">Email *</label><input type="email" id="eEmail" class="f-input" placeholder="you@example.com"></div><div class="f-group"><label class="f-label">Address</label><input type="text" id="eAddr" class="f-input" placeholder="Kathmandu"></div></div><button class="btn-submit" onclick="proceedToPayment()"><i class="fas fa-qrcode"></i> Proceed to Payment</button></div>
@@ -741,7 +738,6 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
   <div>
     <button onclick="showPage('home');bnavSet('home')" class="bnav active" data-p="home"><i class="fas fa-home"></i><span>Home</span></button>
     <button onclick="showPage('courses');bnavSet('courses')" class="bnav" data-p="courses"><i class="fas fa-book"></i><span>Courses</span></button>
-    <button onclick="showPage('enroll');bnavSet('enroll')" class="bnav" data-p="enroll"><i class="fas fa-graduation-cap"></i><span>Enroll</span></button>
     <button onclick="showPage('collab');bnavSet('collab')" class="bnav" data-p="collab"><i class="fas fa-handshake"></i><span>Work</span></button>
     <button onclick="showPage('about');bnavSet('about')" class="bnav" data-p="about"><i class="fas fa-user-tie"></i><span>About</span></button>
     <button onclick="showPage('profile');bnavSet('profile')" class="bnav" data-p="profile"><i class="fas fa-user"></i><span>Profile</span></button>
@@ -907,7 +903,7 @@ function aMsg(m,t){const x=document.getElementById('authMsg');x.textContent=m;x.
 function fe(c){const m={'auth/user-not-found':'No account','auth/wrong-password':'Wrong password','auth/email-already-in-use':'Email used','auth/weak-password':'Too weak','auth/invalid-email':'Invalid email','auth/invalid-credential':'Wrong email/password','auth/network-request-failed':'Network error'};return m[c]||'Try again.';}
 
 window.showPage=function(id){document.querySelectorAll('#userApp .page').forEach(p=>p.classList.remove('active'));const p=document.getElementById('page-'+id);if(p){p.classList.add('active');window.scrollTo(0,0);}if(id==='enroll')refreshEnrollPageState();if(id==='about'&&!window._twStarted)startTw();};
-window.refreshEnrollPageState=function(){const h=!!window._selCourse;document.getElementById('selCourseInfo').style.display=h?'flex':'none';document.getElementById('noCourseHint').style.display=h?'none':'block';document.getElementById('enrollFlow').style.display=h?'block':'none';};
+window.refreshEnrollPageState=function(){const h=!!window._selCourse;document.getElementById('selCourseInfo').style.display=h?'flex':'none';document.getElementById('enrollFlow').style.display=h?'block':'none';};
 window.pickCourse=function(c){document.querySelectorAll('.course-card').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');window._selCourse=c.dataset.course;window._selPrice=c.dataset.price;window._selPdfId=null;document.getElementById('selCourseName').textContent=window._selCourse;document.getElementById('selCourseAmt').textContent=`Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;document.getElementById('qrAmount').textContent=`Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;showPage('enroll');goToEnrollStep(1);};
 window.pickPdfCourse=function(c){document.querySelectorAll('.course-card').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');window._selCourse=c.dataset.course;window._selPrice=c.dataset.price;window._selPdfId=c.dataset.pdf;document.getElementById('selCourseName').textContent=window._selCourse;document.getElementById('selCourseAmt').textContent=`Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;document.getElementById('qrAmount').textContent=`Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;showPage('enroll');goToEnrollStep(1);if(_user){const n=_user.displayName||_user.email.split('@')[0];document.getElementById('eFullName').value=n;document.getElementById('eEmail').value=_user.email;}toast(`📕 ${window._selCourse} selected!`);};
 window.buyPdfFromHome=function(name,price,pdfId){window._selCourse=name;window._selPrice=price;window._selPdfId=pdfId;document.getElementById('selCourseName').textContent=name;document.getElementById('selCourseAmt').textContent=`Rs. ${parseInt(price).toLocaleString('en-NP')}`;document.getElementById('qrAmount').textContent=`Rs. ${parseInt(price).toLocaleString('en-NP')}`;showPage('enroll');goToEnrollStep(1);if(_user){const n=_user.displayName||_user.email.split('@')[0];document.getElementById('eFullName').value=n;document.getElementById('eEmail').value=_user.email;}toast(`📕 ${name} selected!`);};
