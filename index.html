@@ -1092,5 +1092,73 @@ setTimeout(function() {
     });
 }, 500);
 </script>
+  <!-- ================= TMS MODAL ADVANCED ================= -->
+<div class="tms-modal-overlay" id="tmsModal">
+    <div class="tms-modal-box">
+        
+        <button class="tms-modal-close" onclick="closeTMSModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="tms-modal-glow"></div>
+        
+        <div class="tms-modal-header">
+            <div class="tms-modal-icon-wrap">
+                <div class="tms-modal-icon">📈</div>
+                <div class="tms-modal-icon-ring"></div>
+            </div>
+            <h3>Open TMS Account</h3>
+            <p class="tms-modal-subtitle">NEPSE मा Trading गर्न TMS Account अनिवार्य छ</p>
+        </div>
+        
+        <div class="tms-modal-info">
+            <div class="tms-info-row">
+                <span class="tms-info-label">🏦 Broker</span>
+                <span class="tms-info-value">Linch Stock Broker</span>
+            </div>
+            <div class="tms-info-row">
+                <span class="tms-info-label">📋 Process</span>
+                <span class="tms-info-value">100% Online C-KYC</span>
+            </div>
+            <div class="tms-info-row">
+                <span class="tms-info-label">⏱️ Time</span>
+                <span class="tms-info-value">२४ घण्टामा Active</span>
+            </div>
+            <div class="tms-info-row">
+                <span class="tms-info-label">💰 Cost</span>
+                <span class="tms-info-value" style="color:#2aff9e">FREE Demat</span>
+            </div>
+        </div>
+        
+        <div class="tms-modal-benefits">
+            <div class="tms-modal-benefit">
+                <span class="tms-benefit-icon">✅</span>
+                <span>SEBON Registered Broker</span>
+            </div>
+            <div class="tms-modal-benefit">
+                <span class="tms-benefit-icon">✅</span>
+                <span>Nabin को Referral Support</span>
+            </div>
+            <div class="tms-modal-benefit">
+                <span class="tms-benefit-icon">✅</span>
+                <span>१००% Free Process</span>
+            </div>
+        </div>
+        
+        <div class="tms-modal-actions">
+            <button class="tms-modal-btn cancel" onclick="closeTMSModal()">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+            <button class="tms-modal-btn confirm" onclick="confirmTMS()">
+                🚀 Continue →
+            </button>
+        </div>
+        
+        <p class="tms-modal-note">
+            🔒 Linch Stock Broker | SEBON Registered | Safe & Secure
+        </p>
+        
+    </div>
+</div>
 </body>
 </html>
