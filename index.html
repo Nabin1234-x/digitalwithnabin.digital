@@ -46,46 +46,28 @@
     window.collectFCMToken = async function() {
       try {
         const permission = await Notification.requestPermission();
-        if (permission !== 'granted') {
-          console.log('❌ Permission denied');
-          return;
-        }
-
+        if (permission !== 'granted') { console.log('❌ Permission denied'); return; }
         const vapidKey = 'BIhr3EPCpFXORgnQ7HpoEwCxRwmhXJCFoAVbrHmG47njXcrktKp2cl3LZBi0imprOMINPL-qsvsbO7G_4In1CA0';
-
         const token = await getToken(messaging, { vapidKey: vapidKey });
-        
-        if (!token) {
-          console.log('❌ No token');
-          return;
-        }
-        
+        if (!token) { console.log('❌ No token'); return; }
         console.log('✅ FCM Token:', token);
-
         const user = auth.currentUser;
         if (user) {
           await setDoc(doc(db, 'fcm_tokens', user.uid), {
-            token: token,
-            email: user.email,
+            token: token, email: user.email,
             name: user.displayName || user.email.split('@')[0],
             updatedAt: serverTimestamp()
           });
           console.log('✅ Token saved!');
         }
-      } catch (error) {
-        console.error('❌ FCM Error:', error);
-      }
+      } catch (error) { console.error('❌ FCM Error:', error); }
     };
 
     onMessage(messaging, (payload) => {
       console.log('📬 Foreground message:', payload);
-      if (window.toast) {
-        toast(`💬 ${payload.notification?.title || 'Notification'}`);
-      }
+      if (window.toast) { toast(`💬 ${payload.notification?.title || 'Notification'}`); }
     });
-  } catch (error) {
-    console.log('FCM setup error:', error);
-  }
+  } catch (error) { console.log('FCM setup error:', error); }
 </script>
 
 <style>
@@ -122,6 +104,25 @@ img{max-width:100%;height:auto}
 #splashScreen .stat .label{font-size:.55rem;color:#7a8aaa}
 #splashScreen .bar{width:180px;height:3px;background:rgba(255,255,255,.08);border-radius:3px;margin:0 auto;overflow:hidden}
 #splashScreen .bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#2aff9e,#ffd966,#60a5fa);border-radius:3px;transition:width 2s ease}
+
+/* Splash Version v1.1 */
+.splash-version {
+    display: block;
+    background: linear-gradient(90deg, #2aff9e, #ffd966, #60a5fa, #a855f7, #2aff9e);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    padding: 0.5rem 0;
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-top: 1.2rem;
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+}
 
 .auth-screen{display:none;min-height:100vh;align-items:center;justify-content:center;padding:1rem;flex-direction:column}
 .auth-screen.active{display:flex}
@@ -187,7 +188,7 @@ img{max-width:100%;height:auto}
 .stat-home .label{font-size:.6rem;color:#7a8aaa;text-transform:uppercase;letter-spacing:.5px}
 
 .qa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1.2rem}
-.qa-btn{background:linear-gradient(145deg,rgba(12,18,28,.95),rgba(20,28,42,.9));border:1px solid rgba(42,255,158,.15);border-radius:18px;padding:1.1rem 1rem;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:.5rem;transition:.25s}
+.qa-btn{background:linear-gradient(145deg,rgba(12,18,28,.95),rgba(20,28,42,.9));border:1px solid rgba(42,255,158,.15);border-radius:18px;padding:1.1rem 1rem;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:.5rem;transition:.25s;position:relative}
 .qa-btn:active{transform:scale(.97)}
 .qa-btn:nth-child(1){border-color:rgba(42,255,158,.2)}
 .qa-btn:nth-child(2){border-color:rgba(255,215,0,.2)}
@@ -200,6 +201,13 @@ img{max-width:100%;height:auto}
 .qa-btn:nth-child(4) .qa-icon{background:linear-gradient(135deg,#a855f7,#8b5cf6);color:#fff}
 .qa-title{font-weight:800;font-size:.9rem;color:#fff}
 .qa-sub{font-size:.7rem;color:#7a8aaa}
+
+/* TMS Button Special */
+.tms-btn{background:linear-gradient(135deg,#2aff9e,#0fcc73) !important;border:none !important}
+.tms-btn .qa-icon{background:rgba(7,12,20,.3) !important;color:#070c14 !important}
+.tms-btn .qa-title{color:#070c14 !important;font-weight:900 !important}
+.tms-btn .qa-sub{color:rgba(7,12,20,.7) !important}
+.tms-btn .badge-new{position:absolute;top:-8px;right:-8px;background:#ff4444;color:white;font-size:9px;padding:3px 8px;border-radius:10px;font-weight:800;z-index:5}
 
 .pdf-premium{background:linear-gradient(145deg,rgba(20,28,42,.98),rgba(12,18,28,.99));border-radius:20px;padding:1.2rem;margin-bottom:.8rem;cursor:pointer;position:relative;overflow:hidden;border:1.5px solid;transition:.3s}
 .pdf-premium::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:20px 20px 0 0}
@@ -435,6 +443,38 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .bnav span{font-size:clamp(.48rem,2vw,.58rem);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .bnav.active{color:#2aff9e}
 .bnav.active i{transform:translateY(-2px);filter:drop-shadow(0 0 8px rgba(42,255,158,.5))}
+
+/* ================= TMS MODAL (CENTERED) ================= */
+.tms-modal-overlay{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100vw!important;height:100vh!important;background:rgba(0,0,0,.9)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;z-index:9999999!important;display:none;align-items:center!important;justify-content:center!important;padding:1rem;margin:0!important}
+.tms-modal-overlay.open{display:flex!important}
+.tms-modal-box{background:linear-gradient(145deg,#0f1a28,#0a121e);border:1.5px solid rgba(42,255,158,.4);border-radius:28px;padding:1.8rem 1.5rem 1.5rem;max-width:440px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.9),0 0 60px rgba(42,255,158,.2);position:relative;margin:auto!important;animation:tmsSlideUp .4s ease-out}
+.tms-modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#2aff9e,#ffd966,#60a5fa,#a855f7)}
+@keyframes tmsSlideUp{from{opacity:0;transform:translateY(40px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.tms-modal-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.1);color:#7a8aaa;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;z-index:10;transition:.25s}
+.tms-modal-close:hover{background:rgba(255,80,80,.15);border-color:rgba(255,80,80,.4);color:#ff8080}
+.tms-modal-header{text-align:center;margin-bottom:1.3rem}
+.tms-modal-icon-wrap{position:relative;display:inline-block;margin-bottom:.8rem}
+.tms-modal-icon{font-size:3rem;display:block;animation:tmsIconFloat 3s ease-in-out infinite}
+@keyframes tmsIconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.tms-modal-icon-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;border:2px solid rgba(42,255,158,.3);animation:tmsRingPulse 2s infinite}
+@keyframes tmsRingPulse{0%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-50%) scale(1.6);opacity:0}}
+.tms-modal-header h3{font-size:1.35rem;font-weight:900;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;margin-bottom:.3rem}
+.tms-modal-subtitle{font-size:.78rem;color:#7a8aaa;line-height:1.5}
+.tms-modal-info{background:rgba(42,255,158,.04);border:1px solid rgba(42,255,158,.15);border-radius:16px;padding:.9rem 1rem;margin-bottom:1rem}
+.tms-info-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;font-size:.78rem;border-bottom:1px dashed rgba(42,255,158,.1)}
+.tms-info-row:last-child{border-bottom:none}
+.tms-info-label{color:#7a8aaa;font-weight:600}
+.tms-info-value{color:#cdd9ff;font-weight:700}
+.tms-modal-benefits{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.2rem}
+.tms-modal-benefit{display:flex;align-items:center;gap:.6rem;padding:.55rem .85rem;background:linear-gradient(90deg,rgba(42,255,158,.08),rgba(42,255,158,.02));border-left:3px solid #2aff9e;border-radius:0 12px 12px 0;font-size:.78rem;color:#cdd9ff;font-weight:600}
+.tms-modal-actions{display:grid;grid-template-columns:1fr 1.6fr;gap:.6rem;margin-bottom:.9rem}
+.tms-modal-btn{padding:.9rem 1rem;border-radius:24px;border:none;font-weight:800;font-size:.85rem;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:.25s}
+.tms-modal-btn.cancel{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);color:#7a8aaa}
+.tms-modal-btn.cancel:hover{background:rgba(255,80,80,.1);border-color:rgba(255,80,80,.3);color:#ff8080}
+.tms-modal-btn.confirm{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14;box-shadow:0 10px 30px rgba(42,255,158,.4)}
+.tms-modal-btn.confirm:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 15px 40px rgba(42,255,158,.6)}
+.tms-modal-note{text-align:center;font-size:.68rem;color:#3a4a5a;margin-top:.5rem}
+
 @media(min-width:769px){
   .page{padding:1.5rem;padding-bottom:6rem}
   .courses-grid{grid-template-columns:repeat(2,1fr)}
@@ -450,177 +490,11 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
   .courses-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
   .page{max-width:1200px}
 }
-/* ================= OPEN TMS ACCOUNT SECTION ================= */
-
-.tms-section {
-    padding: 2rem 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
-    margin: 1.5rem 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.tms-card {
-    background: #ffffff;
-    padding: 2rem 1.5rem;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    position: relative;
-    z-index: 1;
-}
-
-.tms-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tms-icon {
-    font-size: 2.5rem;
-}
-
-.tms-country {
-    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-}
-
-.tms-heading {
-    font-size: 1.6rem;
-    color: #1a1a2e;
-    margin: 0.8rem 0;
-    font-weight: 800;
-    line-height: 1.3;
-}
-
-.tms-highlight {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.tms-desc {
-    color: #666;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    margin: 0 auto 1.5rem;
-    max-width: 500px;
-}
-
-.tms-desc strong {
-    color: #764ba2;
-}
-
-.tms-benefits {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin: 1.5rem 0;
-    max-width: 550px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.tms-benefit {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    background: #f8f9ff;
-    border-radius: 10px;
-    font-size: 0.82rem;
-    color: #333;
-    font-weight: 600;
-    text-align: left;
-    border: 2px solid transparent;
-}
-
-.tms-benefit span {
-    font-size: 1rem;
-    flex-shrink: 0;
-}
-
-.tms-main-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 16px 40px;
-    border: none;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.45);
-    margin-top: 0.5rem;
-    font-family: inherit;
-}
-
-.tms-main-btn:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 18px 50px rgba(102, 126, 234, 0.6);
-}
-
-.tms-footer {
-    font-size: 0.72rem;
-    color: #999;
-    margin-top: 1.2rem;
-}
-
-@media (max-width: 600px) {
-    .tms-section {
-        padding: 1.5rem 0.8rem;
-        margin: 1rem 0;
-    }
-    
-    .tms-card {
-        padding: 1.5rem 1rem;
-    }
-    
-    .tms-heading {
-        font-size: 1.3rem;
-    }
-    
-    .tms-benefits {
-        grid-template-columns: 1fr;
-    }
-    
-    .tms-main-btn {
-        padding: 14px 25px;
-        font-size: 0.9rem;
-        width: 100%;
-    }
-    
-    .tms-header {
-        justify-content: center;
-    }
-}
-/* ================= SPLASH VERSION ================= */
-.splash-version {
-    display: block;
-    background: linear-gradient(90deg, #2aff9e, #ffd966, #60a5fa, #a855f7, #2aff9e);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    padding: 0.5rem 0;
-    font-size: 0.8rem;
-    font-weight: 900;
-    letter-spacing: 4px;
-    margin-top: 1.2rem;
-    text-align: center;
-    width: 100%;
-    text-transform: uppercase;
+@media(max-width:480px){
+  .tms-modal-box{padding:1.5rem 1.2rem 1.2rem;border-radius:24px}
+  .tms-modal-icon{font-size:2.5rem}
+  .tms-modal-header h3{font-size:1.15rem}
+  .tms-modal-btn{padding:.8rem .6rem;font-size:.78rem}
 }
 </style>
 </head>
@@ -639,7 +513,7 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
       <div class="stat"><div class="num">4 Yrs</div><div class="label">STOCK</div></div>
     </div>
     <div class="bar"><div class="bar-fill" id="spBar"></div></div>
-    <div class="splash-version">Version2.1</div>
+    <div class="splash-version">v1.1</div>
   </div>
 </div>
 
@@ -715,7 +589,7 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
     <div style="font-size:.78rem;font-weight:800;color:#2aff9e;letter-spacing:.5px;margin-bottom:.7rem;padding-left:.2rem">⚡ QUICK ACTIONS</div>
     <div class="qa-grid">
       <div class="qa-btn" onclick="showPage('courses')"><div class="qa-icon"><i class="fas fa-play"></i></div><div class="qa-title">Start Learning</div><div class="qa-sub">Browse all courses</div></div>
-<div class="qa-btn tms-btn" onclick="openTMS()"><div class="qa-icon"><i class="fas fa-chart-line"></i></div><div class="qa-title">Open TMS Account</div><div class="qa-sub">NEPSE Trading खोल्नुहोस्</div><span class="badge-new">NEW</span></div>
+      <div class="qa-btn tms-btn" onclick="openTMS()"><div class="qa-icon"><i class="fas fa-chart-line"></i></div><div class="qa-title">Open TMS Account</div><div class="qa-sub">NEPSE Trading खोल्नुहोस्</div><span class="badge-new">NEW</span></div>
       <div class="qa-btn" onclick="showPage('collab')"><div class="qa-icon"><i class="fas fa-handshake"></i></div><div class="qa-title">Work With Me</div><div class="qa-sub">Collaborate now</div></div>
       <div class="qa-btn" onclick="toggleChatWin()"><div class="qa-icon"><i class="fas fa-comments"></i></div><div class="qa-title">Live Chat</div><div class="qa-sub">Talk to mentor</div></div>
     </div>
@@ -874,6 +748,37 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
   </div>
 </div>
 
+<!-- ================= TMS MODAL ================= -->
+<div class="tms-modal-overlay" id="tmsModal">
+    <div class="tms-modal-box">
+        <button class="tms-modal-close" onclick="closeTMSModal()"><i class="fas fa-times"></i></button>
+        <div class="tms-modal-header">
+            <div class="tms-modal-icon-wrap">
+                <div class="tms-modal-icon">📈</div>
+                <div class="tms-modal-icon-ring"></div>
+            </div>
+            <h3>Open TMS Account</h3>
+            <p class="tms-modal-subtitle">NEPSE मा Trading गर्न TMS Account अनिवार्य छ</p>
+        </div>
+        <div class="tms-modal-info">
+            <div class="tms-info-row"><span class="tms-info-label">🏦 Broker</span><span class="tms-info-value">Linch Stock Broker</span></div>
+            <div class="tms-info-row"><span class="tms-info-label">📋 Process</span><span class="tms-info-value">100% Online C-KYC</span></div>
+            <div class="tms-info-row"><span class="tms-info-label">⏱️ Time</span><span class="tms-info-value">२४ घण्टामा Active</span></div>
+            <div class="tms-info-row"><span class="tms-info-label">💰 Cost</span><span class="tms-info-value" style="color:#2aff9e">FREE Demat</span></div>
+        </div>
+        <div class="tms-modal-benefits">
+            <div class="tms-modal-benefit"><span>✅</span><span>SEBON Registered Broker</span></div>
+            <div class="tms-modal-benefit"><span>✅</span><span>Nabin को Referral Support</span></div>
+            <div class="tms-modal-benefit"><span>✅</span><span>१००% Free Process</span></div>
+        </div>
+        <div class="tms-modal-actions">
+            <button class="tms-modal-btn cancel" onclick="closeTMSModal()"><i class="fas fa-times"></i> Cancel</button>
+            <button class="tms-modal-btn confirm" onclick="confirmTMS()">🚀 Continue →</button>
+        </div>
+        <p class="tms-modal-note">🔒 Linch Stock Broker | SEBON Registered | Safe & Secure</p>
+    </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
@@ -904,12 +809,7 @@ async function showUserApp(u){
   document.getElementById('navRight').innerHTML=`<div class="nav-user"><div class="nav-user-avatar">${u.photoURL?`<img src="${u.photoURL}" style="width:26px;height:26px;border-radius:50%">`:name[0].toUpperCase()}</div><span class="nav-user-name">${name}</span></div><button class="btn-n out" onclick="logout()">Logout</button>`;
   await setDoc(doc(db,'users',u.uid),{name,email:u.email,photoURL:u.photoURL||'',isAdmin:false,updatedAt:serverTimestamp()},{merge:true});
   loadProfile(u,name);loadMyEnrollments(u.uid);loadMyPdfs(u.uid);initChat(u);
-
-  setTimeout(() => {
-    if (window.collectFCMToken) {
-      window.collectFCMToken();
-    }
-  }, 3000);
+  setTimeout(() => { if (window.collectFCMToken) { window.collectFCMToken(); } }, 3000);
 }
 
 function showAdminApp(u){
@@ -941,9 +841,7 @@ async function submitEnrollment(){
   try{
     const base64=await fileToBase64(file);
     await addDoc(collection(db,'enrollments'),{userId:_user.uid,userName:name,phone,email,address:addr||'Not provided',courseName:course,amount:parseInt(price),paymentScreenshotBase64:base64,status:'pending',certificateIssued:false,createdAt:serverTimestamp()});
-    if(window._selPdfId){
-      await addDoc(collection(db,'pdf_purchases'),{userId:_user.uid,userName:name,email,phone,courseName:course,amount:parseInt(price),pdfId:window._selPdfId,paymentScreenshotBase64:base64,status:'pending',createdAt:serverTimestamp()});
-    }
+    if(window._selPdfId){ await addDoc(collection(db,'pdf_purchases'),{userId:_user.uid,userName:name,email,phone,courseName:course,amount:parseInt(price),pdfId:window._selPdfId,paymentScreenshotBase64:base64,status:'pending',createdAt:serverTimestamp()}); }
     goToEnrollStep(3);toast('🎉 Submitted!');
   }catch(e){console.error(e);toast('❌ '+e.message);}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Submit Enrollment';}
 }
@@ -1042,13 +940,8 @@ function twChar(){if(_ci<_tw[_li].length){_ce.textContent+=_tw[_li][_ci++];setTi
 <script>
 window.playNotificationBeep=function(){try{const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=800;o.type='sine';g.gain.setValueAtTime(.3,c.currentTime);g.gain.exponentialRampToValueAtTime(.01,c.currentTime+.2);o.start(c.currentTime);o.stop(c.currentTime+.2);}catch(e){}};
 if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?v=21')
-    .then(() => console.log('✅ Main SW registered'))
-    .catch(e => console.log('SW:', e));
-    
-  navigator.serviceWorker.register('/firebase-messaging-sw.js')
-    .then(() => console.log('✅ FCM SW registered'))
-    .catch(e => console.log('FCM SW:', e));
+  navigator.serviceWorker.register('/sw.js?v=21').then(() => console.log('✅ Main SW registered')).catch(e => console.log('SW:', e));
+  navigator.serviceWorker.register('/firebase-messaging-sw.js').then(() => console.log('✅ FCM SW registered')).catch(e => console.log('FCM SW:', e));
 }
 setTimeout(()=>{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission();},5000);
 </script>
@@ -1059,106 +952,36 @@ import { getMessaging, onMessage } from "https://www.gstatic.com/firebasejs/11.0
 const cfg={apiKey:"AIzaSyCcKYUIL8mICWxEk7qdK6ucGHhqRS08BbA",authDomain:"digital-with-nabin-6ec1d.firebaseapp.com",projectId:"digital-with-nabin-6ec1d",storageBucket:"digital-with-nabin-6ec1d.firebasestorage.app",messagingSenderId:"602694608782",appId:"1:602694608782:web:62ce9fa1232de6187866df"};
 try{const a2=initializeApp(cfg,'fgNoti');const m=getMessaging(a2);onMessage(m,p=>{const t=p.notification?.title||'DWN';const b=p.notification?.body||'New';if(window.playNotificationBeep)window.playNotificationBeep();if(Notification.permission==='granted')new Notification(t,{body:b,icon:'https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png'});if(window.toast)toast(`💬 ${t}`);});}catch(e){}
 </script>
-  <script>
+
+<script>
 // ================= OPEN TMS ACCOUNT (Advanced Modal) =================
 function openTMS() {
-    document.getElementById('tmsModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
+    var m = document.getElementById('tmsModal');
+    if (m) {
+        m.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    } else {
+        console.error('❌ tmsModal not found');
+    }
 }
-
 function closeTMSModal() {
-    document.getElementById('tmsModal').classList.remove('open');
-    document.body.style.overflow = '';
+    var m = document.getElementById('tmsModal');
+    if (m) {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+    }
 }
-
 function confirmTMS() {
-    window.open(
-        'https://ckyc.linch.com.np/auth/individual-registration',
-        '_blank',
-        'noopener,noreferrer'
-    );
+    window.open('https://ckyc.linch.com.np/auth/individual-registration','_blank','noopener,noreferrer');
     closeTMSModal();
 }
-
-setTimeout(function() {
+document.addEventListener('DOMContentLoaded', function() {
     var modal = document.getElementById('tmsModal');
     if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) closeTMSModal();
-        });
+        modal.addEventListener('click', function(e) { if (e.target === this) closeTMSModal(); });
     }
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeTMSModal();
-    });
-}, 500);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeTMSModal(); });
+});
 </script>
-  <!-- ================= TMS MODAL ADVANCED ================= -->
-<div class="tms-modal-overlay" id="tmsModal">
-    <div class="tms-modal-box">
-        
-        <button class="tms-modal-close" onclick="closeTMSModal()">
-            <i class="fas fa-times"></i>
-        </button>
-        
-        <div class="tms-modal-glow"></div>
-        
-        <div class="tms-modal-header">
-            <div class="tms-modal-icon-wrap">
-                <div class="tms-modal-icon">📈</div>
-                <div class="tms-modal-icon-ring"></div>
-            </div>
-            <h3>Open TMS Account</h3>
-            <p class="tms-modal-subtitle">NEPSE मा Trading गर्न TMS Account अनिवार्य छ</p>
-        </div>
-        
-        <div class="tms-modal-info">
-            <div class="tms-info-row">
-                <span class="tms-info-label">🏦 Broker</span>
-                <span class="tms-info-value">Linch Stock Broker</span>
-            </div>
-            <div class="tms-info-row">
-                <span class="tms-info-label">📋 Process</span>
-                <span class="tms-info-value">100% Online C-KYC</span>
-            </div>
-            <div class="tms-info-row">
-                <span class="tms-info-label">⏱️ Time</span>
-                <span class="tms-info-value">२४ घण्टामा Active</span>
-            </div>
-            <div class="tms-info-row">
-                <span class="tms-info-label">💰 Cost</span>
-                <span class="tms-info-value" style="color:#2aff9e">FREE Demat</span>
-            </div>
-        </div>
-        
-        <div class="tms-modal-benefits">
-            <div class="tms-modal-benefit">
-                <span class="tms-benefit-icon">✅</span>
-                <span>SEBON Registered Broker</span>
-            </div>
-            <div class="tms-modal-benefit">
-                <span class="tms-benefit-icon">✅</span>
-                <span>Nabin को Referral Support</span>
-            </div>
-            <div class="tms-modal-benefit">
-                <span class="tms-benefit-icon">✅</span>
-                <span>१००% Free Process</span>
-            </div>
-        </div>
-        
-        <div class="tms-modal-actions">
-            <button class="tms-modal-btn cancel" onclick="closeTMSModal()">
-                <i class="fas fa-times"></i> Cancel
-            </button>
-            <button class="tms-modal-btn confirm" onclick="confirmTMS()">
-                🚀 Continue →
-            </button>
-        </div>
-        
-        <p class="tms-modal-note">
-            🔒 Linch Stock Broker | SEBON Registered | Safe & Secure
-        </p>
-        
-    </div>
-</div>
 </body>
 </html>
