@@ -14,13 +14,13 @@
   "id": "/?source=pwa",
   "icons": [
     {
-      "src": "https://kommodo.ai/i/wuZH8kP9ia10O8j3dgpb",
+      "src": "https://i.ibb.co/h1rTtvKM/resize.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://kommodo.ai/i/WJSdb8zZDh4XBPBngQxY",
+      "src": "https://i.ibb.co/PsR3wLMd/resize-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
@@ -28,7 +28,7 @@
   ],
   "screenshots": [
     {
-      "src": "https://kommodo.ai/i/wuZH8kP9ia10O8j3dgpb",
+      "src": "https://i.ibb.co/h1rTtvKM/resize.png",
       "sizes": "192x192",
       "type": "image/png",
       "form_factor": "narrow"
