@@ -494,6 +494,93 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
   .tms-modal-header h3{font-size:1.15rem}
   .tms-modal-btn{padding:.8rem .6rem;font-size:.78rem}
 }
+  /* ================= SETTINGS LINKS ================= */
+.settings-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.settings-link {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: rgba(12,18,28,.85);
+  border: 1.5px solid rgba(42,255,158,.15);
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+  text-decoration: none;
+  color: #eef2ff;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.settings-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #2aff9e, #0fcc73);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.settings-link:hover {
+  background: rgba(42,255,158,.08);
+  border-color: #2aff9e;
+  transform: translateX(4px);
+  box-shadow: 0 8px 25px rgba(42,255,158,.15);
+}
+
+.settings-link:hover::before {
+  opacity: 1;
+}
+
+.sl-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #070c14;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+}
+
+.sl-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.sl-text strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.15rem;
+}
+
+.sl-text span {
+  font-size: 0.72rem;
+  color: #7a8aaa;
+}
+
+.sl-arrow {
+  color: #7a8aaa;
+  font-size: 0.85rem;
+  transition: transform 0.25s;
+}
+
+.settings-link:hover .sl-arrow {
+  color: #2aff9e;
+  transform: translateX(4px);
+}
 </style>
 </head>
 <body>
