@@ -5,131 +5,152 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>About Us — Digital With Nabin</title>
 <meta name="theme-color" content="#070c14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="About">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-html{font-size:16px;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{background:#070c14;color:#eef2ff;min-height:100vh;padding:1rem;padding-bottom:4rem;line-height:1.7}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#070c14}::-webkit-scrollbar-thumb{background:#2aff9e60;border-radius:4px}
-.container{max-width:780px;margin:0 auto}
-.back-btn{display:inline-flex;align-items:center;gap:.5rem;background:rgba(42,255,158,.1);border:1.5px solid #2aff9e;color:#2aff9e;padding:.6rem 1.2rem;border-radius:10px;text-decoration:none;font-size:.85rem;margin-bottom:1.5rem;font-weight:700;transition:.25s}
-.back-btn:hover{background:#2aff9e;color:#070c14}
-.header{text-align:center;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(42,255,158,.15)}
-.header h1{font-size:clamp(1.4rem,6vw,2rem);font-weight:900;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.5rem}
-.header p{color:#7a8aaa;font-size:.82rem}
-.header .badge{display:inline-block;background:rgba(42,255,158,.1);border:1px solid rgba(42,255,158,.3);color:#2aff9e;padding:.25rem .8rem;border-radius:30px;font-size:.68rem;font-weight:800;letter-spacing:1px;margin-bottom:.8rem}
-.profile{text-align:center;margin-bottom:2rem;padding:1.5rem;background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.15);border-radius:20px}
-.avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#ffd966);padding:3px;margin:0 auto 1rem;overflow:hidden}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif}
+html{font-size:16px;-webkit-text-size-adjust:100%;scroll-behavior:smooth;overscroll-behavior-y:none}
+body{background:#070c14;color:#eef2ff;min-height:100vh;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom);line-height:1.7}
+.app-nav{position:fixed;top:0;left:0;right:0;z-index:800;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(7,12,20,.92);border-bottom:1px solid rgba(42,255,158,.15);padding:.7rem 1rem;padding-top:max(.7rem,env(safe-area-inset-top));display:flex;align-items:center;gap:.6rem;min-height:58px}
+.nav-back{background:rgba(42,255,158,.08);border:1.5px solid rgba(42,255,158,.3);color:#2aff9e;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;cursor:pointer;flex-shrink:0;transition:.2s;text-decoration:none}
+.nav-back:active{transform:scale(.92);background:#2aff9e;color:#070c14}
+.nav-title{flex:1;font-size:.95rem;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-title small{display:block;font-size:.62rem;color:#7a8aaa;font-weight:500;letter-spacing:.5px;margin-top:1px}
+.nav-brand{font-size:.62rem;font-weight:800;color:#2aff9e;background:rgba(42,255,158,.1);border:1px solid rgba(42,255,158,.25);padding:.2rem .5rem;border-radius:30px;letter-spacing:1px;flex-shrink:0}
+.load-bar{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#2aff9e,#ffd966);z-index:9999;transition:width .4s ease,opacity .4s}
+.container{max-width:780px;margin:0 auto;padding:1.2rem 1rem 4rem;padding-top:calc(78px + env(safe-area-inset-top));animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.header{text-align:center;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(42,255,158,.15)}
+.header h1{font-size:clamp(1.3rem,5.5vw,1.7rem);font-weight:900;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.4rem}
+.header p{color:#7a8aaa;font-size:.78rem}
+.header .badge{display:inline-block;background:rgba(42,255,158,.1);border:1px solid rgba(42,255,158,.3);color:#2aff9e;padding:.22rem .7rem;border-radius:30px;font-size:.65rem;font-weight:800;letter-spacing:1px;margin-bottom:.6rem}
+.profile{text-align:center;margin-bottom:1.5rem;padding:1.3rem;background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.15);border-radius:20px}
+.avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#2aff9e,#ffd966);padding:3px;margin:0 auto 1rem;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.profile h2{font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:.3rem}
-.profile .role{color:#2aff9e;font-size:.82rem;font-weight:700;letter-spacing:1px;margin-bottom:.8rem}
-.profile .quote{color:#cdd9ff;font-size:.85rem;font-style:italic;max-width:500px;margin:0 auto}
-.section{background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:16px;padding:1.5rem;margin-bottom:1.2rem}
-.section h2{font-size:1.05rem;font-weight:800;color:#2aff9e;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
-.section p{color:#cdd9ff;font-size:.88rem;margin-bottom:.8rem}
-.section ul{list-style:none;padding-left:0;margin-bottom:.8rem}
-.section ul li{color:#cdd9ff;font-size:.86rem;padding:.45rem 0 .45rem 1.6rem;position:relative}
-.section ul li::before{content:'✓';position:absolute;left:.3rem;color:#2aff9e;font-weight:900;font-size:.9rem}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1rem}
-.stat{background:rgba(42,255,158,.06);border:1px solid rgba(42,255,158,.2);border-radius:14px;padding:1rem .5rem;text-align:center}
-.stat .num{font-size:1.3rem;font-weight:900;color:#2aff9e;display:block}
-.stat .lbl{font-size:.68rem;color:#7a8aaa;text-transform:uppercase;letter-spacing:.5px}
-.course-grid{display:grid;grid-template-columns:1fr;gap:.7rem}
-.course-item{background:rgba(0,0,0,.3);border:1px solid rgba(42,255,158,.15);border-radius:14px;padding:.9rem 1rem;display:flex;align-items:center;gap:.8rem}
-.course-item .c-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#2aff9e,#0fcc73);display:flex;align-items:center;justify-content:center;color:#070c14;font-size:1.1rem;flex-shrink:0}
-.course-item .c-info strong{display:block;font-size:.86rem;color:#fff;margin-bottom:.15rem}
-.course-item .c-info span{font-size:.72rem;color:#7a8aaa}
+.profile h2{font-size:1.3rem;font-weight:900;color:#fff;margin-bottom:.25rem}
+.profile .role{color:#2aff9e;font-size:.78rem;font-weight:700;letter-spacing:1px;margin-bottom:.7rem}
+.profile .quote{color:#cdd9ff;font-size:.82rem;font-style:italic;max-width:500px;margin:0 auto}
+.section{background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:16px;padding:1.3rem;margin-bottom:1rem}
+.section h2{font-size:1rem;font-weight:800;color:#2aff9e;margin-bottom:.9rem;display:flex;align-items:center;gap:.55rem}
+.section p{color:#cdd9ff;font-size:.85rem;margin-bottom:.7rem}
+.section ul{list-style:none;padding-left:0;margin-bottom:.7rem}
+.section ul li{color:#cdd9ff;font-size:.84rem;padding:.4rem 0 .4rem 1.5rem;position:relative}
+.section ul li::before{content:'✓';position:absolute;left:.2rem;color:#2aff9e;font-weight:900;font-size:.85rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.8rem}
+.stat{background:rgba(42,255,158,.06);border:1px solid rgba(42,255,158,.2);border-radius:14px;padding:.9rem .4rem;text-align:center}
+.stat .num{font-size:1.2rem;font-weight:900;color:#2aff9e;display:block}
+.stat .lbl{font-size:.62rem;color:#7a8aaa;text-transform:uppercase;letter-spacing:.5px}
+.course-grid{display:grid;grid-template-columns:1fr;gap:.6rem}
+.course-item{background:rgba(0,0,0,.3);border:1px solid rgba(42,255,158,.15);border-radius:14px;padding:.85rem .9rem;display:flex;align-items:center;gap:.7rem}
+.course-item .c-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#2aff9e,#0fcc73);display:flex;align-items:center;justify-content:center;color:#070c14;font-size:1.05rem;flex-shrink:0}
+.course-item .c-info strong{display:block;font-size:.84rem;color:#fff;margin-bottom:.1rem}
+.course-item .c-info span{font-size:.7rem;color:#7a8aaa}
 .contact-box{background:rgba(42,255,158,.06);border:1px solid rgba(42,255,158,.2);border-radius:14px;padding:1rem;text-align:center;margin-top:1rem}
-.contact-box a{color:#2aff9e;font-weight:700;text-decoration:none;word-break:break-all;font-size:.85rem}
-.footer{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(42,255,158,.15);color:#7a8aaa;font-size:.78rem}
+.contact-box a{color:#2aff9e;font-weight:700;text-decoration:none;word-break:break-all;font-size:.83rem}
+.footer{text-align:center;margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(42,255,158,.15);color:#7a8aaa;font-size:.74rem}
 .footer a{color:#2aff9e;text-decoration:none}
 @media(min-width:600px){.course-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
+
+<div class="load-bar" id="loadBar"></div>
+
+<nav class="app-nav">
+  <a href="./" class="nav-back"><i class="fas fa-arrow-left"></i></a>
+  <div class="nav-title">About Us<small>Our story & mission</small></div>
+  <span class="nav-brand">DWN</span>
+</nav>
+
 <div class="container">
-<a href="./" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
-<div class="header">
-  <div class="badge">ABOUT</div>
-  <h1>👨‍💻 About Us</h1>
-  <p>Digital With Nabin</p>
-</div>
+  <div class="header">
+    <div class="badge">ABOUT</div>
+    <h1>👨‍💻 About Us</h1>
+    <p>Digital With Nabin</p>
+  </div>
 
-<div class="profile">
-  <div class="avatar"><img src="https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg" alt="Nabin"></div>
-  <h2>Nabin Khanal</h2>
-  <div class="role">DIGITAL & STOCK MENTOR</div>
-  <p class="quote">"Learn by doing — master digital & stock with real-world experience."</p>
-</div>
+  <div class="profile">
+    <div class="avatar"><img src="https://i.postimg.cc/xTSszSb2/fb-photo-nabin.jpg" alt="Nabin"></div>
+    <h2>Nabin Khanal</h2>
+    <div class="role">DIGITAL & STOCK MENTOR</div>
+    <p class="quote">"Learn by doing — master digital & stock with real-world experience."</p>
+  </div>
 
-<div class="section">
-  <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
-  <p>We help Nepali learners master <strong>digital marketing</strong>, <strong>stock market</strong>, and <strong>forex trading</strong> through practical, affordable, and result-oriented courses.</p>
-  <p>Our goal is simple: make quality financial and digital education accessible to every Nepali.</p>
-</div>
+  <div class="section">
+    <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
+    <p>We help Nepali learners master <strong>digital marketing</strong>, <strong>stock market</strong>, and <strong>forex trading</strong> through practical, affordable, and result-oriented courses.</p>
+    <p>Our goal is simple: make quality financial and digital education accessible to every Nepali.</p>
+  </div>
 
-<div class="section">
-  <h2><i class="fas fa-chart-line"></i> Our Numbers</h2>
-  <div class="stats">
-    <div class="stat"><span class="num">250+</span><span class="lbl">Members</span></div>
-    <div class="stat"><span class="num">3+ Yrs</span><span class="lbl">Digital</span></div>
-    <div class="stat"><span class="num">4 Yrs</span><span class="lbl">Stock</span></div>
+  <div class="section">
+    <h2><i class="fas fa-chart-line"></i> Our Numbers</h2>
+    <div class="stats">
+      <div class="stat"><span class="num">250+</span><span class="lbl">Members</span></div>
+      <div class="stat"><span class="num">3+ Yrs</span><span class="lbl">Digital</span></div>
+      <div class="stat"><span class="num">4 Yrs</span><span class="lbl">Stock</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-graduation-cap"></i> What We Offer</h2>
+    <div class="course-grid">
+      <div class="course-item">
+        <div class="c-icon"><i class="fas fa-bullhorn"></i></div>
+        <div class="c-info"><strong>Digital Marketing</strong><span>Facebook, TikTok, Instagram Ads</span></div>
+      </div>
+      <div class="course-item">
+        <div class="c-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="c-info"><strong>Stock Market</strong><span>NEPSE Analysis & Trading</span></div>
+      </div>
+      <div class="course-item">
+        <div class="c-icon"><i class="fas fa-coins"></i></div>
+        <div class="c-info"><strong>Forex Trading</strong><span>Complete Forex Guide</span></div>
+      </div>
+      <div class="course-item">
+        <div class="c-icon"><i class="fas fa-file-pdf"></i></div>
+        <div class="c-info"><strong>PDF Resources</strong><span>Cheat Sheets & Books</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-star"></i> Why Choose Us?</h2>
+    <ul>
+      <li>Practical, real-world training</li>
+      <li>Live ad practice & market analysis</li>
+      <li>Lifetime access to courses</li>
+      <li>1-on-1 mentoring available</li>
+      <li>Industry-recognized certificates</li>
+      <li>Nepali language support</li>
+      <li>Active community of 250+ members</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-user-tie"></i> About Nabin Khanal</h2>
+    <p>Nabin Khanal is a <strong>digital marketing strategist</strong> and <strong>stock market analyst</strong> with over 3 years of experience in digital marketing and 4 years in stock market trading.</p>
+    <p>He has helped 250+ Nepali students learn practical skills in Facebook Ads, NEPSE trading, and forex strategies.</p>
+    <p>His teaching philosophy is simple: <strong>"Learn by doing — theory alone is not enough."</strong></p>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-envelope"></i> Connect With Us</h2>
+    <div class="contact-box">
+      <a href="mailto:nabinkhanal0007@gmail.com"><i class="fas fa-envelope"></i> nabinkhanal0007@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2026 <a href="./">Digital With Nabin</a>. All rights reserved.</p>
   </div>
 </div>
 
-<div class="section">
-  <h2><i class="fas fa-graduation-cap"></i> What We Offer</h2>
-  <div class="course-grid">
-    <div class="course-item">
-      <div class="c-icon"><i class="fas fa-bullhorn"></i></div>
-      <div class="c-info"><strong>Digital Marketing</strong><span>Facebook, TikTok, Instagram Ads</span></div>
-    </div>
-    <div class="course-item">
-      <div class="c-icon"><i class="fas fa-chart-line"></i></div>
-      <div class="c-info"><strong>Stock Market</strong><span>NEPSE Analysis & Trading</span></div>
-    </div>
-    <div class="course-item">
-      <div class="c-icon"><i class="fas fa-coins"></i></div>
-      <div class="c-info"><strong>Forex Trading</strong><span>Complete Forex Guide</span></div>
-    </div>
-    <div class="course-item">
-      <div class="c-icon"><i class="fas fa-file-pdf"></i></div>
-      <div class="c-info"><strong>PDF Resources</strong><span>Cheat Sheets & Books</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="section">
-  <h2><i class="fas fa-star"></i> Why Choose Us?</h2>
-  <ul>
-    <li>Practical, real-world training</li>
-    <li>Live ad practice & market analysis</li>
-    <li>Lifetime access to courses</li>
-    <li>1-on-1 mentoring available</li>
-    <li>Industry-recognized certificates</li>
-    <li>Nepali language support</li>
-    <li>Active community of 250+ members</li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2><i class="fas fa-user-tie"></i> About Nabin Khanal</h2>
-  <p>Nabin Khanal is a <strong>digital marketing strategist</strong> and <strong>stock market analyst</strong> with over 3 years of experience in digital marketing and 4 years in stock market trading.</p>
-  <p>He has helped 250+ Nepali students learn practical skills in Facebook Ads, NEPSE trading, and forex strategies.</p>
-  <p>His teaching philosophy is simple: <strong>"Learn by doing — theory alone is not enough."</strong></p>
-</div>
-
-<div class="section">
-  <h2><i class="fas fa-envelope"></i> Connect With Us</h2>
-  <div class="contact-box">
-    <a href="mailto:nabinkhanal0007@gmail.com"><i class="fas fa-envelope"></i> nabinkhanal0007@gmail.com</a>
-  </div>
-</div>
-
-<div class="footer">
-  <p>© 2026 <a href="./">Digital With Nabin</a>. All rights reserved.</p>
-</div>
-</div>
+<script>
+window.addEventListener('load',()=>{const b=document.getElementById('loadBar');b.style.width='100%';setTimeout(()=>{b.style.opacity='0';},400);});
+</script>
 </body>
 </html>
