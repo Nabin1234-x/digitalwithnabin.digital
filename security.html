@@ -5,122 +5,151 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Security — Digital With Nabin</title>
 <meta name="theme-color" content="#070c14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Security">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-html{font-size:16px;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{background:#070c14;color:#eef2ff;min-height:100vh;padding:1rem;padding-bottom:4rem;line-height:1.7}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#070c14}::-webkit-scrollbar-thumb{background:#60a5fa60;border-radius:4px}
-.container{max-width:780px;margin:0 auto}
-.back-btn{display:inline-flex;align-items:center;gap:.5rem;background:rgba(96,165,250,.1);border:1.5px solid #60a5fa;color:#60a5fa;padding:.6rem 1.2rem;border-radius:10px;text-decoration:none;font-size:.85rem;margin-bottom:1.5rem;font-weight:700;transition:.25s}
-.back-btn:hover{background:#60a5fa;color:#070c14}
-.header{text-align:center;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(96,165,250,.15)}
-.header h1{font-size:clamp(1.4rem,6vw,2rem);font-weight:900;background:linear-gradient(135deg,#60a5fa,#2aff9e);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.5rem}
-.header p{color:#7a8aaa;font-size:.82rem}
-.header .badge{display:inline-block;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.3);color:#60a5fa;padding:.25rem .8rem;border-radius:30px;font-size:.68rem;font-weight:800;letter-spacing:1px;margin-bottom:.8rem}
-.section{background:rgba(12,18,28,.8);border:1px solid rgba(96,165,250,.12);border-radius:16px;padding:1.5rem;margin-bottom:1.2rem}
-.section:hover{border-color:rgba(96,165,250,.25)}
-.section h2{font-size:1.05rem;font-weight:800;color:#60a5fa;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
-.section p{color:#cdd9ff;font-size:.86rem;margin-bottom:.8rem}
-.section ul{list-style:none;padding-left:0;margin-bottom:.8rem}
-.section ul li{color:#cdd9ff;font-size:.86rem;padding:.45rem 0 .45rem 1.6rem;position:relative}
-.section ul li::before{content:'✓';position:absolute;left:.3rem;color:#60a5fa;font-weight:900;font-size:.9rem}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif}
+html{font-size:16px;-webkit-text-size-adjust:100%;scroll-behavior:smooth;overscroll-behavior-y:none}
+body{background:#070c14;color:#eef2ff;min-height:100vh;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom);line-height:1.7}
+.app-nav{position:fixed;top:0;left:0;right:0;z-index:800;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(7,12,20,.92);border-bottom:1px solid rgba(96,165,250,.15);padding:.7rem 1rem;padding-top:max(.7rem,env(safe-area-inset-top));display:flex;align-items:center;gap:.6rem;min-height:58px}
+.nav-back{background:rgba(96,165,250,.08);border:1.5px solid rgba(96,165,250,.3);color:#60a5fa;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;cursor:pointer;flex-shrink:0;transition:.2s;text-decoration:none}
+.nav-back:active{transform:scale(.92);background:#60a5fa;color:#070c14}
+.nav-title{flex:1;font-size:.95rem;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-title small{display:block;font-size:.62rem;color:#7a8aaa;font-weight:500;letter-spacing:.5px;margin-top:1px}
+.nav-brand{font-size:.62rem;font-weight:800;color:#60a5fa;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.25);padding:.2rem .5rem;border-radius:30px;letter-spacing:1px;flex-shrink:0}
+.load-bar{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#60a5fa,#2aff9e);z-index:9999;transition:width .4s ease,opacity .4s}
+.container{max-width:780px;margin:0 auto;padding:1.2rem 1rem 4rem;padding-top:calc(78px + env(safe-area-inset-top));animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.header{text-align:center;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(96,165,250,.15)}
+.header h1{font-size:clamp(1.3rem,5.5vw,1.7rem);font-weight:900;background:linear-gradient(135deg,#60a5fa,#2aff9e);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.4rem}
+.header p{color:#7a8aaa;font-size:.78rem}
+.header .badge{display:inline-block;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.3);color:#60a5fa;padding:.22rem .7rem;border-radius:30px;font-size:.65rem;font-weight:800;letter-spacing:1px;margin-bottom:.6rem}
+.section{background:rgba(12,18,28,.8);border:1px solid rgba(96,165,250,.12);border-radius:16px;padding:1.3rem;margin-bottom:1rem}
+.section h2{font-size:1rem;font-weight:800;color:#60a5fa;margin-bottom:.8rem;display:flex;align-items:center;gap:.55rem}
+.section p{color:#cdd9ff;font-size:.84rem;margin-bottom:.7rem}
+.section ul{list-style:none;padding-left:0;margin-bottom:.7rem}
+.section ul li{color:#cdd9ff;font-size:.84rem;padding:.4rem 0 .4rem 1.5rem;position:relative}
+.section ul li::before{content:'✓';position:absolute;left:.2rem;color:#60a5fa;font-weight:900;font-size:.85rem}
 .contact-box{background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.2);border-radius:14px;padding:1rem;text-align:center;margin-top:1rem}
-.contact-box a{color:#60a5fa;font-weight:700;text-decoration:none;word-break:break-all;font-size:.85rem}
-.footer{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(96,165,250,.15);color:#7a8aaa;font-size:.78rem}
+.contact-box a{color:#60a5fa;font-weight:700;text-decoration:none;word-break:break-all;font-size:.83rem}
+.footer{text-align:center;margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(96,165,250,.15);color:#7a8aaa;font-size:.74rem}
 .footer a{color:#60a5fa;text-decoration:none}
 </style>
 </head>
 <body>
+
+<div class="load-bar" id="loadBar"></div>
+
+<nav class="app-nav">
+  <a href="./" class="nav-back"><i class="fas fa-arrow-left"></i></a>
+  <div class="nav-title">Security<small>How we protect your data</small></div>
+  <span class="nav-brand">DWN</span>
+</nav>
+
 <div class="container">
-<a href="./" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
-<div class="header">
-  <div class="badge">SECURITY</div>
-  <h1>🛡️ Security</h1>
-  <p>Digital With Nabin — Last Updated: September 18, 2026</p>
-</div>
-<div class="section">
-  <h2><i class="fas fa-shield-halved"></i> 1. Our Security Commitment</h2>
-  <p>At <strong>Digital With Nabin</strong>, your security is our top priority. We use enterprise-grade infrastructure and industry best practices to keep your personal data safe.</p>
-</div>
-<div class="section">
-  <h2><i class="fas fa-key"></i> 2. Account Security</h2>
-  <ul>
-    <li>Passwords must be at least 6 characters</li>
-    <li>Passwords are hashed and salted</li>
-    <li>Session tokens are managed securely</li>
-    <li>Suspicious login attempts are monitored</li>
-    <li>Account lockout on multiple failed attempts</li>
-  </ul>
-</div>
-<div class="section">
-  <h2><i class="fas fa-credit-card"></i> 3. Payment Security</h2>
-  <ul>
-    <li>Payments via eSewa QR (secure wallet)</li>
-    <li>We never store your bank or card details</li>
-    <li>Only payment screenshots are kept for verification</li>
-    <li>Manual verification by admin before access</li>
-    <li>All transactions are logged for audit</li>
-  </ul>
-</div>
-<div class="section">
-  <h2><i class="fas fa-server"></i> 4. Infrastructure Security</h2>
-  <ul>
-    <li>Powered by Google Firebase (enterprise-grade)</li>
-    <li>99.9% uptime SLA</li>
-    <li>DDoS protection and rate limiting</li>
-    <li>Automatic backups and disaster recovery</li>
-    <li>Regular security updates and patches</li>
-  </ul>
-</div>
-<div class="section">
-  <h2><i class="fas fa-user-secret"></i> 5. Access Control</h2>
-  <ul>
-    <li>Only authenticated users can access the app</li>
-    <li>Admin panel restricted to verified admin email</li>
-    <li>Role-based access (user vs admin)</li>
-    <li>Firestore rules prevent unauthorized access</li>
-    <li>User data isolated per account</li>
-  </ul>
-</div>
-<div class="section">
-  <h2><i class="fas fa-file-alt"></i> 6. Data Protection</h2>
-  <ul>
-    <li>Data encrypted at rest and in transit</li>
-    <li>Regular security audits</li>
-    <li>GDPR-inspired data handling</li>
-    <li>Compliance with Nepal IT Act 2063</li>
-    <li>Compliance with E-Commerce Act 2081</li>
-  </ul>
-</div>
-<div class="section">
-  <h2><i class="fas fa-exclamation-triangle"></i> 7. Report a Security Issue</h2>
-  <p>If you find any security vulnerability or suspicious activity, please report it immediately:</p>
-  <ul>
-    <li>Do <strong>not</strong> publicly disclose the issue</li>
-    <li>Send details to the email below</li>
-    <li>We will respond within 24 hours</li>
-    <li>Responsible disclosure is appreciated</li>
-  </ul>
-  <div class="contact-box">
-    <a href="mailto:nabinkhanal0007@gmail.com"><i class="fas fa-envelope"></i> nabinkhanal0007@gmail.com</a>
+  <div class="header">
+    <div class="badge">SECURITY</div>
+    <h1>🛡️ Security</h1>
+    <p>Last Updated: September 18, 2026</p>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-shield-halved"></i> 1. Our Commitment</h2>
+    <p>At <strong>Digital With Nabin</strong>, your security is our top priority. We use enterprise-grade infrastructure and industry best practices to keep your personal data safe.</p>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-key"></i> 2. Account Security</h2>
+    <ul>
+      <li>Passwords must be at least 6 characters</li>
+      <li>Passwords are hashed and salted</li>
+      <li>Session tokens managed securely</li>
+      <li>Suspicious login attempts monitored</li>
+      <li>Account lockout on repeated failures</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-credit-card"></i> 3. Payment Security</h2>
+    <ul>
+      <li>Payments via eSewa QR (secure wallet)</li>
+      <li>We never store bank or card details</li>
+      <li>Only screenshots kept for verification</li>
+      <li>Manual admin verification</li>
+      <li>All transactions logged for audit</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-server"></i> 4. Infrastructure</h2>
+    <ul>
+      <li>Powered by Google Firebase</li>
+      <li>99.9% uptime SLA</li>
+      <li>DDoS protection and rate limiting</li>
+      <li>Automatic backups</li>
+      <li>Regular security patches</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-user-secret"></i> 5. Access Control</h2>
+    <ul>
+      <li>Only authenticated users can access</li>
+      <li>Admin panel restricted to verified admin</li>
+      <li>Role-based access (user vs admin)</li>
+      <li>Firestore rules prevent unauthorized access</li>
+      <li>User data isolated per account</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-file-alt"></i> 6. Data Protection</h2>
+    <ul>
+      <li>Data encrypted at rest and in transit</li>
+      <li>Regular security audits</li>
+      <li>GDPR-inspired handling</li>
+      <li>Compliance with Nepal IT Act 2063</li>
+      <li>Compliance with E-Commerce Act 2081</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-exclamation-triangle"></i> 7. Report a Security Issue</h2>
+    <p>If you find any vulnerability or suspicious activity, report immediately:</p>
+    <ul>
+      <li>Do <strong>not</strong> publicly disclose the issue</li>
+      <li>Send details to email below</li>
+      <li>We respond within 24 hours</li>
+      <li>Responsible disclosure appreciated</li>
+    </ul>
+    <div class="contact-box">
+      <a href="mailto:nabinkhanal0007@gmail.com"><i class="fas fa-envelope"></i> nabinkhanal0007@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-lightbulb"></i> 8. Security Tips</h2>
+    <ul>
+      <li>Use a strong, unique password</li>
+      <li>Never share login credentials</li>
+      <li>Log out from shared devices</li>
+      <li>Keep browser updated</li>
+      <li>Enable 2-step verification</li>
+      <li>Report suspicious messages</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <p>© 2026 <a href="./">Digital With Nabin</a>. All rights reserved.</p>
   </div>
 </div>
-<div class="section">
-  <h2><i class="fas fa-lightbulb"></i> 8. Security Tips for Users</h2>
-  <ul>
-    <li>Use a strong, unique password</li>
-    <li>Never share your login credentials</li>
-    <li>Log out from shared devices</li>
-    <li>Keep your browser updated</li>
-    <li>Enable 2-step verification on Google</li>
-    <li>Report suspicious messages immediately</li>
-  </ul>
-</div>
-<div class="footer">
-  <p>© 2026 <a href="./">Digital With Nabin</a>. All rights reserved.</p>
-</div>
-</div>
+
+<script>
+window.addEventListener('load',()=>{const b=document.getElementById('loadBar');b.style.width='100%';setTimeout(()=>{b.style.opacity='0';},400);});
+</script>
 </body>
 </html>
