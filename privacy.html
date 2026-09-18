@@ -5,142 +5,182 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Privacy Policy — Digital With Nabin</title>
 <meta name="theme-color" content="#070c14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Privacy">
+<meta name="format-detection" content="telephone=no">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-html{font-size:16px;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{background:#070c14;color:#eef2ff;min-height:100vh;padding:1rem;padding-bottom:4rem;line-height:1.7}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#070c14}::-webkit-scrollbar-thumb{background:#2aff9e60;border-radius:4px}
-.container{max-width:780px;margin:0 auto}
-.back-btn{display:inline-flex;align-items:center;gap:.5rem;background:rgba(42,255,158,.1);border:1.5px solid #2aff9e;color:#2aff9e;padding:.6rem 1.2rem;border-radius:10px;text-decoration:none;font-size:.85rem;margin-bottom:1.5rem;font-weight:700;transition:.25s}
-.back-btn:hover{background:#2aff9e;color:#070c14}
-.header{text-align:center;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(42,255,158,.15)}
-.header h1{font-size:clamp(1.4rem,6vw,2rem);font-weight:900;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.5rem}
-.header p{color:#7a8aaa;font-size:.82rem}
-.header .badge{display:inline-block;background:rgba(42,255,158,.1);border:1px solid rgba(42,255,158,.3);color:#2aff9e;padding:.25rem .8rem;border-radius:30px;font-size:.68rem;font-weight:800;letter-spacing:1px;margin-bottom:.8rem}
-.section{background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:16px;padding:1.5rem;margin-bottom:1.2rem;transition:.25s}
-.section:hover{border-color:rgba(42,255,158,.25)}
-.section h2{font-size:1.05rem;font-weight:800;color:#2aff9e;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
-.section h3{font-size:.9rem;font-weight:700;color:#fff;margin:1rem 0 .5rem}
-.section p{color:#cdd9ff;font-size:.86rem;margin-bottom:.8rem}
-.section ul{list-style:none;padding-left:0;margin-bottom:.8rem}
-.section ul li{color:#cdd9ff;font-size:.86rem;padding:.45rem 0 .45rem 1.6rem;position:relative}
-.section ul li::before{content:'✓';position:absolute;left:.3rem;color:#2aff9e;font-weight:900;font-size:.9rem}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif}
+html{font-size:16px;-webkit-text-size-adjust:100%;scroll-behavior:smooth;overscroll-behavior-y:none}
+body{background:#070c14;color:#eef2ff;min-height:100vh;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom);line-height:1.7}
+
+/* ===== APP TOP NAV ===== */
+.app-nav{position:fixed;top:0;left:0;right:0;z-index:800;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(7,12,20,.92);border-bottom:1px solid rgba(42,255,158,.15);padding:.7rem 1rem;padding-top:max(.7rem,env(safe-area-inset-top));display:flex;align-items:center;gap:.6rem;height:auto;min-height:58px}
+.nav-back{background:rgba(42,255,158,.08);border:1.5px solid rgba(42,255,158,.3);color:#2aff9e;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;cursor:pointer;flex-shrink:0;transition:.2s;text-decoration:none}
+.nav-back:active{transform:scale(.92);background:#2aff9e;color:#070c14}
+.nav-title{flex:1;font-size:.95rem;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-title small{display:block;font-size:.62rem;color:#7a8aaa;font-weight:500;letter-spacing:.5px;margin-top:1px}
+.nav-brand{font-size:.62rem;font-weight:800;color:#2aff9e;background:rgba(42,255,158,.1);border:1px solid rgba(42,255,158,.25);padding:.2rem .5rem;border-radius:30px;letter-spacing:1px;flex-shrink:0}
+
+/* ===== LOADING BAR ===== */
+.load-bar{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#2aff9e,#ffd966,#60a5fa);z-index:9999;transition:width .4s ease,opacity .4s}
+
+/* ===== MAIN CONTENT ===== */
+.container{max-width:780px;margin:0 auto;padding:1.2rem 1rem 4rem;padding-top:calc(78px + env(safe-area-inset-top));animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.header{text-align:center;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(42,255,158,.15)}
+.header h1{font-size:clamp(1.3rem,5.5vw,1.7rem);font-weight:900;background:linear-gradient(135deg,#2aff9e,#ffd966);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.4rem}
+.header p{color:#7a8aaa;font-size:.78rem}
+.header .badge{display:inline-block;background:rgba(42,255,158,.1);border:1px solid rgba(42,255,158,.3);color:#2aff9e;padding:.22rem .7rem;border-radius:30px;font-size:.65rem;font-weight:800;letter-spacing:1px;margin-bottom:.6rem}
+
+.section{background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.1);border-radius:16px;padding:1.3rem;margin-bottom:1rem;transition:.25s}
+.section:active{border-color:rgba(42,255,158,.25)}
+.section h2{font-size:1rem;font-weight:800;color:#2aff9e;margin-bottom:.8rem;display:flex;align-items:center;gap:.55rem}
+.section h3{font-size:.88rem;font-weight:700;color:#fff;margin:1rem 0 .5rem}
+.section p{color:#cdd9ff;font-size:.84rem;margin-bottom:.7rem}
+.section ul{list-style:none;padding-left:0;margin-bottom:.7rem}
+.section ul li{color:#cdd9ff;font-size:.84rem;padding:.4rem 0 .4rem 1.5rem;position:relative}
+.section ul li::before{content:'✓';position:absolute;left:.2rem;color:#2aff9e;font-weight:900;font-size:.85rem}
 .contact-box{background:rgba(42,255,158,.06);border:1px solid rgba(42,255,158,.2);border-radius:14px;padding:1rem;text-align:center;margin-top:1rem}
-.contact-box a{color:#2aff9e;font-weight:700;text-decoration:none;word-break:break-all;font-size:.85rem}
-.footer{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(42,255,158,.15);color:#7a8aaa;font-size:.78rem}
+.contact-box a{color:#2aff9e;font-weight:700;text-decoration:none;word-break:break-all;font-size:.83rem}
+.footer{text-align:center;margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(42,255,158,.15);color:#7a8aaa;font-size:.74rem}
 .footer a{color:#2aff9e;text-decoration:none}
 </style>
 </head>
 <body>
+
+<div class="load-bar" id="loadBar"></div>
+
+<nav class="app-nav">
+  <a href="./" class="nav-back"><i class="fas fa-arrow-left"></i></a>
+  <div class="nav-title">Privacy Policy<small>Legal Information</small></div>
+  <span class="nav-brand">DWN</span>
+</nav>
+
 <div class="container">
-<a href="./" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
-<div class="header">
-  <div class="badge">LEGAL</div>
-  <h1>🔒 Privacy Policy</h1>
-  <p>Digital With Nabin — Last Updated: September 18, 2026</p>
-</div>
-<div class="section">
-  <h2><i class="fas fa-info-circle"></i> 1. Introduction</h2>
-  <p>Welcome to <strong>Digital With Nabin</strong> ("we", "our", "us"). We are committed to protecting your privacy and personal data. This Privacy Policy explains how we collect, use, store, and protect your information when you use our app and services.</p>
-  <p>By using our app, you agree to the collection and use of information in accordance with this policy. If you do not agree, please do not use our services.</p>
-</div>
-<div class="section">
-  <h2><i class="fas fa-database"></i> 2. Information We Collect</h2>
-  <h3>Personal Information</h3>
-  <ul>
-    <li>Full name</li>
-    <li>Email address</li>
-    <li>Phone number (WhatsApp)</li>
-    <li>Address (optional)</li>
-    <li>Profile photo (if signed in with Google)</li>
-  </ul>
-  <h3>Payment Information</h3>
-  <ul>
-    <li>Payment screenshots (uploaded for verification)</li>
-    <li>Transaction amount and course details</li>
-    <li>We do <strong>not</strong> store your bank/card details</li>
-  </ul>
-  <h3>Usage Data</h3>
-  <ul>
-    <li>Device type and browser information</li>
-    <li>App usage patterns (for improvement)</li>
-    <li>Firebase Cloud Messaging (FCM) token for notifications</li>
-  </ul>
-</div>
-<div class="section">
-  <h2><i class="fas fa-bullseye"></i> 3. How We Use Your Information</h2>
-  <ul>
-    <li>To create and manage your account</li>
-    <li>To verify your course enrollment and payments</li>
-    <li>To provide access to purchased PDFs and courses</li>
-    <li>To send important notifications and updates</li>
-    <li>To respond to your support requests and chats</li>
-    <li>To issue certificates upon course completion</li>
-    <li>To improve our services and user experience</li>
-  </ul>
-</div>
-<div class="section">
-  <h2><i class="fas fa-shield-alt"></i> 4. Data Security</h2>
-  <p>We use industry-standard security measures to protect your data:</p>
-  <ul>
-    <li><strong>Firebase Authentication</strong> — secure email/password and Google sign-in</li>
-    <li><strong>Firestore Database</strong> — encrypted data storage with security rules</li>
-    <li><strong>HTTPS encryption</strong> — all data transmitted securely</li>
-    <li><strong>Access control</strong> — only admin can access enrollment data</li>
-    <li><strong>Password protection</strong> — passwords are never stored in plain text</li>
-  </ul>
-  <p>However, no method of transmission over the Internet is 100% secure. We cannot guarantee absolute security.</p>
-</div>
-<div class="section">
-  <h2><i class="fas fa-share-alt"></i> 5. Data Sharing</h2>
-  <p>We <strong>do not sell, trade, or rent</strong> your personal information to third parties. We may share data only with:</p>
-  <ul>
-    <li><strong>Firebase (Google)</strong> — for authentication and database services</li>
-    <li><strong>Payment verification</strong> — admin manually verifies payments</li>
-    <li><strong>Legal authorities</strong> — if required by Nepali law</li>
-  </ul>
-</div>
-<div class="section">
-  <h2><i class="fas fa-user-shield"></i> 6. Your Rights</h2>
-  <ul>
-    <li><strong>Access</strong> — request a copy of your data</li>
-    <li><strong>Correction</strong> — update incorrect information</li>
-    <li><strong>Deletion</strong> — request account and data deletion</li>
-    <li><strong>Opt-out</strong> — disable notifications anytime</li>
-    <li><strong>Complaint</strong> — contact us with any privacy concerns</li>
-  </ul>
-  <p>To exercise these rights, contact us at the email below.</p>
-</div>
-<div class="section">
-  <h2><i class="fas fa-child"></i> 7. Children's Privacy</h2>
-  <p>Our services are not intended for children under 13 years. We do not knowingly collect personal information from children. If you are a parent and believe your child has provided us with personal data, please contact us for immediate removal.</p>
-</div>
-<div class="section">
-  <h2><i class="fas fa-cookie-bite"></i> 8. Cookies & Local Storage</h2>
-  <p>We use browser local storage to:</p>
-  <ul>
-    <li>Keep you logged in between sessions</li>
-    <li>Remember your preferences</li>
-    <li>Store temporary data for app functionality</li>
-  </ul>
-  <p>You can clear this data anytime from your browser settings.</p>
-</div>
-<div class="section">
-  <h2><i class="fas fa-sync-alt"></i> 9. Policy Updates</h2>
-  <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date. Continued use of our app after changes means you accept the new policy.</p>
-</div>
-<div class="section">
-  <h2><i class="fas fa-envelope"></i> 10. Contact Us</h2>
-  <p>For any privacy-related questions or requests:</p>
-  <div class="contact-box">
-    <a href="mailto:nabinkhanal0007@gmail.com"><i class="fas fa-envelope"></i> nabinkhanal0007@gmail.com</a>
+  <div class="header">
+    <div class="badge">LEGAL</div>
+    <h1>🔒 Privacy Policy</h1>
+    <p>Last Updated: September 18, 2026</p>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-info-circle"></i> 1. Introduction</h2>
+    <p>Welcome to <strong>Digital With Nabin</strong> ("we", "our", "us"). We are committed to protecting your privacy and personal data. This Privacy Policy explains how we collect, use, store, and protect your information when you use our app and services.</p>
+    <p>By using our app, you agree to the collection and use of information in accordance with this policy. If you do not agree, please do not use our services.</p>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-database"></i> 2. Information We Collect</h2>
+    <h3>Personal Information</h3>
+    <ul>
+      <li>Full name</li>
+      <li>Email address</li>
+      <li>Phone number (WhatsApp)</li>
+      <li>Address (optional)</li>
+      <li>Profile photo (if signed in with Google)</li>
+    </ul>
+    <h3>Payment Information</h3>
+    <ul>
+      <li>Payment screenshots (for verification)</li>
+      <li>Transaction amount and course details</li>
+      <li>We do <strong>not</strong> store bank/card details</li>
+    </ul>
+    <h3>Usage Data</h3>
+    <ul>
+      <li>Device type and browser information</li>
+      <li>App usage patterns (for improvement)</li>
+      <li>Firebase Cloud Messaging (FCM) token</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-bullseye"></i> 3. How We Use Your Information</h2>
+    <ul>
+      <li>To create and manage your account</li>
+      <li>To verify course enrollment and payments</li>
+      <li>To provide access to purchased PDFs and courses</li>
+      <li>To send important notifications and updates</li>
+      <li>To respond to your support requests and chats</li>
+      <li>To issue certificates upon completion</li>
+      <li>To improve our services and user experience</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-shield-alt"></i> 4. Data Security</h2>
+    <p>We use industry-standard security measures to protect your data:</p>
+    <ul>
+      <li><strong>Firebase Authentication</strong> — secure sign-in</li>
+      <li><strong>Firestore Database</strong> — encrypted storage</li>
+      <li><strong>HTTPS encryption</strong> — secure transmission</li>
+      <li><strong>Access control</strong> — admin-only access to data</li>
+      <li><strong>Password protection</strong> — never stored in plain text</li>
+    </ul>
+    <p>However, no Internet transmission is 100% secure. We cannot guarantee absolute security.</p>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-share-alt"></i> 5. Data Sharing</h2>
+    <p>We <strong>do not sell, trade, or rent</strong> your personal information. We may share data only with:</p>
+    <ul>
+      <li><strong>Firebase (Google)</strong> — authentication and database</li>
+      <li><strong>Payment verification</strong> — manual admin verification</li>
+      <li><strong>Legal authorities</strong> — if required by Nepali law</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-user-shield"></i> 6. Your Rights</h2>
+    <ul>
+      <li><strong>Access</strong> — request a copy of your data</li>
+      <li><strong>Correction</strong> — update incorrect information</li>
+      <li><strong>Deletion</strong> — request account deletion</li>
+      <li><strong>Opt-out</strong> — disable notifications</li>
+      <li><strong>Complaint</strong> — contact us with concerns</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-child"></i> 7. Children's Privacy</h2>
+    <p>Our services are not intended for children under 13 years. We do not knowingly collect personal information from children. If you are a parent and believe your child has provided us with personal data, please contact us for immediate removal.</p>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-cookie-bite"></i> 8. Cookies & Local Storage</h2>
+    <p>We use browser local storage to:</p>
+    <ul>
+      <li>Keep you logged in between sessions</li>
+      <li>Remember your preferences</li>
+      <li>Store temporary app data</li>
+    </ul>
+    <p>You can clear this data anytime from browser settings.</p>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-sync-alt"></i> 9. Policy Updates</h2>
+    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date. Continued use of our app after changes means you accept the new policy.</p>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-envelope"></i> 10. Contact Us</h2>
+    <p>For any privacy-related questions:</p>
+    <div class="contact-box">
+      <a href="mailto:nabinkhanal0007@gmail.com"><i class="fas fa-envelope"></i> nabinkhanal0007@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2026 <a href="./">Digital With Nabin</a>. All rights reserved.</p>
   </div>
 </div>
-<div class="footer">
-  <p>© 2026 <a href="./">Digital With Nabin</a>. All rights reserved.</p>
-</div>
-</div>
+
+<script>
+window.addEventListener('load',()=>{const b=document.getElementById('loadBar');b.style.width='100%';setTimeout(()=>{b.style.opacity='0';},400);});
+</script>
 </body>
 </html>
