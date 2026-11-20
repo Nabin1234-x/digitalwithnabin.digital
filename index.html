@@ -707,7 +707,37 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
     </div>
     <div style="text-align:center;padding:1.2rem;background:rgba(12,18,28,.7);border:1px solid rgba(42,255,158,.1);border-radius:18px"><h3 style="margin-bottom:.9rem;font-size:.95rem">📞 Let's Connect</h3><a href="mailto:nabinkhanal0007@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> nabinkhanal0007@gmail.com</a></div>
   </div>
-
+<!-- LOAN PAGE -->
+<div class="page" id="page-loan">
+  <div class="sec-tag">💰 LOAN</div>
+  <h2 class="sec-h">ऋण <span>आवेदन</span></h2>
+  <p class="sec-sub">बिना धितो · ४ महिना · ६% प्रति महिना ब्याज</p>
+  <div style="background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.12);border-radius:20px;padding:1.2rem">
+    <div class="form-grid">
+      <div class="f-group"><label class="f-label">पूरा नाम *</label><input type="text" id="lnName" class="f-input" placeholder="तपाईंको नाम"></div>
+      <div class="f-group"><label class="f-label">नागरिकता नम्बर *</label><input type="text" id="lnCitNo" class="f-input" placeholder="१२३-४५६-७८९"></div>
+      <div class="f-group"><label class="f-label">ऋण रकम (रु) *</label><input type="number" id="lnAmount" class="f-input" placeholder="50000" min="1000" max="500000"></div>
+      <div class="f-group"><label class="f-label">बैंकको नाम *</label><input type="text" id="lnBank" class="f-input" placeholder="नेपाल इन्भेष्टमेन्ट बैंक"></div>
+      <div class="f-group"><label class="f-label">खाता नम्बर *</label><input type="text" id="lnAccNo" class="f-input" placeholder="खाता नम्बर"></div>
+      <div class="f-group"><label class="f-label">खाता धारकको नाम *</label><input type="text" id="lnAccHolder" class="f-input" placeholder="बैंकमा दर्ता नाम"></div>
+    </div>
+    <h4 style="color:#2aff9e;margin:1rem 0 .6rem;font-size:.85rem"><i class="fas fa-camera"></i> कागजात अपलोड</h4>
+    <p style="font-size:.72rem;color:#7a8aaa;margin-bottom:.6rem">नागरिकता हातमा समातेर सेल्फी, अगाडि/पछाडि, बैंक स्टेटमेन्ट</p>
+    <div class="form-grid">
+      <div class="f-group"><label class="f-label">नागरिकता (अगाडि) *</label><input type="file" id="lnCitFront" class="f-input" accept="image/*,.pdf"></div>
+      <div class="f-group"><label class="f-label">नागरिकता (पछाडि) *</label><input type="file" id="lnCitBack" class="f-input" accept="image/*,.pdf"></div>
+      <div class="f-group"><label class="f-label">नागरिकता हातमा समातेर सेल्फी *</label><input type="file" id="lnSelfie" class="f-input" accept="image/*"></div>
+      <div class="f-group"><label class="f-label">बैंक स्टेटमेन्ट *</label><input type="file" id="lnBankStmt" class="f-input" accept="image/*,.pdf"></div>
+    </div>
+    <div class="terms-box" style="background:rgba(233,69,96,.08);border:1px solid rgba(233,69,96,.3);border-radius:12px;padding:1rem;margin:1rem 0;font-size:.8rem;line-height:1.7;color:#ccbbbb">
+      <strong style="color:#e94560">ऋणका सर्तहरू:</strong>
+      <ul style="padding-left:1.2rem;margin-top:.4rem"><li>अवधि: ४ महिना | ब्याज: ६% प्रति महिना (कुल २४%)</li><li>४ समान मासिक किस्ता (मूलधन १/४ + पूर्ण मूलधनको ६% ब्याज)</li></ul>
+      <label style="display:flex;gap:.6rem;align-items:flex-start;margin-top:.6rem;cursor:pointer"><input type="checkbox" id="lnTerms" style="width:18px;height:18px;accent-color:#e94560"><span>मैले सबै सर्तहरू पढेको, बुझेको र सहमत छु।</span></label>
+    </div>
+    <button class="btn-submit" id="btnLoanSubmit" onclick="submitLoan()"><i class="fas fa-paper-plane"></i> आवेदन पेश गर्नुहोस्</button>
+  </div>
+  <div id="userLoanStatus" style="margin-top:1.2rem"></div>
+</div>
   <!-- PROFILE -->
   <div class="page" id="page-profile">
     <div class="sec-tag">👤 MY PROFILE</div>
