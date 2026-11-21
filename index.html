@@ -1089,7 +1089,6 @@ async function loadAdminLoans() {
       const cls = st === 'pending' ? 'status-pending' : st === 'verified' ? 'status-verified' : st === 'approved' ? 'status-approved' : 'status-rejected';
       const txt = st === 'pending' ? 'समीक्षा बाँकी' : st === 'verified' ? 'प्रमाणित' : st === 'approved' ? 'स्वीकृत' : 'अस्वीकृत';
       
-      // बटनहरू (प्रमाणित र अस्वीकृत)
       let actions = '';
       if (st === 'pending') {
         actions = `<button class="btn-sm yl" onclick="verifyLoan('${d.id}')">✅ प्रमाणित</button>
@@ -1103,7 +1102,6 @@ async function loadAdminLoans() {
         actions = `<span style="color:#ff8080; font-weight:700;">कारण: ${l.rejectReason}</span>`;
       }
 
-      // कागजातहरूको फोटो देखाउने भाग
       let docs = '';
       if (l.citFrontBase64 || l.citBackBase64 || l.selfieBase64 || l.bankStatementBase64) {
         docs = `
@@ -1116,7 +1114,6 @@ async function loadAdminLoans() {
         `;
       }
 
-      // सहमति पत्र (Auto Consent)
       const consentText = `
         <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 5px; margin: 10px 0; font-size: 12px; color: #ccc;">
           <strong>📜 ग्राहकको सहमति:</strong> "मैले मेरो नागरिकता, बैंक विवरण र सेल्फी अपलोड गरेको छु। म ४ महिनाभित्र ६% का दरले ब्याजसहित ऋण तिर्न सहमत छु।"
@@ -1138,6 +1135,28 @@ async function loadAdminLoans() {
       </div>`;
     }).join('');
   });
+}
+
+// ==================== तलका ३ वटा फंक्शनहरू अनिवार्य छन् ====================
+function showReject(id) { 
+  document.getElementById('reject-' + id).classList.toggle('active'); 
+}
+
+async function verifyLoan(id) { 
+  await updateDoc(doc(db, 'loans', id), { status: 'verified' }); 
+  toast('✅ प्रमाणित भयो'); 
+}
+
+async function approveLoan(id) { 
+  await updateDoc(doc(db, 'loans', id), { status: 'approved' }); 
+  toast('💰 स्वीकृत भयो'); 
+}
+
+async function rejectLoan(id) {
+  const reason = document.getElementById('reason-' + id).value.trim();
+  if (!reason) return toast('कारण लेख्नुहोस्');
+  await updateDoc(doc(db, 'loans', id), { status: 'rejected', rejectReason: reason });
+  toast('❌ अस्वीकृत गरियो');
 }
 
 function showReject(id) { document.getElementById('reject-' + id).classList.toggle('active'); }
