@@ -1139,23 +1139,41 @@ async function loadAdminLoans() {
 
 // ==================== बटन काम गराउने फंक्शनहरू ====================
 function showReject(id) { 
-  document.getElementById('reject-' + id).classList.toggle('active'); 
+  const box = document.getElementById('reject-' + id);
+  if(box) box.classList.toggle('active'); 
 }
 
 async function verifyLoan(id) { 
   try {
     await updateDoc(doc(db, 'loans', id), { status: 'verified' }); 
     toast('✅ प्रमाणित भयो'); 
-  } catch(e) { toast('❌ ' + e.message); }
+  } catch(e) { 
+    toast('❌ ' + e.message); 
+  }
 }
 
 async function approveLoan(id) { 
   try {
     await updateDoc(doc(db, 'loans', id), { status: 'approved' }); 
     toast('💰 स्वीकृत भयो'); 
-  } catch(e) { toast('❌ ' + e.message); }
+  } catch(e) { 
+    toast('❌ ' + e.message); 
+  }
 }
 
+async function rejectLoan(id) {
+  const reasonInput = document.getElementById('reason-' + id);
+  if (!reasonInput) return toast('❌ कारण लेख्ने ठाउँ भेटिएन');
+  const reason = reasonInput.value.trim();
+  if (!reason) return toast('कारण लेख्नुहोस्');
+  
+  try {
+    await updateDoc(doc(db, 'loans', id), { status: 'rejected', rejectReason: reason });
+    toast('❌ अस्वीकृत गरियो');
+  } catch(e) { 
+    toast('❌ ' + e.message); 
+  }
+}
 async function rejectLoan(id) {
   const reason = document.getElementById('reason-' + id).value.trim();
   if (!reason) return toast('कारण लेख्नुहोस्');
