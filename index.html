@@ -989,7 +989,6 @@ async function submitEnrollment(){
 function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');let w=img.width,h=img.height;const M=600;if(w>M){h=Math.round(h*M/w);w=M;}if(h>M){w=Math.round(w*M/h);h=M;}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',0.7));};img.onerror=rej;img.src=e.target.result;};r.onerror=rej;r.readAsDataURL(file);});}
 
 async function submitCollab(){const n=document.getElementById('cName').value.trim(),p=document.getElementById('cPhone').value.trim(),d=document.getElementById('cDesc').value.trim();if(!n||!p||!d)return toast('❌ Fill all');if(!window._workType)return toast('⚠️ Pick type');const b=document.getElementById('btnCollab');b.disabled=true;b.innerHTML='<span class="spinner"></span>Sending...';try{await addDoc(collection(db,'collaborations'),{userName:n,whatsappNumber:p,workType:window._workType,description:d,status:'pending',createdAt:serverTimestamp()});document.getElementById('cName').value='';document.getElementById('cPhone').value='';document.getElementById('cDesc').value='';document.querySelectorAll('.wt-btn').forEach(x=>x.classList.remove('active'));window._workType=null;toast('🎉 Sent!');}catch(e){toast('❌ '+e.message);}finally{b.disabled=false;b.innerHTML='<i class="fas fa-paper-plane"></i> Send Request';}}
-async function submitLoan() {
   if (!_user) return toast('❌ पहिले लगइन गर्नुहोस्');
   
   const name = document.getElementById('lnName').value.trim();
