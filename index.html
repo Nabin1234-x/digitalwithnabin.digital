@@ -1204,15 +1204,6 @@ if('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/firebase-messaging-sw.js').then(() => console.log('✅ FCM SW registered')).catch(e => console.log('FCM SW:', e));
 }
 setTimeout(()=>{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission();},5000);
-  document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('btnLoanSubmit');
-    if (btn) {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            submitLoan();
-        });
-    }
-});
 </script>
 
 <script type="module">
