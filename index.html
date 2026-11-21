@@ -1195,6 +1195,15 @@ window._twStarted=false;
 window.startTw=function(){window._twStarted=true;_li=0;_ci=0;twLine();};
 function twLine(){if(_li>=_tw.length)return;_ce=document.getElementById('tw'+(_li+1));if(!_ce){_li++;twLine();return;}_ci=0;_ce.textContent='';twChar();}
 function twChar(){if(_ci<_tw[_li].length){_ce.textContent+=_tw[_li][_ci++];setTimeout(twChar,15);}else{_li++;setTimeout(twLine,200);}}
+  document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('btnLoanSubmit');
+    if (btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            submitLoan();
+        });
+    }
+});
 </script>
 
 <script>
