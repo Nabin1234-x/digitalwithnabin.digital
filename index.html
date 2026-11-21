@@ -989,14 +989,16 @@ async function submitEnrollment(){
 function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');let w=img.width,h=img.height;const M=600;if(w>M){h=Math.round(h*M/w);w=M;}if(h>M){w=Math.round(w*M/h);h=M;}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',0.7));};img.onerror=rej;img.src=e.target.result;};r.onerror=rej;r.readAsDataURL(file);});}
 
 async function submitCollab(){const n=document.getElementById('cName').value.trim(),p=document.getElementById('cPhone').value.trim(),d=document.getElementById('cDesc').value.trim();if(!n||!p||!d)return toast('❌ Fill all');if(!window._workType)return toast('⚠️ Pick type');const b=document.getElementById('btnCollab');b.disabled=true;b.innerHTML='<span class="spinner"></span>Sending...';try{await addDoc(collection(db,'collaborations'),{userName:n,whatsappNumber:p,workType:window._workType,description:d,status:'pending',createdAt:serverTimestamp()});document.getElementById('cName').value='';document.getElementById('cPhone').value='';document.getElementById('cDesc').value='';document.querySelectorAll('.wt-btn').forEach(x=>x.classList.remove('active'));window._workType=null;toast('🎉 Sent!');}catch(e){toast('❌ '+e.message);}finally{b.disabled=false;b.innerHTML='<i class="fas fa-paper-plane"></i> Send Request';}}
-  async function submitLoan() {
+async function submitLoan() {
   if (!_user) return toast('❌ पहिले लगइन गर्नुहोस्');
+  
   const name = document.getElementById('lnName').value.trim();
   const citNo = document.getElementById('lnCitNo').value.trim();
   const amount = parseFloat(document.getElementById('lnAmount').value);
   const bank = document.getElementById('lnBank').value.trim();
   const accNo = document.getElementById('lnAccNo').value.trim();
   const accHolder = document.getElementById('lnAccHolder').value.trim();
+  
   const citFront = document.getElementById('lnCitFront').files[0];
   const citBack = document.getElementById('lnCitBack').files[0];
   const selfie = document.getElementById('lnSelfie').files[0];
@@ -1009,27 +1011,36 @@ async function submitCollab(){const n=document.getElementById('cName').value.tri
   if (!terms) return toast('सर्तहरूमा सहमत हुनुहोस्', 'error');
 
   const btn = document.getElementById('btnLoanSubmit');
-  btn.disabled = true; btn.innerHTML = 'पेश गर्दै...';
+  btn.disabled = true; 
+  btn.innerHTML = 'पेश गर्दै...';
 
   try {
     const [cf, cb, sf, bs] = await Promise.all([
       fileToBase64(citFront), fileToBase64(citBack), fileToBase64(selfie), fileToBase64(bankStmt)
     ]);
+    
     await addDoc(collection(db, 'loans'), {
-      userId: _user.uid, userName: name, citNo, amount, bankName: bank, accountNo: accNo, accountHolder: accHolder,
+      userId: _user.uid, userName: name, citNo: citNo, amount: amount, 
+      bankName: bank, accountNo: accNo, accountHolder: accHolder,
       citFrontBase64: cf, citBackBase64: cb, selfieBase64: sf, bankStatementBase64: bs,
       status: 'pending', rejectReason: '',
-      schedule: generateLoanSchedule(amount), totalInterest: amount * 0.24, paidInstallments: 0, createdAt: serverTimestamp()
+      schedule: generateLoanSchedule(amount), totalInterest: amount * 0.24, 
+      paidInstallments: 0, createdAt: serverTimestamp()
     });
+    
     toast('✅ आवेदन पेश भयो!');
     ['lnName','lnCitNo','lnAmount','lnBank','lnAccNo','lnAccHolder'].forEach(id => document.getElementById(id).value = '');
     ['lnCitFront','lnCitBack','lnSelfie','lnBankStmt'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('lnTerms').checked = false;
+
   } catch (e) {
+    console.error("Firebase Error: ", e);
     toast('❌ ' + e.message);
   } finally {
-    btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> आवेदन पेश गर्नुहोस्';
+    btn.disabled = false; 
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> आवेदन पेश गर्नुहोस्';
   }
+}
 }
 
 function generateLoanSchedule(amount) {
