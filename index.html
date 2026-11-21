@@ -1159,16 +1159,33 @@ async function rejectLoan(id) {
   toast('❌ अस्वीकृत गरियो');
 }
 
-function showReject(id) { document.getElementById('reject-' + id).classList.toggle('active'); }
-async function verifyLoan(id) { await updateDoc(doc(db, 'loans', id), { status: 'verified' }); toast('प्रमाणित'); }
-async function approveLoan(id) { await updateDoc(doc(db, 'loans', id), { status: 'approved' }); toast('स्वीकृत'); }
+// ==================== बटन काम गराउने फंक्शनहरू ====================
+function showReject(id) { 
+  document.getElementById('reject-' + id).classList.toggle('active'); 
+}
+
+async function verifyLoan(id) { 
+  try {
+    await updateDoc(doc(db, 'loans', id), { status: 'verified' }); 
+    toast('✅ प्रमाणित भयो'); 
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+async function approveLoan(id) { 
+  try {
+    await updateDoc(doc(db, 'loans', id), { status: 'approved' }); 
+    toast('💰 स्वीकृत भयो'); 
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
 async function rejectLoan(id) {
   const reason = document.getElementById('reason-' + id).value.trim();
   if (!reason) return toast('कारण लेख्नुहोस्');
-  await updateDoc(doc(db, 'loans', id), { status: 'rejected', rejectReason: reason });
-  toast('अस्वीकृत');
+  try {
+    await updateDoc(doc(db, 'loans', id), { status: 'rejected', rejectReason: reason });
+    toast('❌ अस्वीकृत गरियो');
+  } catch(e) { toast('❌ ' + e.message); }
 }
-
 async function initChat(u){const ref=doc(db,'chats',u.uid);const s=await getDoc(ref);if(!s.exists()){await setDoc(ref,{userId:u.uid,userName:u.displayName||u.email.split('@')[0],userEmail:u.email,messages:[],unreadCount:0,lastMessage:'',createdAt:serverTimestamp()});}window._chatId=u.uid;onSnapshot(ref,snap=>{if(snap.exists()){const d=snap.data();renderUserChat(d.messages||[]);const ms=d.messages||[];const l=ms[ms.length-1];if(l&&l.sender==='admin'&&!window._chatOpen){document.getElementById('fcBadge').style.display='flex';}}});}
 
 async function sendUserMsg(){if(!_user||!window._chatId)return;const i=document.getElementById('cwInput'),t=i.value.trim();if(!t)return;i.value='';try{await updateDoc(doc(db,'chats',window._chatId),{messages:arrayUnion({sender:'user',text:t,timestamp:new Date().toISOString()}),lastMessage:t,unreadCount:1,updatedAt:serverTimestamp()});}catch(e){}}
