@@ -1011,35 +1011,35 @@ async function loadMyLoans(uid) {
       const cls = st === 'pending' ? 'status-pending' : st === 'verified' ? 'status-verified' : st === 'approved' ? 'status-approved' : 'status-rejected';
       const txt = st === 'pending' ? 'समीक्षा बाँकी' : st === 'verified' ? 'प्रमाणित' : st === 'approved' ? 'स्वीकृत' : 'अस्वीकृत';
       
-      // Loan was approved, calculate dates
-      let dateStr = '';
-      let nextInstallment = null;
-      let remainingAmount = l.amount;
-      if (st === 'approved' && l.approvedAt) {
-        const approvedDate = l.approvedAt.toDate();
-        dateStr = approvedDate.toLocaleDateString('en-NP', { year: 'numeric', month: 'long', day: 'numeric' });
-        
-        // Calculate next installment
-        const paidCount = l.paidInstallments || 0;
-        if (paidCount < 4) {
-          nextInstallment = l.schedule[paidCount];
+      let extra = '';
+      
+      if (st === 'approved') {
+        let dateStr = 'N/A';
+        if (l.approvedAt) {
+          const approvedDate = l.approvedAt.toDate ? l.approvedAt.toDate() : new Date(l.approvedAt);
+          dateStr = approvedDate.toLocaleDateString('en-NP', { year: 'numeric', month: 'long', day: 'numeric' });
         }
         
-        // Calculate remaining amount based on paid installments
-        l.schedule.forEach(s => {
-          if (s.status === 'paid') {
-            remainingAmount -= s.principal;
+        let paidCount = l.paidInstallments || 0;
+        let nextInstallment = null;
+        let remainingAmount = l.amount;
+        
+        if (l.schedule) {
+          if (paidCount < 4) {
+            nextInstallment = l.schedule[paidCount];
           }
-        });
-      }
-
-      let extra = '';
-      if (st === 'approved') {
+          l.schedule.forEach(s => {
+            if (s.status === 'paid') {
+              remainingAmount -= s.principal;
+            }
+          });
+        }
+        
         extra = `
           <div style="margin: 10px 0; padding: 10px; background: rgba(42,255,158,0.1); border-radius: 10px; border: 1px solid rgba(42,255,158,0.3);">
             <p style="font-size: 12px; color: #2aff9e;"><strong>स्वीकृत मिति:</strong> ${dateStr}</p>
             <p style="font-size: 12px; color: #fff;"><strong>बाँकी रकम:</strong> रु ${remainingAmount.toFixed(0)}</p>
-            <p style="font-size: 12px; color: #fff;"><strong>तिरेको किस्ता:</strong> ${l.paidInstallments || 0} / 4</p>
+            <p style="font-size: 12px; color: #fff;"><strong>तिरेको किस्ता:</strong> ${paidCount} / 4</p>
           </div>
           <table class="schedule-table" style="width:100%; border-collapse:collapse; margin-top:10px;">
             <thead><tr><th style="padding:5px;border-bottom:1px solid #444">किस्ता</th><th style="padding:5px;border-bottom:1px solid #444">मूलधन</th><th style="padding:5px;border-bottom:1px solid #444">ब्याज</th><th style="padding:5px;border-bottom:1px solid #444">कुल</th><th style="padding:5px;border-bottom:1px solid #444">स्थिति</th></tr></thead>
@@ -1068,7 +1068,6 @@ async function loadMyLoans(uid) {
         } else {
           extra += `<div style="text-align:center; padding:10px; color:#2aff9e;"><strong>🎉 तपाईंको ऋण पूर्ण भयो!</strong></div>`;
         }
-
       } else if (st === 'rejected') {
         extra = `<div style="background:rgba(255,0,0,0.1);padding:10px;border-radius:5px;margin-top:10px;font-size:12px;color:#ff8080;"><strong>कारण:</strong> ${l.rejectReason}</div>`;
       }
