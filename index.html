@@ -1213,7 +1213,7 @@ async function loadAdminInstallments() {
   
   onSnapshot(query(collection(db, 'installment_payments'), orderBy('createdAt', 'desc')), snap => {
     if (snap.empty) {
-      container.innerHTML = '<div class="empty-state"><i class="fas fa-receipt"></i><p>No payments yet.</p></div>';
+      container.innerHTML = '<div class="empty-state"><i class="fas fa-receipt"></i><p>कुनै किस्ता भुक्तानी छैन।</p></div>';
       return;
     }
     
@@ -1224,24 +1224,52 @@ async function loadAdminInstallments() {
       
       let actions = '';
       if (p.status === 'pending') {
-        actions = `<button class="btn-sm gr" onclick="approveInstallment('${p.loanId}', ${p.period})">✅ स्वीकृत गर्नुहोस्</button>`;
+        actions = `<button class="btn-sm gr" onclick="approveInstallment('${d.id}', '${p.loanId}', ${p.period})">✅ स्वीकृत गर्नुहोस्</button>`;
       }
       
       return `<div class="enr-card">
         <div class="enr-top">
-          <div class="enr-avatar">${(p.userId || '?')[0].toUpperCase()}</div>
+          <div class="enr-avatar">💳</div>
           <div class="enr-meta">
-            <strong>किस्ता: ${p.period}</strong>
+            <strong>किस्ता नं: ${p.period}</strong>
             <div class="sub">लोन ID: ${p.loanId}</div>
           </div>
           <span class="status-pill ${st}">${stTxt}</span>
         </div>
+        ${p.proofBase64 ? `<img src="${p.proofBase64}" class="proof-img-full" onclick="openLb('${p.proofBase64}')">` : ''}
         <div class="enr-actions">
           ${actions}
         </div>
       </div>`;
     }).join('');
   });
+}
+
+async function approveInstallment(paymentId, loanId, period) {
+  try {
+    // 1. Update payment status
+    await updateDoc(doc(db, 'installment_payments', paymentId), { status: 'approved' });
+    
+    // 2. Update Loan schedule and paid count
+    const loanRef = doc(db, 'loans', loanId);
+    const loanSnap = await getDoc(loanRef);
+    if (loanSnap.exists()) {
+      const l = loanSnap.data();
+      const newSchedule = l.schedule.map(s => {
+        if (s.period === period) return { ...s, status: 'paid' };
+        return s;
+      });
+      const newPaidCount = newSchedule.filter(s => s.status === 'paid').length;
+      
+      await updateDoc(loanRef, { 
+        schedule: newSchedule, 
+        paidInstallments: newPaidCount 
+      });
+    }
+    toast('✅ किस्ता स्वीकृत भयो!');
+  } catch(e) {
+    toast('❌ ' + e.message);
+  }
 }
 
 // Add installment tab to admin
