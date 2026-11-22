@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* ================= CSS ================= */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif}
 html{font-size:16px;-webkit-text-size-adjust:100%;touch-action:manipulation;scroll-behavior:smooth}
 body{background:#070c14;color:#eef2ff;min-height:100vh;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom)}
@@ -268,6 +267,7 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .sp-pending{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);color:#ffd966}
 .sp-verified{background:rgba(42,255,158,.12);border:1px solid rgba(42,255,158,.35);color:#2aff9e}
 .sp-completed{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.35);color:#60a5fa}
+.sp-rejected{background:rgba(255,70,70,.12);border:1px solid rgba(255,70,70,.35);color:#ff8080}
 .pdf-owned-card{background:linear-gradient(145deg,rgba(42,255,158,.08),rgba(12,18,28,.9));border:1.5px solid rgba(42,255,158,.3);border-radius:18px;padding:1rem;margin-bottom:.7rem;display:flex;flex-direction:column;gap:.7rem;position:relative;overflow:hidden}
 .pdf-owned-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(180deg,#2aff9e,#0fcc73)}
 .pdf-owned-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#2aff9e,#0fcc73);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#070c14}
@@ -442,6 +442,64 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 .tms-modal-btn.confirm{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14;box-shadow:0 10px 30px rgba(42,255,158,.4)}
 .tms-modal-btn.confirm:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 15px 40px rgba(42,255,158,.6)}
 .tms-modal-note{text-align:center;font-size:.68rem;color:#3a4a5a;margin-top:.5rem}
+
+/* ============ LOAN SPECIFIC (NEW) ============ */
+.loan-status-card{background:linear-gradient(145deg,rgba(42,255,158,.08),rgba(12,18,28,.95));border:1.5px solid rgba(42,255,158,.3);border-radius:18px;padding:1rem;margin-bottom:.9rem;position:relative;overflow:hidden}
+.loan-status-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(180deg,#2aff9e,#0fcc73)}
+.loan-status-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem;flex-wrap:wrap;gap:.5rem}
+.loan-status-header strong{font-size:.95rem;color:#fff}
+.loan-status-info{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-bottom:.7rem}
+.loan-status-info div{background:rgba(0,0,0,.3);border-radius:10px;padding:.5rem .7rem}
+.loan-status-info .lbl{font-size:.6rem;color:#7a8aaa;display:block;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.15rem}
+.loan-status-info .val{font-size:.82rem;font-weight:800;color:#2aff9e}
+.loan-status-info .val.warn{color:#ffd966}
+.btn-pay-installment{width:100%;padding:.75rem;border-radius:16px;border:none;font-weight:800;font-size:.85rem;cursor:pointer;background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 6px 18px rgba(255,215,0,.3)}
+.installment-timeline{display:flex;flex-direction:column;gap:.5rem;margin:.7rem 0}
+.inst-row{display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;background:rgba(0,0,0,.3);border-radius:12px;border-left:3px solid rgba(255,255,255,.1)}
+.inst-row.paid{border-left-color:#2aff9e;background:rgba(42,255,158,.05)}
+.inst-row.pending-pay{border-left-color:#ffd966;background:rgba(255,215,0,.05)}
+.inst-row.waiting{border-left-color:#60a5fa;background:rgba(59,130,246,.05)}
+.inst-num{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:#7a8aaa;flex-shrink:0}
+.inst-row.paid .inst-num{background:linear-gradient(135deg,#2aff9e,#0fcc73);color:#070c14}
+.inst-row.pending-pay .inst-num{background:linear-gradient(135deg,#ffd966,#ffa117);color:#070c14}
+.inst-info{flex:1;min-width:0}
+.inst-info strong{font-size:.8rem;display:block;color:#fff}
+.inst-info span{font-size:.66rem;color:#7a8aaa}
+.inst-status{font-size:.62rem;font-weight:800;padding:.2rem .55rem;border-radius:20px;white-space:nowrap}
+.inst-status.paid{background:rgba(42,255,158,.15);color:#2aff9e}
+.inst-status.pending{background:rgba(255,215,0,.15);color:#ffd966}
+.inst-status.waiting{background:rgba(59,130,246,.15);color:#60a5fa}
+
+.pay-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(10px);z-index:99999;display:none;align-items:center;justify-content:center;padding:1rem}
+.pay-modal.open{display:flex}
+.pay-box{background:linear-gradient(145deg,#0f1a28,#0a121e);border:1.5px solid rgba(42,255,158,.4);border-radius:24px;padding:1.5rem;max-width:420px;width:100%;max-height:92vh;overflow-y:auto;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.9)}
+.pay-close{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.08);border:none;color:#7a8aaa;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:.85rem}
+.pay-box h3{color:#2aff9e;font-size:1.05rem;font-weight:900;text-align:center;margin-bottom:.4rem}
+.pay-box .pay-sub{text-align:center;color:#7a8aaa;font-size:.75rem;margin-bottom:1rem}
+.pay-amount-badge{text-align:center;background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,161,23,.1));border:1.5px solid rgba(255,215,0,.4);border-radius:16px;padding:.8rem;margin-bottom:1rem}
+.pay-amount-badge .lbl{font-size:.65rem;color:#ffd966;letter-spacing:.5px;margin-bottom:.2rem}
+.pay-amount-badge .amt{font-size:1.6rem;font-weight:900;color:#ffd966}
+
+/* Agreement Modal */
+.agreement-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(10px);z-index:999999;display:none;align-items:center;justify-content:center;padding:1rem}
+.agreement-modal.open{display:flex}
+.agreement-box{background:#f9f9f9;color:#111;border-radius:12px;padding:2rem;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;position:relative;font-family:serif;line-height:1.8}
+.agreement-close{position:absolute;top:10px;right:10px;background:#ddd;border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-weight:bold}
+.agreement-box h2{text-align:center;margin-bottom:1rem;text-decoration:underline}
+.agreement-box p{margin-bottom:.8rem;font-size:.9rem}
+.agreement-box .sig-area{margin-top:2rem;display:flex;justify-content:space-between;align-items:flex-end}
+.agreement-box .sig-area div{border-top:1px solid #333;padding-top:.5rem;width:45%;text-align:center;font-size:.8rem;position:relative}
+.agreement-box .sig-area .stamp{font-family:cursive;font-size:1.2rem;color:#1a237e;position:absolute;top:-25px;left:50%;transform:translateX(-50%) rotate(-10deg);white-space:nowrap;opacity:.7;border:2px solid #1a237e;padding:2px 10px;border-radius:4px}
+
+.doc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin:.6rem 0}
+.doc-item{background:rgba(0,0,0,.3);border-radius:10px;padding:.5rem;text-align:center;cursor:pointer;border:1px solid rgba(42,255,158,.15)}
+.doc-item:hover{border-color:#2aff9e}
+.doc-item img{width:100%;height:80px;object-fit:cover;border-radius:6px;margin-bottom:.3rem}
+.doc-item .doc-lbl{font-size:.62rem;color:#7a8aaa;font-weight:700}
+.doc-item .doc-lbl i{color:#2aff9e;margin-right:.2rem}
+
+/* Trust Badge */
+.trust-badge{background:rgba(59,130,246,.15);color:#60a5fa;padding:.2rem .5rem;border-radius:20px;font-size:.65rem;font-weight:800;margin-left:.5rem;display:inline-block}
 </style>
 </head>
 <body>
@@ -483,6 +541,74 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 <div class="gbg"></div>
 <div class="toast" id="toast"></div>
 <div class="lightbox" id="lightbox"><button class="lb-close" onclick="closeLb()"><i class="fas fa-times"></i></button><img id="lbImg" src=""></div>
+
+<!-- TMS MODAL -->
+<div class="tms-modal-overlay" id="tmsModal">
+  <div class="tms-modal-box">
+    <button class="tms-modal-close" onclick="closeTMSModal()"><i class="fas fa-times"></i></button>
+    <div class="tms-modal-header">
+      <div class="tms-modal-icon-wrap">
+        <span class="tms-modal-icon">📈</span>
+        <div class="tms-modal-icon-ring"></div>
+      </div>
+      <h3>Open TMS Account</h3>
+      <p class="tms-modal-subtitle">NEPSE Trading Account खोल्नुहोस्<br>Trade stocks with expert guidance</p>
+    </div>
+    <div class="tms-modal-info">
+      <div class="tms-info-row"><span class="tms-info-label">Broker</span><span class="tms-info-value">Nabin Khanal</span></div>
+      <div class="tms-info-row"><span class="tms-info-label">Type</span><span class="tms-info-value">TMS / NEPSE</span></div>
+      <div class="tms-info-row"><span class="tms-info-label">Support</span><span class="tms-info-value">24/7 Available</span></div>
+    </div>
+    <div class="tms-modal-benefits">
+      <div class="tms-modal-benefit">✅ Free NEPSE Trading Account</div>
+      <div class="tms-modal-benefit">✅ Expert Guidance & Support</div>
+      <div class="tms-modal-benefit">✅ Live Trading Signals</div>
+      <div class="tms-modal-benefit">✅ Portfolio Management</div>
+    </div>
+    <div class="tms-modal-actions">
+      <button class="tms-modal-btn cancel" onclick="closeTMSModal()">Cancel</button>
+      <button class="tms-modal-btn confirm" onclick="confirmTMS()"><i class="fas fa-external-link-alt"></i> Open Account</button>
+    </div>
+    <p class="tms-modal-note">🔒 Safe & Secure · Official NEPSE Broker</p>
+  </div>
+</div>
+
+<!-- INSTALLMENT PAYMENT MODAL -->
+<div class="pay-modal" id="payModal">
+  <div class="pay-box">
+    <button class="pay-close" onclick="closePayModal()"><i class="fas fa-times"></i></button>
+    <h3><i class="fas fa-qrcode"></i> किस्ता भुक्तानी</h3>
+    <p class="pay-sub" id="payModalSub">Scan QR & upload screenshot</p>
+    <div class="pay-amount-badge">
+      <div class="lbl">भुक्तानी गर्नुपर्ने रकम</div>
+      <div class="amt" id="payAmtDisplay">रु. 0</div>
+    </div>
+    <div class="qr-wrap" style="margin-bottom:1rem">
+      <div class="qr-card"><img src="https://i.ibb.co/LzF8CFnP/image.jpg" alt="QR"></div>
+      <p style="margin-top:.5rem;font-size:.7rem;color:#7a8aaa">eSewa / Khalti QR</p>
+    </div>
+    <div class="f-group" style="margin-bottom:.7rem">
+      <label class="f-label">भुक्तानी स्क्रिनसट *</label>
+      <div class="upload-box" onclick="document.getElementById('instProofFile').click()">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p><strong>Click to Upload</strong></p>
+      </div>
+      <input type="file" id="instProofFile" accept="image/*" style="display:none" onchange="previewInstProof(this)">
+      <img id="instProofPreview" class="img-preview">
+    </div>
+    <button class="btn-submit" id="btnInstSubmit" onclick="submitInstallmentPayment()">
+      <i class="fas fa-paper-plane"></i> Submit Payment
+    </button>
+  </div>
+</div>
+
+<!-- AGREEMENT MODAL -->
+<div class="agreement-modal" id="agreementModal">
+  <div class="agreement-box" id="agreementContent">
+    <button class="agreement-close" onclick="closeAgreement()">✕</button>
+    <!-- Content injected by JS -->
+  </div>
+</div>
 
 <!-- AUTH SCREEN -->
 <div class="auth-screen active" id="authScreen">
@@ -660,6 +786,41 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
     </div>
   </div>
 
+  <!-- LOAN PAGE (userApp bhitra — FIXED) -->
+  <div class="page" id="page-loan">
+    <div class="sec-tag">💰 LOAN</div>
+    <h2 class="sec-h">ऋण <span>व्यवस्थापन</span></h2>
+    <p class="sec-sub">बिना धितो · ४ महिना · ६% प्रति महिना ब्याज</p>
+
+    <div id="userLoanStatus" style="margin-bottom:1.2rem"></div>
+
+    <div id="newLoanForm" style="background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.12);border-radius:20px;padding:1.2rem">
+      <h4 style="color:#2aff9e;margin-bottom:.9rem;font-size:.9rem"><i class="fas fa-plus-circle"></i> नयाँ ऋण आवेदन</h4>
+      <div class="form-grid">
+        <div class="f-group"><label class="f-label">पूरा नाम *</label><input type="text" id="lnName" class="f-input" placeholder="तपाईंको नाम"></div>
+        <div class="f-group"><label class="f-label">नागरिकता नम्बर *</label><input type="text" id="lnCitNo" class="f-input" placeholder="१२३-४५६-७८९"></div>
+        <div class="f-group"><label class="f-label">ऋण रकम (रु) *</label><input type="number" id="lnAmount" class="f-input" placeholder="50000" min="1000" max="500000"></div>
+        <div class="f-group"><label class="f-label">बैंकको नाम *</label><input type="text" id="lnBank" class="f-input" placeholder="नेपाल इन्भेष्टमेन्ट बैंक"></div>
+        <div class="f-group"><label class="f-label">खाता नम्बर *</label><input type="text" id="lnAccNo" class="f-input" placeholder="खाता नम्बर"></div>
+        <div class="f-group"><label class="f-label">खाता धारकको नाम *</label><input type="text" id="lnAccHolder" class="f-input" placeholder="बैंकमा दर्ता नाम"></div>
+      </div>
+      <h4 style="color:#2aff9e;margin:1rem 0 .6rem;font-size:.85rem"><i class="fas fa-camera"></i> कागजात अपलोड</h4>
+      <p style="font-size:.72rem;color:#7a8aaa;margin-bottom:.6rem">नागरिकता हातमा समातेर सेल्फी, अगाडि/पछाडि, बैंक स्टेटमेन्ट</p>
+      <div class="form-grid">
+        <div class="f-group"><label class="f-label">नागरिकता (अगाडि) *</label><input type="file" id="lnCitFront" class="f-input" accept="image/*"></div>
+        <div class="f-group"><label class="f-label">नागरिकता (पछाडि) *</label><input type="file" id="lnCitBack" class="f-input" accept="image/*"></div>
+        <div class="f-group"><label class="f-label">नागरिकता हातमा समातेर सेल्फी *</label><input type="file" id="lnSelfie" class="f-input" accept="image/*"></div>
+        <div class="f-group"><label class="f-label">बैंक स्टेटमेन्ट *</label><input type="file" id="lnBankStmt" class="f-input" accept="image/*"></div>
+      </div>
+      <div style="background:rgba(233,69,96,.08);border:1px solid rgba(233,69,96,.3);border-radius:12px;padding:1rem;margin:1rem 0;font-size:.8rem;line-height:1.7;color:#ccbbbb">
+        <strong style="color:#e94560">ऋणका सर्तहरू:</strong>
+        <ul style="padding-left:1.2rem;margin-top:.4rem"><li>अवधि: ४ महिना | ब्याज: ६% प्रति महिना (कुल २४%)</li><li>४ समान मासिक किस्ता</li></ul>
+        <label style="display:flex;gap:.6rem;align-items:flex-start;margin-top:.6rem;cursor:pointer"><input type="checkbox" id="lnTerms" style="width:18px;height:18px;accent-color:#e94560"><span>मैले सबै सर्तहरू पढेको, बुझेको र सहमत छु।</span></label>
+      </div>
+      <button class="btn-submit" id="btnLoanSubmit" onclick="submitLoan()"><i class="fas fa-paper-plane"></i> आवेदन पेश गर्नुहोस्</button>
+    </div>
+  </div>
+
   <!-- CHAT -->
   <button class="float-chat-btn" id="floatChatBtn" onclick="toggleChatWin()"><i class="fas fa-comment-dots"></i><div class="fc-badge" id="fcBadge" style="display:none">!</div></button>
   <div class="chat-win" id="chatWin">
@@ -708,38 +869,6 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
   </div>
 </div>
 
-<!-- LOAN PAGE -->
-<div class="page" id="page-loan">
-  <div class="sec-tag">💰 LOAN</div>
-  <h2 class="sec-h">ऋण <span>आवेदन</span></h2>
-  <p class="sec-sub">बिना धितो · ४ महिना · ६% प्रति महिना ब्याज</p>
-  <div style="background:rgba(12,18,28,.8);border:1px solid rgba(42,255,158,.12);border-radius:20px;padding:1.2rem">
-    <div class="form-grid">
-      <div class="f-group"><label class="f-label">पूरा नाम *</label><input type="text" id="lnName" class="f-input" placeholder="तपाईंको नाम"></div>
-      <div class="f-group"><label class="f-label">नागरिकता नम्बर *</label><input type="text" id="lnCitNo" class="f-input" placeholder="१२३-४५६-७८९"></div>
-      <div class="f-group"><label class="f-label">ऋण रकम (रु) *</label><input type="number" id="lnAmount" class="f-input" placeholder="50000" min="1000" max="500000"></div>
-      <div class="f-group"><label class="f-label">बैंकको नाम *</label><input type="text" id="lnBank" class="f-input" placeholder="नेपाल इन्भेष्टमेन्ट बैंक"></div>
-      <div class="f-group"><label class="f-label">खाता नम्बर *</label><input type="text" id="lnAccNo" class="f-input" placeholder="खाता नम्बर"></div>
-      <div class="f-group"><label class="f-label">खाता धारकको नाम *</label><input type="text" id="lnAccHolder" class="f-input" placeholder="बैंकमा दर्ता नाम"></div>
-    </div>
-    <h4 style="color:#2aff9e;margin:1rem 0 .6rem;font-size:.85rem"><i class="fas fa-camera"></i> कागजात अपलोड</h4>
-    <p style="font-size:.72rem;color:#7a8aaa;margin-bottom:.6rem">नागरिकता हातमा समातेर सेल्फी, अगाडि/पछाडि, बैंक स्टेटमेन्ट</p>
-    <div class="form-grid">
-      <div class="f-group"><label class="f-label">नागरिकता (अगाडि) *</label><input type="file" id="lnCitFront" class="f-input" accept="image/*,.pdf"></div>
-      <div class="f-group"><label class="f-label">नागरिकता (पछाडि) *</label><input type="file" id="lnCitBack" class="f-input" accept="image/*,.pdf"></div>
-      <div class="f-group"><label class="f-label">नागरिकता हातमा समातेर सेल्फी *</label><input type="file" id="lnSelfie" class="f-input" accept="image/*"></div>
-      <div class="f-group"><label class="f-label">बैंक स्टेटमेन्ट *</label><input type="file" id="lnBankStmt" class="f-input" accept="image/*,.pdf"></div>
-    </div>
-    <div class="terms-box" style="background:rgba(233,69,96,.08);border:1px solid rgba(233,69,96,.3);border-radius:12px;padding:1rem;margin:1rem 0;font-size:.8rem;line-height:1.7;color:#ccbbbb">
-      <strong style="color:#e94560">ऋणका सर्तहरू:</strong>
-      <ul style="padding-left:1.2rem;margin-top:.4rem"><li>अवधि: ४ महिना | ब्याज: ६% प्रति महिना (कुल २४%)</li><li>४ समान मासिक किस्ता (मूलधन १/४ + पूर्ण मूलधनको ६% ब्याज)</li></ul>
-      <label style="display:flex;gap:.6rem;align-items:flex-start;margin-top:.6rem;cursor:pointer"><input type="checkbox" id="lnTerms" style="width:18px;height:18px;accent-color:#e94560"><span>मैले सबै सर्तहरू पढेको, बुझेको र सहमत छु।</span></label>
-    </div>
-    <button class="btn-submit" id="btnLoanSubmit" onclick="submitLoan()"><i class="fas fa-paper-plane"></i> आवेदन पेश गर्नुहोस्</button>
-  </div>
-  <div id="userLoanStatus" style="margin-top:1.2rem"></div>
-</div>
-
 <!-- MAIN JS -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
@@ -753,12 +882,101 @@ const db=getFirestore(app);
 const ADMIN="nabinkhanal0007@gmail.com";
 let _user=null,_adminChatId=null,_adminChatUnsub=null;
 
-Object.assign(window,{doLogin,doSignup,doGoogle,doReset,logout,submitEnrollment,submitCollab,sendUserMsg,sendAdminReply,openAdminChat,closeAdminChatPanel,verifyEnroll,setEnrollStatus,updateCollabStatus,changeAdminPass,approveCertificate,requestCertificate,downloadCertificate,genCertHTML,verifyPdfSale,submitLoan,verifyLoan,approveLoan,rejectLoan,showReject,approveInstallment,showPayInstallment,submitPaymentProof});
+// ============ HELPERS ============
+function toast(msg){
+  const t=document.getElementById('toast');
+  if(!t)return;
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+function aMsg(msg,type){
+  const el=document.getElementById('authMsg');
+  if(!el)return;
+  el.textContent=msg;el.className='auth-msg '+type;
+}
+function fe(code){
+  const map={'auth/invalid-email':'Invalid email','auth/user-not-found':'User not found','auth/wrong-password':'Wrong password','auth/email-already-in-use':'Email already registered','auth/weak-password':'Password too weak','auth/invalid-credential':'Invalid email or password'};
+  return map[code]||'Error: '+code;
+}
+function closeLb(){document.getElementById('lightbox').classList.remove('open');}
+function openLb(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
 
-onAuthStateChanged(auth,async u=>{_user=u;if(!u){showAuth();return;}if(u.email===ADMIN)showAdminApp(u);else showUserApp(u);});
+// ============ AUTH UI ============
+function switchAuthTab(tab){
+  document.getElementById('loginTabBtn').classList.toggle('active',tab==='login');
+  document.getElementById('signupTabBtn').classList.toggle('active',tab==='signup');
+  document.getElementById('loginSection').style.display=tab==='login'?'block':'none';
+  document.getElementById('signupSection').style.display=tab==='signup'?'block':'none';
+  document.getElementById('forgotSection').style.display='none';
+}
+function showForgot(show=true){
+  document.getElementById('loginSection').style.display=show?'none':'block';
+  document.getElementById('forgotSection').style.display=show?'block':'none';
+  document.getElementById('signupSection').style.display='none';
+}
+function togglePass(id,btn){
+  const inp=document.getElementById(id);
+  if(inp.type==='password'){inp.type='text';btn.innerHTML='<i class="fas fa-eye-slash"></i>';}
+  else{inp.type='password';btn.innerHTML='<i class="fas fa-eye"></i>';}
+}
 
-function showAuth(){document.getElementById('authScreen').classList.add('active');document.getElementById('authScreen').style.display='flex';document.getElementById('userApp').style.display='none';document.getElementById('adminApp').style.display='none';document.getElementById('bottomNav').style.display='none';}
+// ============ PAGE NAV ============
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('page-'+name);
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function bnavSet(name){
+  document.querySelectorAll('.bnav').forEach(b=>b.classList.remove('active'));
+  const el=document.querySelector('.bnav[data-p="'+name+'"]');
+  if(el)el.classList.add('active');
+}
 
+// ============ AUTH ACTIONS ============
+async function doLogin(){
+  const e=document.getElementById('loginEmail').value.trim();
+  const p=document.getElementById('loginPass').value;
+  if(!e||!p)return aMsg('Fill all fields','err');
+  try{await signInWithEmailAndPassword(auth,e,p);}
+  catch(x){aMsg(fe(x.code),'err');}
+}
+async function doSignup(){
+  const n=document.getElementById('suName').value.trim();
+  const e=document.getElementById('suEmail').value.trim();
+  const ph=document.getElementById('suPhone').value.trim();
+  const p=document.getElementById('suPass').value;
+  if(!n||!e||!p)return aMsg('Fill all','err');
+  if(p.length<6)return aMsg('Min 6','err');
+  try{
+    const{user}=await createUserWithEmailAndPassword(auth,e,p);
+    await updateProfile(user,{displayName:n});
+    await setDoc(doc(db,'users',user.uid),{name:n,email:e,phone:ph,photoURL:'',isAdmin:false,createdAt:serverTimestamp()});
+    toast('🎉 Account created!');
+  }catch(x){aMsg(fe(x.code),'err');}
+}
+async function doGoogle(){try{await signInWithPopup(auth,new GoogleAuthProvider());toast('✅ Logged!');}catch(x){aMsg(fe(x.code),'err');}}
+async function doReset(){
+  const e=document.getElementById('resetEmail').value.trim();
+  if(!e)return aMsg('Enter email','err');
+  try{await sendPasswordResetEmail(auth,e);aMsg('✅ Sent!','ok');}catch(x){aMsg(fe(x.code),'err');}
+}
+async function logout(){await signOut(auth);toast('👋 Logged out');}
+
+// ============ AUTH STATE ============
+onAuthStateChanged(auth,async u=>{
+  _user=u;
+  if(!u){showAuth();return;}
+  if(u.email===ADMIN)showAdminApp(u);
+  else showUserApp(u);
+});
+function showAuth(){
+  document.getElementById('authScreen').classList.add('active');
+  document.getElementById('authScreen').style.display='flex';
+  document.getElementById('userApp').style.display='none';
+  document.getElementById('adminApp').style.display='none';
+  document.getElementById('bottomNav').style.display='none';
+}
 async function showUserApp(u){
   document.getElementById('authScreen').classList.remove('active');
   document.getElementById('authScreen').style.display='none';
@@ -770,9 +988,12 @@ async function showUserApp(u){
   document.getElementById('eEmail').value=u.email;
   document.getElementById('navRight').innerHTML=`<div class="nav-user"><div class="nav-user-avatar">${u.photoURL?`<img src="${u.photoURL}" style="width:26px;height:26px;border-radius:50%">`:name[0].toUpperCase()}</div><span class="nav-user-name">${name}</span></div><button class="btn-n out" onclick="logout()">Logout</button>`;
   await setDoc(doc(db,'users',u.uid),{name,email:u.email,photoURL:u.photoURL||'',isAdmin:false,updatedAt:serverTimestamp()},{merge:true});
-  loadProfile(u,name);loadMyEnrollments(u.uid);loadMyPdfs(u.uid);initChat(u);loadMyLoans(u.uid);
+  loadProfile(u,name);
+  loadMyEnrollments(u.uid);
+  loadMyPdfs(u.uid);
+  loadMyLoans(u.uid);
+  initChat(u);
 }
-
 function showAdminApp(u){
   document.getElementById('authScreen').classList.remove('active');
   document.getElementById('authScreen').style.display='none';
@@ -783,17 +1004,334 @@ function showAdminApp(u){
   loadAdminData();
 }
 
-async function doLogin(){const e=document.getElementById('loginEmail').value.trim(),p=document.getElementById('loginPass').value;if(!e||!p)return aMsg('Fill all fields','err');try{await signInWithEmailAndPassword(auth,e,p);}catch(x){aMsg(fe(x.code),'err');}}
-async function doSignup(){const n=document.getElementById('suName').value.trim(),e=document.getElementById('suEmail').value.trim(),ph=document.getElementById('suPhone').value.trim(),p=document.getElementById('suPass').value;if(!n||!e||!p)return aMsg('Fill all','err');if(p.length<6)return aMsg('Min 6','err');try{const{user}=await createUserWithEmailAndPassword(auth,e,p);await updateProfile(user,{displayName:n});await setDoc(doc(db,'users',user.uid),{name:n,email:e,phone:ph,photoURL:'',isAdmin:false,createdAt:serverTimestamp()});toast('🎉 Created!');}catch(x){aMsg(fe(x.code),'err');}}
-async function doGoogle(){try{await signInWithPopup(auth,new GoogleAuthProvider());toast('✅ Logged!');}catch(x){aMsg(fe(x.code),'err');}}
-async function doReset(){const e=document.getElementById('resetEmail').value.trim();if(!e)return aMsg('Enter email','err');try{await sendPasswordResetEmail(auth,e);aMsg('✅ Sent!','ok');}catch(x){aMsg(fe(x.code),'err');}}
-async function logout(){await signOut(auth);toast('👋 Logged out');}
+// ============ PROFILE ============
+function loadProfile(u,name){
+  const av=document.getElementById('profAvatar');
+  if(u.photoURL)av.innerHTML=`<img src="${u.photoURL}">`;else av.textContent=name[0].toUpperCase();
+  document.getElementById('profName').textContent=name;
+  document.getElementById('profEmail').textContent=u.email;
+}
+async function loadMyEnrollments(uid){
+  const c=document.getElementById('myEnrollments');if(!c)return;
+  const q=query(collection(db,'enrollments'),where('userId','==',uid));
+  onSnapshot(q,snap=>{
+    if(snap.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-inbox"></i><p>No enrollments yet.</p></div>';return;}
+    c.innerHTML=snap.docs.map(d=>{
+      const e=d.data();
+      const cls=e.status==='pending'?'sp-pending':e.status==='verified'?'sp-verified':'sp-completed';
+      return `<div class="enrollment-row"><div><strong style="font-size:.82rem">${e.courseName}</strong><br><span style="font-size:.7rem;color:#7a8aaa">Rs. ${e.amount}</span></div><span class="status-pill ${cls}">${e.status}</span></div>`;
+    }).join('');
+  });
+}
+async function loadMyPdfs(uid){
+  const c=document.getElementById('myPdfs');if(!c)return;
+  const q=query(collection(db,'pdf_purchases'),where('userId','==',uid));
+  onSnapshot(q,snap=>{
+    if(snap.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDF purchased yet.</p></div>';return;}
+    c.innerHTML=snap.docs.map(d=>{
+      const p=d.data();
+      if(p.status==='verified')return `<div class="pdf-owned-card"><div class="pdf-owned-icon"><i class="fas fa-file-pdf"></i></div><div class="pdf-owned-info"><strong>${p.courseName}</strong><span>✓ Unlocked</span></div><a class="btn-open-pdf" href="https://drive.google.com/file/d/${p.pdfId}/view" target="_blank"><i class="fas fa-external-link-alt"></i> Open PDF</a></div>`;
+      return `<div class="pdf-owned-card"><div class="pdf-owned-icon" style="background:rgba(255,215,0,.15);color:#ffd966"><i class="fas fa-clock"></i></div><div class="pdf-owned-info"><strong>${p.courseName}</strong><span>Rs. ${p.amount}</span></div><div class="pdf-pending-pill"><i class="fas fa-hourglass-half"></i> Pending</div></div>`;
+    }).join('');
+  });
+}
 
+// ============ LOAN (USER) ============
+async function loadMyLoans(uid){
+  const c=document.getElementById('userLoanStatus');if(!c)return;
+  const q=query(collection(db,'loans'),where('userId','==',uid));
+  onSnapshot(q,snap=>{
+    const docs = snap.docs;
+    const activeLoans = docs.filter(d => d.data().status !== 'completed' && d.data().status !== 'rejected');
+    const pastLoans = docs.filter(d => d.data().status === 'completed');
+    
+    // If any active loan exists, hide new loan form
+    const form = document.getElementById('newLoanForm');
+    if (activeLoans.length > 0) {
+        form.style.display = 'none';
+    } else {
+        form.style.display = 'block'; // Can apply for new loan
+        if (pastLoans.length > 0) {
+            form.querySelector('h4').innerHTML = '<i class="fas fa-plus-circle"></i> नयाँ ऋण आवेदन (Re-Loan)';
+        } else {
+            form.querySelector('h4').innerHTML = '<i class="fas fa-plus-circle"></i> नयाँ ऋण आवेदन';
+        }
+    }
+
+    if(docs.length === 0){c.innerHTML='';return;}
+
+    c.innerHTML=docs.map(d=>{
+      const l=d.data();
+      const loanId=d.id;
+      const paidCount=l.paidInstallments||0;
+      const totalPay=Math.round(l.amount*1.24);
+      const remaining=Math.round(l.amount*(1.24-(paidCount*0.31)));
+      let statusBadge='';
+      if(l.status==='pending')statusBadge='<span class="status-pill sp-pending">समीक्षा बाँकी</span>';
+      else if(l.status==='verified')statusBadge='<span class="status-pill sp-pending">प्रमाणित</span>';
+      else if(l.status==='approved')statusBadge='<span class="status-pill sp-verified">✅ स्वीकृत</span>';
+      else if(l.status==='rejected')statusBadge='<span class="status-pill sp-rejected">❌ अस्वीकृत</span>';
+      else if(l.status==='completed')statusBadge='<span class="status-pill sp-completed">🎉 पूर्ण (Closed)</span>';
+      
+      let timeline='';
+      if(l.status==='approved'||l.status==='completed'){
+        const sched=l.schedule||[];
+        sched.forEach((s,i)=>{
+          const idx=i+1;
+          let rowCls='waiting',stCls='waiting',stTxt='बाँकी';
+          if(idx<=paidCount){rowCls='paid';stCls='paid';stTxt='✓ तिरेको';}
+          else if(idx===paidCount+1 && l.status === 'approved'){rowCls='pending-pay';stCls='pending';stTxt='तिर्नुहोस्';}
+          timeline+=`<div class="inst-row ${rowCls}">
+            <div class="inst-num">${idx}</div>
+            <div class="inst-info"><strong>रु. ${Math.round(s.payment)}</strong><span>महिना ${idx} · ब्याज रु. ${Math.round(s.interest)}</span></div>
+            <span class="inst-status ${stCls}">${stTxt}</span>
+          </div>`;
+        });
+      }
+      let actionBtn='';
+      if(l.status==='approved' && paidCount<4){
+        const nextAmt=Math.round(l.amount*0.31);
+        actionBtn=`<button class="btn-pay-installment" onclick="openPayModal('${loanId}',${nextAmt},${paidCount+1})"><i class="fas fa-qrcode"></i> किस्ता तिर्नुहोस् (रु. ${nextAmt})</button>`;
+      } else if(l.status==='approved' && paidCount>=4){
+        actionBtn='<div style="text-align:center;padding:.7rem;background:rgba(42,255,158,.1);border-radius:14px;color:#2aff9e;font-weight:800">🎉 सबै किस्ता तिरिसक्नुभयो!</div>';
+      } else if(l.status==='pending'){
+        actionBtn='<div class="pdf-pending-pill"><i class="fas fa-hourglass-half"></i> एडमिनले जाँच गर्दै</div>';
+      } else if(l.status==='rejected'){
+        actionBtn=`<div style="color:#ff8080;font-size:.78rem;text-align:center">कारण: ${l.rejectReason||'—'}</div>`;
+      } else if(l.status==='completed') {
+        actionBtn = `<div style="text-align:center;padding:.7rem;background:rgba(59,130,246,.1);border-radius:14px;color:#60a5fa;font-weight:800">✅ यो ऋण पूर्ण भइसक्यो</div>`;
+      }
+
+      // Calculate trust score
+      const trustScore = l.trustScore || 50;
+      let trustHTML = `<span class="trust-badge" title="Trust Score">${trustScore}% Trust</span>`;
+
+      return `<div class="loan-status-card">
+        <div class="loan-status-header"><strong><i class="fas fa-hand-holding-usd"></i> ऋण रु. ${l.amount} ${trustHTML}</strong>${statusBadge}</div>
+        <div class="loan-status-info">
+          <div><span class="lbl">कुल तिर्नुपर्ने</span><span class="val">रु. ${totalPay}</span></div>
+          <div><span class="lbl">बाँकी रकम</span><span class="val warn">रु. ${Math.max(0,remaining)}</span></div>
+          <div><span class="lbl">तिरेको किस्ता</span><span class="val">${paidCount} / 4</span></div>
+          <div><span class="lbl">बैंक</span><span class="val">${l.bankName||'—'}</span></div>
+        </div>
+        ${timeline?`<div class="installment-timeline">${timeline}</div>`:''}
+        ${actionBtn}
+      </div>`;
+    }).join('');
+  });
+}
+
+function generateLoanSchedule(amount){
+  const mi=amount*0.06,mp=amount/4,s=[];
+  for(let i=1;i<=4;i++)s.push({period:i,principal:mp,interest:mi,payment:mp+mi,remaining:amount-mp*i});
+  return s;
+}
+
+function generateAgreementText(data) {
+    const d = new Date();
+    return `
+        <h2>ऋण सम्झौता पत्र (Loan Agreement)</h2>
+        <p>मिति: ${d.toLocaleDateString()}</p>
+        <p>यो सम्झौता <b>Digital With Nabin</b> (ऋणदाता) र <b>${data.name}</b> (ऋणी) बीच भएको छ।</p>
+        <p>ऋणीले निम्न विवरण अनुसार ऋण लिन स्वीकार गर्नुभएको छ:</p>
+        <ul>
+            <li><b>ऋण रकम:</b> रु. ${data.amount}</li>
+            <li><b>ब्याज दर:</b> ६% प्रति महिना (कुल २४% वार्षिक)</li>
+            <li><b>अवधि:</b> ४ महिना (४ समान मासिक किस्ता)</li>
+            <li><b>बैंक:</b> ${data.bank}</li>
+            <li><b>खाता नम्बर:</b> ${data.accNo}</li>
+        </ul>
+        <p>ऋणीले तोकिएको समयमा किस्ता नतिरेमा कानूनी कारबाही हुनेछ। यदि १५ दिनभित्रै सम्पूर्ण किस्ता भुक्तानी गरेमा कुल ब्याजको ५०% छुट पाउनेछन्।</p>
+        <p>यो सम्झौता दुवै पक्षको सहमतिमा भएको हो।</p>
+        <div class="sig-area">
+            <div>
+                <div class="stamp">Digital With Nabin</div>
+                ऋणदाताको हस्ताक्षर<br><b>Digital With Nabin</b>
+            </div>
+            <div>ऋणीको हस्ताक्षर<br><b>${data.name}</b></div>
+        </div>
+    `;
+}
+
+function showAgreementModal(html) {
+    document.getElementById('agreementContent').innerHTML = `<button class="agreement-close" onclick="closeAgreement()">✕</button>` + html;
+    document.getElementById('agreementModal').classList.add('open');
+}
+function closeAgreement() {
+    document.getElementById('agreementModal').classList.remove('open');
+}
+
+async function submitLoan(){
+  if(!_user)return toast('❌ पहिले लगइन गर्नुहोस्');
+  const name=document.getElementById('lnName').value.trim();
+  const citNo=document.getElementById('lnCitNo').value.trim();
+  const amount=parseFloat(document.getElementById('lnAmount').value);
+  const bank=document.getElementById('lnBank').value.trim();
+  const accNo=document.getElementById('lnAccNo').value.trim();
+  const accHolder=document.getElementById('lnAccHolder').value.trim();
+  const citFront=document.getElementById('lnCitFront').files[0];
+  const citBack=document.getElementById('lnCitBack').files[0];
+  const selfie=document.getElementById('lnSelfie').files[0];
+  const bankStmt=document.getElementById('lnBankStmt').files[0];
+  const terms=document.getElementById('lnTerms').checked;
+  
+  if(!name||!citNo||!amount||!bank||!accNo||!accHolder)return toast('सबै फिल्ड भर्नुहोस्');
+  if(amount<1000)return toast('कम्तीमा १०००');
+  if(!citFront||!citBack||!selfie||!bankStmt)return toast('सबै कागजात अपलोड');
+  if(!terms)return toast('सर्तमा सहमत हुनुहोस्');
+
+  const btn=document.getElementById('btnLoanSubmit');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> पेश गर्दै...';
+  try{
+    const[cf,cb,sf,bs]=await Promise.all([fileToBase64(citFront),fileToBase64(citBack),fileToBase64(selfie),fileToBase64(bankStmt)]);
+    
+    // Generate Agreement
+    const agreementHtml = generateAgreementText({name, amount, bank, accNo});
+
+    await addDoc(collection(db,'loans'),{
+      userId:_user.uid,userName:name,citNo,amount,bankName:bank,accountNo:accNo,accountHolder:accHolder,
+      citFrontBase64:cf,citBackBase64:cb,selfieBase64:sf,bankStatementBase64:bs,
+      status:'pending',rejectReason:'', agreementHtml: agreementHtml, // saved agreement
+      schedule:generateLoanSchedule(amount),totalInterest:amount*0.24,
+      paidInstallments:0,payments:[], trustScore:50, createdAt:serverTimestamp()
+    });
+    toast('✅ आवेदन पेश भयो!');
+    ['lnName','lnCitNo','lnAmount','lnBank','lnAccNo','lnAccHolder'].forEach(id=>document.getElementById(id).value='');
+    ['lnCitFront','lnCitBack','lnSelfie','lnBankStmt'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('lnTerms').checked=false;
+    showAgreementModal(agreementHtml); // Show immediately
+  }catch(e){toast('❌ '+e.message);}
+  finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> आवेदन पेश गर्नुहोस्';}
+}
+
+// ============ INSTALLMENT PAYMENT (USER) ============
+let _payLoanId=null,_payPeriod=null,_payAmount=null;
+function openPayModal(loanId,amt,period){
+  _payLoanId=loanId;_payPeriod=period;_payAmount=amt;
+  document.getElementById('payAmtDisplay').textContent='रु. '+amt;
+  document.getElementById('payModalSub').textContent=`किस्ता #${period} — QR स्क्यान गरी तिर्नुहोस्`;
+  document.getElementById('payModal').classList.add('open');
+  document.getElementById('instProofPreview').style.display='none';
+  document.getElementById('instProofFile').value='';
+}
+function closePayModal(){document.getElementById('payModal').classList.remove('open');}
+function previewInstProof(inp){
+  const f=inp.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{const p=document.getElementById('instProofPreview');p.src=e.target.result;p.style.display='block';};
+  r.readAsDataURL(f);
+}
+async function submitInstallmentPayment(){
+  if(!_payLoanId)return;
+  const file=document.getElementById('instProofFile').files[0];
+  if(!file)return toast('📸 स्क्रिनसट अपलोड गर्नुहोस्');
+  const btn=document.getElementById('btnInstSubmit');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Submitting...';
+  try{
+    const base64=await fileToBase64(file);
+    const loanRef=doc(db,'loans',_payLoanId);
+    const snap=await getDoc(loanRef);
+    if(!snap.exists())throw new Error('Loan not found');
+    const l=snap.data();
+    const payments=l.payments||[];
+    if(payments.find(p=>p.period===_payPeriod && p.status==='pending'))throw new Error('यो किस्ता पहिले नै पेश भइसक्यो');
+    payments.push({
+      period:_payPeriod,
+      amount:_payAmount,
+      proofBase64:base64,
+      status:'pending',
+      submittedAt:new Date().toISOString()
+    });
+    await updateDoc(loanRef,{payments});
+    toast('✅ भुक्तानी पेश भयो! एडमिनले जाँच गर्नेछ');
+    closePayModal();
+  }catch(e){toast('❌ '+e.message);}
+  finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Submit Payment';}
+}
+
+// ============ COLLAB ============
+function pickWorkType(btn,type){
+  document.querySelectorAll('.wt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  window._workType=type;
+}
+async function submitCollab(){
+  const n=document.getElementById('cName').value.trim();
+  const p=document.getElementById('cPhone').value.trim();
+  const d=document.getElementById('cDesc').value.trim();
+  if(!n||!p||!d)return toast('❌ Fill all');
+  if(!window._workType)return toast('⚠️ Pick type');
+  const b=document.getElementById('btnCollab');
+  b.disabled=true;b.innerHTML='<span class="spinner"></span>Sending...';
+  try{
+    await addDoc(collection(db,'collaborations'),{userName:n,whatsappNumber:p,workType:window._workType,description:d,status:'pending',createdAt:serverTimestamp()});
+    document.getElementById('cName').value='';document.getElementById('cPhone').value='';document.getElementById('cDesc').value='';
+    document.querySelectorAll('.wt-btn').forEach(x=>x.classList.remove('active'));window._workType=null;
+    toast('🎉 Sent!');
+  }catch(e){toast('❌ '+e.message);}
+  finally{b.disabled=false;b.innerHTML='<i class="fas fa-paper-plane"></i> Send Request';}
+}
+
+// ============ ENROLLMENT ============
+function pickCourse(card){
+  window._selCourse=card.dataset.course;window._selPrice=card.dataset.price;window._selPdfId=null;
+  document.getElementById('selCourseName').textContent=window._selCourse;
+  document.getElementById('selCourseAmt').textContent='Rs. '+window._selPrice;
+  document.getElementById('selCourseInfo').style.display='flex';
+  document.getElementById('enrollFlow').style.display='block';
+  goToEnrollStep(1);showPage('enroll');
+}
+function pickPdfCourse(card){
+  window._selCourse=card.dataset.course;window._selPrice=card.dataset.price;window._selPdfId=card.dataset.pdf;
+  document.getElementById('selCourseName').textContent=window._selCourse;
+  document.getElementById('selCourseAmt').textContent='Rs. '+window._selPrice;
+  document.getElementById('selCourseInfo').style.display='flex';
+  document.getElementById('enrollFlow').style.display='block';
+  goToEnrollStep(1);showPage('enroll');
+}
+function buyPdfFromHome(name,price,pdfId){
+  window._selCourse=name;window._selPrice=price;window._selPdfId=pdfId;
+  document.getElementById('selCourseName').textContent=name;
+  document.getElementById('selCourseAmt').textContent='Rs. '+price;
+  document.getElementById('selCourseInfo').style.display='flex';
+  document.getElementById('enrollFlow').style.display='block';
+  goToEnrollStep(1);showPage('enroll');
+}
+function goToEnrollStep(n){
+  for(let i=1;i<=3;i++){const s=document.getElementById('enrollStep'+i);if(s)s.style.display=i===n?'block':'none';}
+  for(let i=1;i<=3;i++){const dot=document.getElementById('sdot'+i);if(!dot)continue;dot.className='step-dot '+(i<n?'done':i===n?'active':'idle');}
+  if(n>=2)document.getElementById('sline1').classList.add('done');
+  if(n>=3)document.getElementById('sline2').classList.add('done');
+}
+function proceedToPayment(){
+  const name=document.getElementById('eFullName').value.trim();
+  const phone=document.getElementById('ePhone').value.trim();
+  const email=document.getElementById('eEmail').value.trim();
+  if(!name||!phone||!email)return toast('❌ Fill all required');
+  document.getElementById('qrAmount').textContent='Rs. '+window._selPrice;
+  goToEnrollStep(2);
+}
+function backToDetails(){goToEnrollStep(1);}
+function resetEnrollFlow(){
+  document.getElementById('enrollFlow').style.display='none';
+  document.getElementById('selCourseInfo').style.display='none';
+  window._selCourse=null;window._selPrice=null;window._selPdfId=null;
+  showPage('home');
+}
+function handleProofUpload(inp){
+  const f=inp.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{const p=document.getElementById('proofPreview');p.src=e.target.result;p.style.display='block';};
+  r.readAsDataURL(f);
+}
 async function submitEnrollment(){
   if(!_user)return toast('❌ Log in');
   const course=window._selCourse,price=window._selPrice;
   if(!course)return toast('⚠️ No course');
-  const name=document.getElementById('eFullName').value.trim(),phone=document.getElementById('ePhone').value.trim(),email=document.getElementById('eEmail').value.trim(),addr=document.getElementById('eAddr').value.trim();
+  const name=document.getElementById('eFullName').value.trim();
+  const phone=document.getElementById('ePhone').value.trim();
+  const email=document.getElementById('eEmail').value.trim();
+  const addr=document.getElementById('eAddr').value.trim();
   if(!name||!phone||!email)return toast('❌ Fill all');
   const file=document.getElementById('proofFile').files[0];
   if(!file)return toast('📸 Upload screenshot');
@@ -801,508 +1339,391 @@ async function submitEnrollment(){
   btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Submitting...';
   try{
     const base64=await fileToBase64(file);
-    await addDoc(collection(db,'enrollments'),{userId:_user.uid,userName:name,phone,email,address:addr||'Not provided',courseName:course,amount:parseInt(price),paymentScreenshotBase64:base64,status:'pending',certificateIssued:false,createdAt:serverTimestamp()});
-    if(window._selPdfId){ await addDoc(collection(db,'pdf_purchases'),{userId:_user.uid,userName:name,email,phone,courseName:course,amount:parseInt(price),pdfId:window._selPdfId,paymentScreenshotBase64:base64,status:'pending',createdAt:serverTimestamp()}); }
+    const isPdf=!!window._selPdfId;
+    await addDoc(collection(db,isPdf?'pdf_purchases':'enrollments'),{
+      userId:_user.uid,userName:name,phone,email,address:addr||'—',courseName:course,
+      amount:parseInt(price),pdfId:window._selPdfId||null,
+      paymentScreenshotBase64:base64,status:'pending',certificateIssued:false,createdAt:serverTimestamp()
+    });
     goToEnrollStep(3);toast('🎉 Submitted!');
-  }catch(e){console.error(e);toast('❌ '+e.message);}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Submit Enrollment';}
+  }catch(e){toast('❌ '+e.message);}
+  finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Submit Enrollment';}
 }
-
-function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');let w=img.width,h=img.height;const M=600;if(w>M){h=Math.round(h*M/w);w=M;}if(h>M){w=Math.round(w*M/h);h=M;}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',0.7));};img.onerror=rej;img.src=e.target.result;};r.onerror=rej;r.readAsDataURL(file);});}
-
-async function submitCollab(){const n=document.getElementById('cName').value.trim(),p=document.getElementById('cPhone').value.trim(),d=document.getElementById('cDesc').value.trim();if(!n||!p||!d)return toast('❌ Fill all');if(!window._workType)return toast('⚠️ Pick type');const b=document.getElementById('btnCollab');b.disabled=true;b.innerHTML='<span class="spinner"></span>Sending...';try{await addDoc(collection(db,'collaborations'),{userName:n,whatsappNumber:p,workType:window._workType,description:d,status:'pending',createdAt:serverTimestamp()});document.getElementById('cName').value='';document.getElementById('cPhone').value='';document.getElementById('cDesc').value='';document.querySelectorAll('.wt-btn').forEach(x=>x.classList.remove('active'));window._workType=null;toast('🎉 Sent!');}catch(e){toast('❌ '+e.message);}finally{b.disabled=false;b.innerHTML='<i class="fas fa-paper-plane"></i> Send Request';}}
-
-// ==================== ऋण सम्बन्धी फंक्शनहरू ====================
-async function submitLoan() {
-  if (!_user) return toast('❌ पहिले लगइन गर्नुहोस्');
-  
-  const name = document.getElementById('lnName').value.trim();
-  const citNo = document.getElementById('lnCitNo').value.trim();
-  const amount = parseFloat(document.getElementById('lnAmount').value);
-  const bank = document.getElementById('lnBank').value.trim();
-  const accNo = document.getElementById('lnAccNo').value.trim();
-  const accHolder = document.getElementById('lnAccHolder').value.trim();
-  
-  const citFront = document.getElementById('lnCitFront').files[0];
-  const citBack = document.getElementById('lnCitBack').files[0];
-  const selfie = document.getElementById('lnSelfie').files[0];
-  const bankStmt = document.getElementById('lnBankStmt').files[0];
-  const terms = document.getElementById('lnTerms').checked;
-
-  if (!name || !citNo || !amount || !bank || !accNo || !accHolder) return toast('सबै फिल्ड भर्नुहोस्', 'error');
-  if (amount < 1000) return toast('कम्तीमा १०००', 'error');
-  if (!citFront || !citBack || !selfie || !bankStmt) return toast('सबै कागजात अपलोड गर्नुहोस्', 'error');
-  if (!terms) return toast('सर्तहरूमा सहमत हुनुहोस्', 'error');
-
-  const btn = document.getElementById('btnLoanSubmit');
-  btn.disabled = true; 
-  btn.innerHTML = 'पेश गर्दै...';
-
-  try {
-    const [cf, cb, sf, bs] = await Promise.all([
-      fileToBase64(citFront), fileToBase64(citBack), fileToBase64(selfie), fileToBase64(bankStmt)
-    ]);
-    
-    await addDoc(collection(db, 'loans'), {
-      userId: _user.uid, userName: name, citNo: citNo, amount: amount, 
-      bankName: bank, accountNo: accNo, accountHolder: accHolder,
-      citFrontBase64: cf, citBackBase64: cb, selfieBase64: sf, bankStatementBase64: bs,
-      status: 'pending', rejectReason: '',
-      schedule: generateLoanSchedule(amount), totalInterest: amount * 0.24, 
-      paidInstallments: 0, createdAt: serverTimestamp()
-    });
-    
-    toast('✅ आवेदन पेश भयो!');
-    ['lnName','lnCitNo','lnAmount','lnBank','lnAccNo','lnAccHolder'].forEach(id => document.getElementById(id).value = '');
-    ['lnCitFront','lnCitBack','lnSelfie','lnBankStmt'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('lnTerms').checked = false;
-
-  } catch (e) {
-    console.error("Firebase Error: ", e);
-    toast('❌ ' + e.message);
-  } finally {
-    btn.disabled = false; 
-    btn.innerHTML = '<i class="fas fa-paper-plane"></i> आवेदन पेश गर्नुहोस्';
-  }
-}
-
-function generateLoanSchedule(amount) {
-  const mi = amount * 0.06, mp = amount / 4;
-  const s = [];
-  for (let i = 1; i <= 4; i++) s.push({ period: i, principal: mp, interest: mi, payment: mp + mi, remaining: amount - mp * i });
-  return s;
-}
-
-async function loadAdminLoans() {
-  const container = document.getElementById('loanAdminList');
-  if (!container) return;
-  
-  onSnapshot(collection(db, 'loans'), snap => {
-    if (snap.empty) { 
-      container.innerHTML = '<div class="empty-state"><i class="fas fa-hand-holding-usd"></i><p>कुनै आवेदन छैन।</p></div>'; 
-      return; 
-    }
-    
-    container.innerHTML = snap.docs.map(d => {
-      const l = d.data();
-      const st = l.status;
-      const cls = st === 'pending' ? 'status-pending' : st === 'verified' ? 'status-verified' : st === 'approved' ? 'status-approved' : 'status-rejected';
-      const txt = st === 'pending' ? 'समीक्षा बाँकी' : st === 'verified' ? 'प्रमाणित' : st === 'approved' ? 'स्वीकृत' : 'अस्वीकृत';
-      
-      let actions = '';
-      if (st === 'pending') {
-        actions = `<button class="btn-sm yl" onclick="verifyLoan('${d.id}')">✅ प्रमाणित</button>
-                   <button class="btn-sm red" onclick="showReject('${d.id}')">❌ अस्वीकृत</button>`;
-      } else if (st === 'verified') {
-        actions = `<button class="btn-sm gr" onclick="approveLoan('${d.id}')">💰 भुक्तानी गरी स्वीकृत</button>
-                   <button class="btn-sm red" onclick="showReject('${d.id}')">❌ अस्वीकृत</button>`;
-      } else if (st === 'approved') {
-        actions = `<span style="color:#2aff9e; font-weight:700;">✅ स्वीकृत भइसक्यो</span>`;
-      } else {
-        actions = `<span style="color:#ff8080; font-weight:700;">कारण: ${l.rejectReason}</span>`;
-      }
-
-      let docs = '';
-      if (l.citFrontBase64 || l.citBackBase64 || l.selfieBase64 || l.bankStatementBase64) {
-        docs = `
-          <div style="margin: 10px 0; display: flex; gap: 8px; flex-wrap: wrap;">
-            ${l.citFrontBase64 ? `<div style="text-align:center"><p style="font-size:10px;color:#aaa">नागरिकता (अगाडि)</p><img src="${l.citFrontBase64}" style="max-width:80px; border-radius:5px; cursor:pointer;" onclick="window.open(this.src)"></div>` : ''}
-            ${l.citBackBase64 ? `<div style="text-align:center"><p style="font-size:10px;color:#aaa">नागरिकता (पछाडि)</p><img src="${l.citBackBase64}" style="max-width:80px; border-radius:5px; cursor:pointer;" onclick="window.open(this.src)"></div>` : ''}
-            ${l.selfieBase64 ? `<div style="text-align:center"><p style="font-size:10px;color:#aaa">सेल्फी</p><img src="${l.selfieBase64}" style="max-width:80px; border-radius:5px; cursor:pointer;" onclick="window.open(this.src)"></div>` : ''}
-            ${l.bankStatementBase64 ? `<div style="text-align:center"><p style="font-size:10px;color:#aaa">बैंक स्टेटमेन्ट</p><img src="${l.bankStatementBase64}" style="max-width:80px; border-radius:5px; cursor:pointer;" onclick="window.open(this.src)"></div>` : ''}
-          </div>
-        `;
-      }
-
-      const consentText = `
-        <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 5px; margin: 10px 0; font-size: 12px; color: #ccc;">
-          <strong>📜 ग्राहकको सहमति:</strong> "मैले मेरो नागरिकता, बैंक विवरण र सेल्फी अपलोड गरेको छु। म ४ महिनाभित्र ६% का दरले ब्याजसहित ऋण तिर्न सहमत छु।"
-        </div>
-      `;
-
-      return `<div class="loan-item">
-        <h4>${l.userName} — रु ${l.amount}</h4>
-        <p>नागरिकता: ${l.citNo}</p>
-        <p>बैंक: ${l.bankName} | खाता: ${l.accountNo} | धारक: ${l.accountHolder}</p>
-        <p><span class="status-badge ${cls}">${txt}</span></p>
-        ${docs}
-        ${consentText}
-        <div style="display:flex;gap:.4rem;margin-top:.5rem;flex-wrap:wrap">${actions}</div>
-        <div class="reject-box" id="reject-${d.id}">
-          <input type="text" id="reason-${d.id}" placeholder="अस्वीकृत गर्नुको कारण लेख्नुहोस्">
-          <button class="btn-sm red" onclick="rejectLoan('${d.id}')">पुष्टि गरेर अस्वीकृत</button>
-        </div>
-      </div>`;
-    }).join('');
+function fileToBase64(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        const c=document.createElement('canvas');let w=img.width,h=img.height;
+        const M=600;if(w>M){h=Math.round(h*M/w);w=M;}if(h>M){w=Math.round(w*M/h);h=M;}
+        c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);
+        res(c.toDataURL('image/jpeg',0.7));
+      };
+      img.onerror=rej;img.src=e.target.result;
+    };
+    r.onerror=rej;r.readAsDataURL(file);
   });
 }
 
-function showReject(id) { 
-  const box = document.getElementById('reject-' + id);
-  if(box) box.classList.toggle('active'); 
+// ============ CHAT ============
+function initChat(u){
+  const c=document.getElementById('cwMsgs');if(!c)return;
+  const q=query(collection(db,'chats'),where('userId','==',u.uid));
+  onSnapshot(q,snap=>{
+    if(snap.empty)return;
+    const chatDoc=snap.docs[0];
+    window._userChatId=chatDoc.id;
+    const msgs=chatDoc.data().messages||[];
+    c.innerHTML='<div class="msg-bubble admin">👋 Namaste! How can I help?</div>'+msgs.map(m=>`<div class="msg-bubble ${m.from==='admin'?'admin':'user'}">${m.text}</div>`).join('');
+    c.scrollTop=c.scrollHeight;
+  });
 }
-
-async function verifyLoan(id) { 
-  try {
-    await updateDoc(doc(db, 'loans', id), { status: 'verified' }); 
-    toast('✅ प्रमाणित भयो'); 
-  } catch(e) { toast('❌ ' + e.message); }
-}
-
-async function approveLoan(id) { 
-  try {
-    await updateDoc(doc(db, 'loans', id), { status: 'approved' }); 
-    toast('💰 स्वीकृत भयो'); 
-  } catch(e) { toast('❌ ' + e.message); }
-}
-
-async function rejectLoan(id) {
-  const reasonInput = document.getElementById('reason-' + id);
-  if (!reasonInput) return toast('❌ कारण लेख्ने ठाउँ भेटिएन');
-  const reason = reasonInput.value.trim();
-  if (!reason) return toast('कारण लेख्नुहोस्');
-  
-  try {
-    await updateDoc(doc(db, 'loans', id), { status: 'rejected', rejectReason: reason });
-    toast('❌ अस्वीकृत गरियो');
-  } catch(e) { toast('❌ ' + e.message); }
-}
-
-async function approveInstallment(id, period) {
-  try {
-    const loanRef = doc(db, 'loans', id);
-    const loanSnap = await getDoc(loanRef);
-    if (!loanSnap.exists()) return toast('❌ Loan not found');
-    
-    const l = loanSnap.data();
-    
-    // Update status of that specific installment
-    const newSchedule = l.schedule.map(s => {
-      if (s.period === period) {
-        return { ...s, status: 'paid' };
-      }
-      return s;
-    });
-    
-    // Update paidInstallments count
-    const newPaidInstallments = newSchedule.filter(s => s.status === 'paid').length;
-
-    await updateDoc(loanRef, {
-      schedule: newSchedule,
-      paidInstallments: newPaidInstallments
-    });
-    
-    toast(`✅ किस्ता ${period} स्वीकृत भयो!`);
-  } catch(e) {
-    toast('❌ ' + e.message);
-  }
-}
-
-async function loadMyLoans(uid) {
-  const container = document.getElementById('userLoanStatus');
-  if (!container) return;
-  onSnapshot(query(collection(db, 'loans'), where('userId', '==', uid)), snap => {
-    if (snap.empty) {
-      container.innerHTML = '';
-      return;
+function toggleChatWin(){document.getElementById('chatWin').classList.toggle('open');}
+async function sendUserMsg(){
+  if(!_user)return;
+  const inp=document.getElementById('cwInput');const txt=inp.value.trim();
+  if(!txt)return;inp.value='';
+  try{
+    if(window._userChatId){
+      await updateDoc(doc(db,'chats',window._userChatId),{messages:arrayUnion({from:'user',text:txt,time:new Date().toLocaleTimeString()})});
+    }else{
+      const ref=await addDoc(collection(db,'chats'),{userId:_user.uid,userName:_user.displayName||_user.email,messages:[{from:'user',text:txt,time:new Date().toLocaleTimeString()}],unreadAdmin:true,createdAt:serverTimestamp()});
+      window._userChatId=ref.id;
     }
-    container.innerHTML = snap.docs.map(d => {
-      const l = d.data();
-      const st = l.status;
-      const cls = st === 'pending' ? 'status-pending' : st === 'verified' ? 'status-verified' : st === 'approved' ? 'status-approved' : 'status-rejected';
-      const txt = st === 'pending' ? 'समीक्षा बाँकी' : st === 'verified' ? 'प्रमाणित' : st === 'approved' ? 'स्वीकृत' : 'अस्वीकृत';
+  }catch(e){toast('❌ '+e.message);}
+}
+
+// ============ ADMIN ============
+function switchATab(id,btn){
+  document.querySelectorAll('.a-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('ap-'+id).classList.add('active');
+  document.querySelectorAll('.a-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  if(id==='loans')loadAdminLoans();
+}
+async function loadAdminData(){
+  loadAdminEnrollments();loadAdminUsers();loadAdminCollabs();loadAdminPdfs();loadAdminChats();loadAdminLoans();updateAdminStats();
+}
+function updateAdminStats(){
+  onSnapshot(collection(db,'enrollments'),s=>{document.getElementById('st1').textContent=s.size;let p=0,rev=0;s.forEach(d=>{const x=d.data();if(x.status==='pending')p++;if(x.status==='verified')rev+=x.amount||0;});document.getElementById('st2').textContent=p;document.getElementById('st3').textContent='Rs.'+rev;});
+  onSnapshot(collection(db,'chats'),s=>document.getElementById('st4').textContent=s.size);
+  onSnapshot(collection(db,'collaborations'),s=>document.getElementById('st5').textContent=s.size);
+  onSnapshot(collection(db,'users'),s=>document.getElementById('st6').textContent=s.size);
+}
+function loadAdminEnrollments(){
+  const c=document.getElementById('enrollmentList');if(!c)return;
+  onSnapshot(collection(db,'enrollments'),snap=>{
+    if(snap.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-inbox"></i><p>No enrollments</p></div>';return;}
+    c.innerHTML=snap.docs.map(d=>{const e=d.data();return `<div class="enr-card"><div class="enr-top"><div class="enr-avatar">${(e.userName||'U')[0]}</div><div class="enr-meta"><strong>${e.userName}</strong><div class="sub">${e.email}</div></div><div class="enr-amount">Rs. ${e.amount}</div></div><div class="enr-info"><span><i class="fas fa-book"></i> ${e.courseName}</span><span><i class="fas fa-phone"></i> ${e.phone}</span></div>${e.paymentScreenshotBase64?`<img src="${e.paymentScreenshotBase64}" class="proof-img-full" onclick="openLb('${e.paymentScreenshotBase64}')">`:''}<div class="enr-actions">${e.status==='pending'?`<button class="btn-sm gr" onclick="verifyEnroll('${d.id}')">✓ Verify</button>`:''}<span class="status-pill ${e.status==='verified'?'sp-verified':'sp-pending'}">${e.status}</span></div></div>`;}).join('');
+  });
+}
+function loadAdminUsers(){
+  const c=document.getElementById('userList');if(!c)return;
+  onSnapshot(collection(db,'users'),snap=>{
+    if(snap.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-users"></i><p>No users</p></div>';return;}
+    c.innerHTML=snap.docs.map(d=>{const u=d.data();return `<div class="enrollment-row"><div><strong style="font-size:.82rem">${u.name||'User'}</strong><br><span style="font-size:.7rem;color:#7a8aaa">${u.email}</span></div></div>`;}).join('');
+  });
+}
+function loadAdminCollabs(){
+  const c=document.getElementById('collabList');if(!c)return;
+  onSnapshot(collection(db,'collaborations'),snap=>{
+    if(snap.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-handshake"></i><p>No collabs</p></div>';return;}
+    c.innerHTML=snap.docs.map(d=>{const x=d.data();return `<div class="enr-card"><div class="enr-top"><div class="enr-avatar">${(x.userName||'U')[0]}</div><div class="enr-meta"><strong>${x.userName}</strong><div class="sub">${x.whatsappNumber}</div></div></div><div class="enr-info"><span><i class="fas fa-briefcase"></i> ${x.workType}</span><span>${x.description}</span></div><span class="status-pill sp-pending">${x.status}</span></div>`;}).join('');
+  });
+}
+function loadAdminPdfs(){
+  const c=document.getElementById('pdfList');if(!c)return;
+  onSnapshot(collection(db,'pdf_purchases'),snap=>{
+    if(snap.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDF sales</p></div>';return;}
+    c.innerHTML=snap.docs.map(d=>{const p=d.data();return `<div class="enr-card"><div class="enr-top"><div class="enr-avatar">${(p.userName||'U')[0]}</div><div class="enr-meta"><strong>${p.userName}</strong><div class="sub">${p.email}</div></div><div class="enr-amount">Rs. ${p.amount}</div></div><div class="enr-info"><span><i class="fas fa-file-pdf"></i> ${p.courseName}</span></div>${p.paymentScreenshotBase64?`<img src="${p.paymentScreenshotBase64}" class="proof-img-full" onclick="openLb('${p.paymentScreenshotBase64}')">`:''}<div class="enr-actions">${p.status==='pending'?`<button class="btn-sm gr" onclick="verifyPdfSale('${d.id}')">✓ Verify</button>`:''}<span class="status-pill ${p.status==='verified'?'sp-verified':'sp-pending'}">${p.status}</span></div></div>`;}).join('');
+  });
+}
+function loadAdminChats(){
+  const c=document.getElementById('chatList');if(!c)return;
+  onSnapshot(collection(db,'chats'),snap=>{
+    if(snap.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-comments"></i><p>No chats</p></div>';return;}
+    c.innerHTML=snap.docs.map(d=>{const x=d.data();const last=(x.messages||[]).slice(-1)[0];return `<div class="chat-row" onclick="openAdminChat('${d.id}')"><div class="c-avatar-sm">${(x.userName||'U')[0]}</div><div class="c-info"><strong>${x.userName||'User'}</strong><div class="last-msg">${last?last.text:'No messages'}</div></div>${x.unreadAdmin?'<span class="unread-dot">!</span>':''}</div>`;}).join('');
+  });
+}
+
+// ============ ADMIN LOANS (with full docs + installment proof + trust score + agreement) ============
+function loadAdminLoans(){
+  const c=document.getElementById('loanAdminList');if(!c)return;
+  onSnapshot(collection(db,'loans'),snap=>{
+    if(snap.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-hand-holding-usd"></i><p>कुनै आवेदन छैन।</p></div>';return;}
+    c.innerHTML=snap.docs.map(d=>{
+      const l=d.data();const id=d.id;
+      const paidCount=l.paidInstallments||0;
+      const payments=l.payments||[];
+      const totalPay=Math.round(l.amount*1.24);
+      const trustScore = l.trustScore || 50;
       
-      let dateStr = '';
-      let nextInstallment = null;
-      let remainingAmount = l.amount;
-      if (st === 'approved' && l.approvedAt) {
-        const approvedDate = l.approvedAt.toDate ? l.approvedAt.toDate() : new Date(l.approvedAt);
-        dateStr = approvedDate.toLocaleDateString('en-NP', { year: 'numeric', month: 'long', day: 'numeric' });
-        
-        const paidCount = l.paidInstallments || 0;
-        if (paidCount < 4) {
-          nextInstallment = l.schedule[paidCount];
+      let statusBadge='';
+      if(l.status==='pending')statusBadge='<span class="status-pill sp-pending">समीक्षा बाँकी</span>';
+      else if(l.status==='verified')statusBadge='<span class="status-pill sp-pending">प्रमाणित</span>';
+      else if(l.status==='approved')statusBadge='<span class="status-pill sp-verified">✅ स्वीकृत</span>';
+      else if(l.status==='rejected')statusBadge='<span class="status-pill sp-rejected">❌ अस्वीकृत</span>';
+      else if(l.status==='completed')statusBadge='<span class="status-pill sp-completed">🎉 पूर्ण (Closed)</span>';
+      
+      let docsHtml='';
+      if(l.citFrontBase64||l.citBackBase64||l.selfieBase64||l.bankStatementBase64){
+        docsHtml=`<div class="doc-grid">
+          ${l.citFrontBase64?`<div class="doc-item" onclick="openLb('${l.citFrontBase64}')"><img src="${l.citFrontBase64}"><div class="doc-lbl"><i class="fas fa-id-card"></i> नागरिकता (अगाडि)</div></div>`:''}
+          ${l.citBackBase64?`<div class="doc-item" onclick="openLb('${l.citBackBase64}')"><img src="${l.citBackBase64}"><div class="doc-lbl"><i class="fas fa-id-card"></i> नागरिकता (पछाडि)</div></div>`:''}
+          ${l.selfieBase64?`<div class="doc-item" onclick="openLb('${l.selfieBase64}')"><img src="${l.selfieBase64}"><div class="doc-lbl"><i class="fas fa-user-circle"></i> सेल्फी</div></div>`:''}
+          ${l.bankStatementBase64?`<div class="doc-item" onclick="openLb('${l.bankStatementBase64}')"><img src="${l.bankStatementBase64}"><div class="doc-lbl"><i class="fas fa-file-invoice"></i> बैंक स्टेटमेन्ट</div></div>`:''}
+        </div>`;
+      }
+      
+      let payProofsHtml='';
+      if(payments.length>0){
+        const pendingPay=payments.filter(p=>p.status==='pending');
+        if(pendingPay.length>0){
+          payProofsHtml='<div style="margin:.6rem 0;padding:.6rem;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.3);border-radius:12px"><div style="font-size:.72rem;color:#ffd966;font-weight:800;margin-bottom:.4rem">⏳ पेन्डिङ किस्ता भुक्तानी</div>';
+          pendingPay.forEach(p=>{
+            payProofsHtml+=`<div style="margin-bottom:.5rem;padding:.5rem;background:rgba(0,0,0,.3);border-radius:8px">
+              <div style="font-size:.7rem;color:#eef2ff;margin-bottom:.3rem"><strong>किस्ता #${p.period}</strong> — रु. ${p.amount}</div>
+              ${p.proofBase64?`<img src="${p.proofBase64}" style="max-width:100%;max-height:120px;border-radius:6px;cursor:pointer;border:1px solid rgba(42,255,158,.2)" onclick="openLb('${p.proofBase64}')">`:''}
+              <div style="display:flex;gap:.3rem;margin-top:.4rem">
+                <button class="btn-sm gr" onclick="approveInstallment('${id}',${p.period})">✓ Approve</button>
+                <button class="btn-sm red" onclick="rejectInstallment('${id}',${p.period})">✗ Reject</button>
+              </div>
+            </div>`;
+          });
+          payProofsHtml+='</div>';
         }
-        
-        l.schedule.forEach(s => {
-          if (s.status === 'paid') {
-            remainingAmount -= s.principal;
-          }
+      }
+      
+      let actions='';
+      if(l.status==='pending'){
+        actions=`<button class="btn-sm yl" onclick="verifyLoan('${id}')">✅ प्रमाणित</button>
+                 <button class="btn-sm red" onclick="rejectLoan('${id}')">❌ अस्वीकृत</button>`;
+      }else if(l.status==='verified'){
+        actions=`<button class="btn-sm gr" onclick="approveLoan('${id}')">💰 स्वीकृत</button>
+                 <button class="btn-sm red" onclick="rejectLoan('${id}')">❌ अस्वीकृत</button>`;
+      }else if(l.status==='rejected'){
+        actions=`<div style="font-size:.72rem;color:#ff8080">कारण: ${l.rejectReason||'—'}</div>`;
+      }
+
+      // Installment Status Table for Admin
+      let instTable = '';
+      if (l.status === 'approved' || l.status === 'completed') {
+        instTable = '<div style="margin:.6rem 0; border:1px solid rgba(42,255,158,.1); border-radius:8px; overflow:hidden">';
+        instTable += '<div style="display:grid; grid-template-columns:1fr 1fr 1fr; background:rgba(42,255,158,.05); padding:.4rem; font-size:.65rem; font-weight:800; color:#2aff9e; text-align:center; border-bottom:1px solid rgba(42,255,158,.1)"><div>किस्ता</div><div>रकम</div><div>स्थिति</div></div>';
+        (l.schedule || []).forEach((s, i) => {
+            const idx = i + 1;
+            let st = 'बाँकी';
+            let color = '#60a5fa';
+            if (idx <= paidCount) { st = 'तिरेको'; color = '#2aff9e'; }
+            else if (idx === paidCount + 1 && l.status === 'approved') { st = 'अपेक्षित'; color = '#ffd966'; }
+            instTable += `<div style="display:grid; grid-template-columns:1fr 1fr 1fr; padding:.4rem; font-size:.7rem; text-align:center; border-bottom:1px solid rgba(255,255,255,.05)"><div>${idx}</div><div>रु. ${Math.round(s.payment)}</div><div style="color:${color}; font-weight:800">${st}</div></div>`;
         });
-      }
-
-      let extra = '';
-      if (st === 'approved') {
-        extra = `
-          <div style="margin: 10px 0; padding: 10px; background: rgba(42,255,158,0.1); border-radius: 10px; border: 1px solid rgba(42,255,158,0.3);">
-            <p style="font-size: 12px; color: #2aff9e;"><strong>स्वीकृत मिति:</strong> ${dateStr || 'N/A'}</p>
-            <p style="font-size: 12px; color: #fff;"><strong>बाँकी रकम:</strong> रु ${remainingAmount.toFixed(0)}</p>
-            <p style="font-size: 12px; color: #fff;"><strong>तिरेको किस्ता:</strong> ${l.paidInstallments || 0} / 4</p>
-          </div>
-          <table class="schedule-table" style="width:100%; border-collapse:collapse; margin-top:10px;">
-            <thead><tr><th style="padding:5px;border-bottom:1px solid #444">किस्ता</th><th style="padding:5px;border-bottom:1px solid #444">मूलधन</th><th style="padding:5px;border-bottom:1px solid #444">ब्याज</th><th style="padding:5px;border-bottom:1px solid #444">कुल</th><th style="padding:5px;border-bottom:1px solid #444">स्थिति</th></tr></thead>
-            <tbody>${l.schedule.map(s => `<tr>
-              <td style="padding:5px;text-align:center">${s.period}</td>
-              <td style="padding:5px;text-align:center">रु ${s.principal.toFixed(0)}</td>
-              <td style="padding:5px;text-align:center">रु ${s.interest.toFixed(0)}</td>
-              <td style="padding:5px;text-align:center">रु ${s.payment.toFixed(0)}</td>
-              <td style="padding:5px;text-align:center">${s.status === 'paid' ? '✅ तिरिएको' : '⏳ बाँकी'}</td>
-            </tr>`).join('')}</tbody>
-          </table>
-        `;
-        
-        if (nextInstallment) {
-          extra += `
-            <button class="btn-submit" style="margin-top:10px;" onclick="showPayInstallment('${d.id}', ${nextInstallment.period})">
-              💳 अर्को किस्ता तिर्नुहोस् (रु ${nextInstallment.payment.toFixed(0)})
-            </button>
-            <div id="pay-ui-${d.id}" style="display: none; margin-top: 10px; padding: 10px; border: 1px dashed #2aff9e; border-radius: 10px;">
-              <p style="font-size: 12px; color: #aaa; margin-bottom: 5px;">QR स्क्यान गरेर तिर्नुहोस् र स्क्रिनसट अपलोड गर्नुहोस्</p>
-              <img src="https://i.ibb.co/LzF8CFnP/image.jpg" style="max-width:150px; border-radius:8px; margin: 0 auto; display: block;">
-              <input type="file" id="payProof-${d.id}" class="f-input" accept="image/*" style="margin-top: 10px;">
-              <button class="btn-sm gr" style="width: 100%; margin-top: 10px;" onclick="submitPaymentProof('${d.id}', ${nextInstallment.period})">✅ स्क्रिनसट अपलोड गर्नुहोस्</button>
-            </div>
-          `;
-        } else {
-          extra += `<div style="text-align:center; padding:10px; color:#2aff9e;"><strong>🎉 तपाईंको ऋण पूर्ण भयो!</strong></div>`;
-        }
-      } else if (st === 'rejected') {
-        extra = `<div style="background:rgba(255,0,0,0.1);padding:10px;border-radius:5px;margin-top:10px;font-size:12px;color:#ff8080;"><strong>कारण:</strong> ${l.rejectReason}</div>`;
-      }
-      return `<div class="loan-item">
-        <h4>${l.userName} — रु ${l.amount}</h4>
-        <p>नागरिकता: ${l.citNo}</p>
-        <p>बैंक: <span style="color:#2aff9e">${l.bankName}</span> | खाता: <span style="color:#2aff9e">${l.accountNo}</span></p>
-        <p><span class="status-badge ${cls}">${txt}</span></p>
-        ${extra}
-      </div>`;
-    }).join('');
-  });
-}
-
-function showPayInstallment(id, period) {
-  const el = document.getElementById('pay-ui-' + id);
-  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
-}
-
-async function submitPaymentProof(id, period) {
-  const fileInput = document.getElementById('payProof-' + id);
-  if (!fileInput || !fileInput.files[0]) return toast('❌ कृपया स्क्रिनसट अपलोड गर्नुहोस्');
-  
-  const btn = event.target;
-  btn.disabled = true;
-  btn.innerText = 'अपलोड हुँदै...';
-  
-  try {
-    const base64 = await fileToBase64(fileInput.files[0]);
-    
-    await addDoc(collection(db, 'installment_payments'), {
-      loanId: id,
-      userId: _user.uid,
-      period: period,
-      proofBase64: base64,
-      status: 'pending',
-      createdAt: serverTimestamp()
-    });
-    
-    toast('✅ स्क्रिनसट पेश भयो! एडमिनले चाँडै स्वीकृत गर्नेछ।');
-    btn.innerText = '✅ पेश भयो';
-    fileInput.value = '';
-    document.getElementById('pay-ui-' + id).style.display = 'none';
-  } catch (e) {
-    toast('❌ ' + e.message);
-    btn.disabled = false;
-    btn.innerText = '✅ स्क्रिनसट अपलोड गर्नुहोस्';
-  }
-}
-
-async function initChat(u){const ref=doc(db,'chats',u.uid);const s=await getDoc(ref);if(!s.exists()){await setDoc(ref,{userId:u.uid,userName:u.displayName||u.email.split('@')[0],userEmail:u.email,messages:[],unreadCount:0,lastMessage:'',createdAt:serverTimestamp()});}window._chatId=u.uid;onSnapshot(ref,snap=>{if(snap.exists()){const d=snap.data();renderUserChat(d.messages||[]);const ms=d.messages||[];const l=ms[ms.length-1];if(l&&l.sender==='admin'&&!window._chatOpen){document.getElementById('fcBadge').style.display='flex';}}});}
-
-async function sendUserMsg(){if(!_user||!window._chatId)return;const i=document.getElementById('cwInput'),t=i.value.trim();if(!t)return;i.value='';try{await updateDoc(doc(db,'chats',window._chatId),{messages:arrayUnion({sender:'user',text:t,timestamp:new Date().toISOString()}),lastMessage:t,unreadCount:1,updatedAt:serverTimestamp()});}catch(e){}}
-
-function renderUserChat(msgs){const c=document.getElementById('cwMsgs');c.innerHTML='<div class="msg-bubble admin">👋 Namaste!</div>';msgs.forEach(m=>{const d=document.createElement('div');d.className=`msg-bubble ${m.sender==='user'?'user':'admin'}`;const t=m.timestamp?new Date(m.timestamp).toLocaleTimeString('en-NP',{hour:'2-digit',minute:'2-digit'}):'';d.innerHTML=`${escHtml(m.text)}<div class="msg-time">${t}</div>`;c.appendChild(d);});c.scrollTop=c.scrollHeight;}
-
-async function openAdminChat(id,name){_adminChatId=id;document.getElementById('adminChatTitle').textContent=`Chat: ${name}`;document.getElementById('adminChatPanel').style.display='block';try{await updateDoc(doc(db,'chats',id),{unreadCount:0});}catch(e){}if(_adminChatUnsub)_adminChatUnsub();_adminChatUnsub=onSnapshot(doc(db,'chats',id),s=>{if(s.exists())renderAdminMsgs(s.data().messages||[]);});}
-
-function renderAdminMsgs(msgs){const c=document.getElementById('adminMsgsArea');c.innerHTML='';if(!msgs.length){c.innerHTML='<p style="text-align:center;color:#3a4a5a;font-size:.78rem;padding:.8rem">No messages</p>';return;}msgs.forEach(m=>{const d=document.createElement('div');d.className=`msg-bubble ${m.sender==='user'?'admin':'user'}`;d.style.alignSelf=m.sender==='user'?'flex-start':'flex-end';const t=m.timestamp?new Date(m.timestamp).toLocaleTimeString('en-NP',{hour:'2-digit',minute:'2-digit'}):'';d.innerHTML=`${escHtml(m.text)}<div class="msg-time">${t}</div>`;c.appendChild(d);});c.scrollTop=c.scrollHeight;}
-
-async function sendAdminReply(){if(!_adminChatId)return;const i=document.getElementById('adminReplyIn'),t=i.value.trim();if(!t)return;i.value='';try{await updateDoc(doc(db,'chats',_adminChatId),{messages:arrayUnion({sender:'admin',text:t,timestamp:new Date().toISOString()}),lastMessage:`Admin: ${t}`,updatedAt:serverTimestamp()});}catch(e){}}
-
-function closeAdminChatPanel(){document.getElementById('adminChatPanel').style.display='none';if(_adminChatUnsub){_adminChatUnsub();_adminChatUnsub=null;}_adminChatId=null;}
-
-function loadAdminData(){
-  onSnapshot(query(collection(db,'enrollments'),orderBy('createdAt','desc')),s=>{const a=s.docs.map(d=>({id:d.id,...d.data()}));const p=a.filter(e=>e.status==='pending').length;const r=a.filter(e=>e.status!=='pending').reduce((x,e)=>x+parseInt(e.amount||0),0);document.getElementById('st1').textContent=a.length;document.getElementById('st2').textContent=p;document.getElementById('st3').textContent='Rs.'+r.toLocaleString('en-NP');const b=document.getElementById('enrBadge');b.textContent=p;b.style.display=p>0?'flex':'none';renderEnrollments(a);},e=>console.error(e));
-  onSnapshot(collection(db,'users'),s=>{const a=s.docs.map(d=>({id:d.id,...d.data()})).filter(u=>u.email!==ADMIN);document.getElementById('st6').textContent=a.length;renderUsers(a);},e=>console.error(e));
-  onSnapshot(collection(db,'chats'),s=>{const a=s.docs.map(d=>({id:d.id,...d.data()}));const u=a.filter(c=>c.unreadCount>0).length;document.getElementById('st4').textContent=a.length;const b=document.getElementById('chatBadge');b.textContent=u;b.style.display=u>0?'flex':'none';renderChats(a);},e=>console.error(e));
-  onSnapshot(query(collection(db,'collaborations'),orderBy('createdAt','desc')),s=>{const a=s.docs.map(d=>({id:d.id,...d.data()}));const p=a.filter(c=>c.status==='pending').length;document.getElementById('st5').textContent=a.length;const b=document.getElementById('collBadge');b.textContent=p;b.style.display=p>0?'flex':'none';renderCollabs(a);},e=>console.error(e));
-  onSnapshot(query(collection(db,'pdf_purchases'),orderBy('createdAt','desc')),s=>{const a=s.docs.map(d=>({id:d.id,...d.data()}));const p=a.filter(x=>x.status==='pending').length;const b=document.getElementById('pdfBadge');if(b){b.textContent=p;b.style.display=p>0?'flex':'none';}renderPdfSales(a);},e=>console.error(e));
-  loadAdminLoans();
-  loadAdminInstallments();
-}
-
-function renderEnrollments(list){const c=document.getElementById('enrollmentList');if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-inbox"></i><p>No enrollments.</p></div>';return;}c.innerHTML=list.map(e=>{const dt=e.createdAt?.toDate?e.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'N/A';const sp=e.status==='pending'?'sp-pending':e.status==='verified'?'sp-verified':'sp-completed';const img=e.paymentScreenshotBase64?`<img src="${e.paymentScreenshotBase64}" class="proof-img-full" onclick="openLb('${e.paymentScreenshotBase64}')">`:'<p style="font-size:.7rem;color:#5a6a7a">No screenshot</p>';const cert=(e.status==='completed'&&!e.certificateIssued)?`<button class="btn-sm yl" onclick="approveCertificate('${e.id}','${e.userId}','${e.userName||'Student'}','${e.courseName||'Course'}')"><i class="fas fa-certificate"></i> Cert</button>`:(e.certificateIssued?`<span class="status-pill sp-verified">📜</span>`:'');return `<div class="enr-card"><div class="enr-top"><div class="enr-avatar">${(e.userName||'?')[0].toUpperCase()}</div><div class="enr-meta"><strong>${escHtml(e.userName||'N/A')}</strong><div class="sub">${escHtml(e.courseName||'')} • ${dt}</div></div><span class="status-pill ${sp}">${e.status}</span></div><div class="enr-amount" style="margin-bottom:.4rem">Rs.${parseInt(e.amount||0).toLocaleString('en-NP')}</div><div class="enr-info"><span><i class="fas fa-phone"></i>${escHtml(e.phone||'N/A')}</span><span><i class="fas fa-envelope"></i>${escHtml(e.email||'N/A')}</span></div>${img}<div class="enr-actions">${e.status==='pending'?`<button class="btn-sm gr" onclick="verifyEnroll('${e.id}')"><i class="fas fa-check"></i> Verify</button>`:''}${e.status==='verified'?`<button class="btn-sm yl" onclick="setEnrollStatus('${e.id}','completed')"><i class="fas fa-flag-checkered"></i> Complete</button>`:''}${cert}</div></div>`;}).join('');}
-
-function renderUsers(list){const c=document.getElementById('userList');if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-users"></i><p>No users.</p></div>';return;}c.innerHTML=list.map(u=>{const dt=u.createdAt?.toDate?u.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'N/A';return `<div class="enr-card" style="border-left:3px solid #2aff9e"><div class="enr-top"><div class="enr-avatar">${(u.name||u.email||'?')[0].toUpperCase()}</div><div class="enr-meta"><strong>${escHtml(u.name||'N/A')}</strong><div class="sub">${escHtml(u.email||'')} • ${dt}</div></div></div></div>`;}).join('');}
-
-function renderChats(list){const c=document.getElementById('chatList');if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-comments"></i><p>No chats.</p></div>';return;}const sorted=[...list].sort((a,b)=>(b.unreadCount||0)-(a.unreadCount||0));c.innerHTML=sorted.map(ch=>{const sn=(ch.userName||ch.userEmail||'User').replace(/'/g,"\\'");return `<div class="chat-row ${ch.unreadCount>0?'unread-chat':''}" onclick="openAdminChat('${ch.id}','${sn}')"><div class="c-avatar-sm">${(ch.userName||ch.userEmail||'?')[0].toUpperCase()}</div><div class="c-info"><strong>${escHtml(ch.userName||ch.userEmail||'?')}</strong><div class="last-msg">${escHtml(ch.lastMessage||'No messages')}</div></div>${ch.unreadCount>0?`<div class="unread-dot">${ch.unreadCount}</div>`:''}</div>`;}).join('');}
-
-function renderCollabs(list){const c=document.getElementById('collabList');if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-handshake"></i><p>No collabs.</p></div>';return;}c.innerHTML=list.map(co=>{const dt=co.createdAt?.toDate?co.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'N/A';const sp=co.status==='pending'?'sp-pending':'sp-verified';return `<div class="enr-card"><div class="enr-top"><div class="enr-avatar">${(co.userName||'?')[0].toUpperCase()}</div><div class="enr-meta"><strong>${escHtml(co.userName||'')}</strong><div class="sub">${escHtml(co.workType||'')} • ${dt}</div></div><span class="status-pill ${sp}">${co.status}</span></div><p style="font-size:.78rem;color:#cdd9ff;line-height:1.5;margin-bottom:.6rem">${escHtml(co.description||'')}</p><div style="display:flex;gap:.4rem;flex-wrap:wrap;align-items:center">${co.status==='pending'?`<button class="btn-sm gr" onclick="updateCollabStatus('${co.id}','contacted')"><i class="fas fa-check"></i> Contacted</button>`:'<span class="status-pill sp-verified">✓</span>'}<span style="font-size:.7rem;color:#7a8aaa"><i class="fas fa-phone"></i> ${escHtml(co.whatsappNumber||'')}</span></div></div>`;}).join('');}
-
-function renderPdfSales(list){const c=document.getElementById('pdfList');if(!c)return;if(!list.length){c.innerHTML='<div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDF sales.</p></div>';return;}c.innerHTML=list.map(p=>{const dt=p.createdAt?.toDate?p.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'N/A';const sp=p.status==='pending'?'sp-pending':'sp-verified';const img=p.paymentScreenshotBase64?`<img src="${p.paymentScreenshotBase64}" class="proof-img-full" onclick="openLb('${p.paymentScreenshotBase64}')">`:'<p style="font-size:.7rem;color:#5a6a7a">No screenshot</p>';const ab=p.status==='pending'?`<button class="btn-sm gr" onclick="verifyPdfSale('${p.id}')"><i class="fas fa-check"></i> Verify & Open PDF</button>`:`<span class="status-pill sp-verified">✅ Verified</span> <a href="https://drive.google.com/uc?export=download&id=${p.pdfId}" target="_blank" class="btn-sm out">Preview</a>`;return `<div class="enr-card" style="border-left:4px solid #2aff9e"><div class="enr-top"><div class="enr-avatar">${(p.userName||'?')[0].toUpperCase()}</div><div class="enr-meta"><strong>${escHtml(p.userName||'')}</strong><div class="sub">${escHtml(p.courseName||'')} • ${dt}</div></div><span class="status-pill ${sp}">${p.status}</span></div><div class="enr-amount" style="margin-bottom:.4rem">Rs.${p.amount}</div><div class="enr-info"><span><i class="fas fa-envelope"></i>${escHtml(p.email||'N/A')}</span></div>${img}<div class="enr-actions">${ab}</div></div>`;}).join('');}
-
-async function approveCertificate(eid,uid,un,cn){try{await updateDoc(doc(db,'enrollments',eid),{certificateIssued:true,certificateIssuedAt:serverTimestamp()});const cid=`cert_${eid}_${Date.now()}`;await setDoc(doc(db,'certificates',cid),{userId:uid,userName:un,courseName:cn,issuedAt:serverTimestamp(),enrollmentId:eid,certId:cid});toast('✅ Issued!');}catch(e){toast('❌ '+e.message);}}
-
-async function requestCertificate(){if(!_user)return;const q=query(collection(db,'enrollments'),where('userId','==',_user.uid),where('status','==','completed'),where('certificateIssued','==',false));const s=await getDocs(q);if(s.empty)return toast('⚠️ No completed');await updateDoc(doc(db,'chats',_user.uid),{messages:arrayUnion({sender:'user',text:`📜 Cert request: "${s.docs[0].data().courseName}"`,timestamp:new Date().toISOString()}),lastMessage:'📜 Cert request',unreadCount:1,updatedAt:serverTimestamp()});toast('📜 Sent!');}
-
-async function downloadCertificate(cid){if(!cid)return;const s=await getDoc(doc(db,'certificates',cid));if(!s.exists())return toast('❌ Not found');const d=s.data();const h=genCertHTML(d.userName,d.courseName,d.issuedAt);const b=new Blob([h],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`Certificate_${d.userName.replace(/\s+/g,'_')}.html`;a.click();toast('📥 Downloaded!');}
-
-function genCertHTML(name,course,ia){const date=ia?.toDate?ia.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'long',year:'numeric'}):new Date().toLocaleDateString('en-NP');return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Certificate</title><style>body{font-family:Georgia,serif;background:#f5f0e8;padding:2rem;display:flex;justify-content:center}.cert{max-width:800px;background:#fffdf7;border:10px double #b8860b;border-radius:20px;padding:2rem;text-align:center}h1{color:#7a5a1a;letter-spacing:3px}.name{font-size:2rem;color:#1a1a1a;margin:1rem 0;border-bottom:2px dashed #b8860b;display:inline-block;padding:0 1rem}.course{font-size:1.4rem;color:#4a3a2a;margin:.5rem 0}</style></head><body><div class="cert"><h1>✦ CERTIFICATE ✦</h1><p style="letter-spacing:5px;color:#8a7a5a">OF COMPLETION</p><p style="margin-top:1rem">This certifies that</p><div class="name">${escHtml(name)}</div><p>has completed</p><div class="course">${escHtml(course)}</div><p style="margin-top:1.5rem">Issued: ${date}</p><p style="margin-top:1rem;font-weight:700">Nabin Khanal — Mentor</p></div></body></html>`;}
-
-async function verifyEnroll(id){try{await updateDoc(doc(db,'enrollments',id),{status:'verified',verifiedAt:serverTimestamp()});toast('✅ Verified!');}catch(e){toast('❌ '+e.message);}}
-async function setEnrollStatus(id,s){try{await updateDoc(doc(db,'enrollments',id),{status:s,updatedAt:serverTimestamp()});toast(`✅ ${s}`);}catch(e){toast('❌ '+e.message);}}
-async function updateCollabStatus(id,s){try{await updateDoc(doc(db,'collaborations',id),{status:s,updatedAt:serverTimestamp()});toast(`✅ ${s}`);}catch(e){toast('❌ '+e.message);}}
-async function verifyPdfSale(id){try{await updateDoc(doc(db,'pdf_purchases',id),{status:'verified',verifiedAt:serverTimestamp()});toast('✅ PDF unlocked!');}catch(e){toast('❌ '+e.message);}}
-async function changeAdminPass(){const c=document.getElementById('curPass').value,n=document.getElementById('newPass').value,cf=document.getElementById('confPass').value;if(!c||!n||!cf)return toast('❌ Fill all');if(n!==cf)return toast('❌ Mismatch');if(n.length<6)return toast('❌ Min 6');try{const cr=EmailAuthProvider.credential(_user.email,c);await reauthenticateWithCredential(_user,cr);await updatePassword(_user,n);toast('✅ Updated!');document.getElementById('curPass').value='';document.getElementById('newPass').value='';document.getElementById('confPass').value='';}catch(e){toast('❌ '+fe(e.code));}}
-
-function loadProfile(u,name){document.getElementById('profName').textContent=name;document.getElementById('profEmail').textContent=u.email;const pa=document.getElementById('profAvatar');if(u.photoURL)pa.innerHTML=`<img src="${u.photoURL}">`;else pa.textContent=name[0].toUpperCase();}
-
-function loadMyEnrollments(uid){const c=document.getElementById('myEnrollments');onSnapshot(query(collection(db,'enrollments'),where('userId','==',uid),orderBy('createdAt','desc')),s=>{if(s.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-inbox"></i><p>No enrollments yet.</p></div>';document.getElementById('certificateSection').innerHTML='';return;}let h='',hc=false;s.docs.forEach(d=>{const e=d.data();const sp=e.status==='pending'?'sp-pending':e.status==='verified'?'sp-verified':'sp-completed';const dt=e.createdAt?.toDate?e.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'';if(e.status==='completed')hc=true;h+=`<div class="enrollment-row"><div><strong style="font-size:.82rem">${escHtml(e.courseName||'')}</strong><div style="font-size:.68rem;color:#7a8aaa;margin-top:.1rem">Rs.${parseInt(e.amount||0).toLocaleString('en-NP')} • ${dt}</div></div><span class="status-pill ${sp}">${e.status}</span></div>`;});c.innerHTML=h;const cDiv=document.getElementById('certificateSection');if(hc){cDiv.innerHTML=`<div class="cert-card"><div class="cert-header"><i class="fas fa-certificate"></i><div><h4 style="color:#2aff9e;font-size:.85rem">Certificate</h4></div></div><div class="cert-preview" onclick="requestCertificate()"><span class="cert-icon">📜</span><div class="cert-title">Request Certificate</div></div></div>`;}else{cDiv.innerHTML='';}},e=>console.error(e));}
-
-function loadMyPdfs(uid){const c=document.getElementById('myPdfs');if(!c)return;onSnapshot(query(collection(db,'pdf_purchases'),where('userId','==',uid)),s=>{if(s.empty){c.innerHTML='<div class="empty-state"><i class="fas fa-file-pdf"></i><p>No PDF purchased yet.</p></div>';return;}const l=s.docs.map(d=>({id:d.id,...d.data()}));c.innerHTML=l.map(p=>{const dt=p.createdAt?.toDate?p.createdAt.toDate().toLocaleDateString('en-NP',{day:'2-digit',month:'short',year:'numeric'}):'';let a='';if(p.status==='verified'&&p.pdfId){a=`<a href="https://drive.google.com/uc?export=download&id=${p.pdfId}" target="_blank" rel="noopener" class="btn-open-pdf"><i class="fas fa-file-pdf"></i> PDF खोल्नुस्</a>`;}else{a=`<span class="pdf-pending-pill"><i class="fas fa-hourglass-half"></i> Admin Verification Pending</span>`;}return `<div class="pdf-owned-card"><div style="display:flex;align-items:center;gap:.6rem"><div class="pdf-owned-icon"><i class="fas fa-file-pdf"></i></div><div class="pdf-owned-info"><strong>${escHtml(p.courseName)}</strong><span>Rs. ${p.amount} • ${dt}</span></div></div>${a}</div>`;}).join('');});}
-
-function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function aMsg(m,t){const x=document.getElementById('authMsg');x.textContent=m;x.className=`auth-msg ${t}`;x.style.display='block';}
-function fe(c){const m={'auth/user-not-found':'No account','auth/wrong-password':'Wrong password','auth/email-already-in-use':'Email used','auth/weak-password':'Too weak','auth/invalid-email':'Invalid email','auth/invalid-credential':'Wrong email/password','auth/network-request-failed':'Network error'};return m[c]||'Try again.';}
-
-window.showPage=function(id){document.querySelectorAll('#userApp .page').forEach(p=>p.classList.remove('active'));const p=document.getElementById('page-'+id);if(p){p.classList.add('active');window.scrollTo(0,0);}if(id==='enroll')refreshEnrollPageState();if(id==='about'&&!window._twStarted)startTw();};
-window.refreshEnrollPageState=function(){const h=!!window._selCourse;document.getElementById('selCourseInfo').style.display=h?'flex':'none';document.getElementById('enrollFlow').style.display=h?'block':'none';};
-window.pickCourse=function(c){document.querySelectorAll('.course-card').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');window._selCourse=c.dataset.course;window._selPrice=c.dataset.price;window._selPdfId=null;document.getElementById('selCourseName').textContent=window._selCourse;document.getElementById('selCourseAmt').textContent=`Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;document.getElementById('qrAmount').textContent=`Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;showPage('enroll');goToEnrollStep(1);};
-window.pickPdfCourse=function(c){document.querySelectorAll('.course-card').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');window._selCourse=c.dataset.course;window._selPrice=c.dataset.price;window._selPdfId=c.dataset.pdf;document.getElementById('selCourseName').textContent=window._selCourse;document.getElementById('selCourseAmt').textContent=`Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;document.getElementById('qrAmount').textContent=`Rs. ${parseInt(window._selPrice).toLocaleString('en-NP')}`;showPage('enroll');goToEnrollStep(1);if(_user){const n=_user.displayName||_user.email.split('@')[0];document.getElementById('eFullName').value=n;document.getElementById('eEmail').value=_user.email;}toast(`📕 ${window._selCourse} selected!`);};
-window.buyPdfFromHome=function(name,price,pdfId){window._selCourse=name;window._selPrice=price;window._selPdfId=pdfId;document.getElementById('selCourseName').textContent=name;document.getElementById('selCourseAmt').textContent=`Rs. ${parseInt(price).toLocaleString('en-NP')}`;document.getElementById('qrAmount').textContent=`Rs. ${parseInt(price).toLocaleString('en-NP')}`;showPage('enroll');goToEnrollStep(1);if(_user){const n=_user.displayName||_user.email.split('@')[0];document.getElementById('eFullName').value=n;document.getElementById('eEmail').value=_user.email;}toast(`📕 ${name} selected!`);};
-window.goToEnrollStep=function(n){document.getElementById('enrollStep1').style.display=n===1?'block':'none';document.getElementById('enrollStep2').style.display=n===2?'block':'none';document.getElementById('enrollStep3').style.display=n===3?'block':'none';const d=[document.getElementById('sdot1'),document.getElementById('sdot2'),document.getElementById('sdot3')];const l=[document.getElementById('sline1'),document.getElementById('sline2')];d.forEach((x,i)=>{x.className='step-dot '+(i+1<n?'done':i+1===n?'active':'idle');});l.forEach((x,i)=>{x.className='step-line '+(i+1<n?'done':'');});window.scrollTo(0,0);};
-window.proceedToPayment=function(){const n=document.getElementById('eFullName').value.trim(),p=document.getElementById('ePhone').value.trim(),e=document.getElementById('eEmail').value.trim();if(!n||!p||!e)return toast('❌ Fill all');document.getElementById('qrAmount').textContent=`Rs. ${parseInt(window._selPrice||0).toLocaleString('en-NP')}`;goToEnrollStep(2);};
-window.backToDetails=function(){goToEnrollStep(1);};
-window.resetEnrollFlow=function(){document.getElementById('eFullName').value='';document.getElementById('ePhone').value='';document.getElementById('eAddr').value='';document.getElementById('proofFile').value='';document.getElementById('proofPreview').style.display='none';document.getElementById('uploadBox').innerHTML='<i class="fas fa-cloud-upload-alt"></i><p><strong>Click to Upload</strong></p><p>JPG, PNG</p>';const b=document.getElementById('btnFinalSubmit');if(b){b.disabled=false;b.innerHTML='<i class="fas fa-paper-plane"></i> Submit Enrollment';}goToEnrollStep(1);showPage('courses');};
-window.handleProofUpload=function(i){if(i.files&&i.files[0]){const r=new FileReader();r.onload=e=>{const p=document.getElementById('proofPreview');p.src=e.target.result;p.style.display='block';document.getElementById('uploadBox').innerHTML='<i class="fas fa-check-circle" style="color:#2aff9e"></i><p><strong style="color:#2aff9e">Uploaded!</strong></p>';};r.readAsDataURL(i.files[0]);}};
-window.switchAuthTab=function(t){document.getElementById('loginSection').style.display=t==='login'?'block':'none';document.getElementById('signupSection').style.display=t==='signup'?'block':'none';document.getElementById('forgotSection').style.display='none';document.getElementById('loginTabBtn').classList.toggle('active',t==='login');document.getElementById('signupTabBtn').classList.toggle('active',t==='signup');const m=document.getElementById('authMsg');m.style.display='none';m.className='auth-msg';};
-window.showForgot=function(s=true){document.getElementById('loginSection').style.display=s?'none':'block';document.getElementById('forgotSection').style.display=s?'block':'none';if(!s){const m=document.getElementById('authMsg');m.style.display='none';}};
-window.togglePass=function(i,b){const x=document.getElementById(i);const s=x.type==='password';x.type=s?'text':'password';b.innerHTML=`<i class="fas fa-eye${s?'-slash':''}"></i>`;};
-window.pickWorkType=function(b,t){document.querySelectorAll('.wt-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');window._workType=t;};
-window.switchATab=function(t,e){document.querySelectorAll('.a-page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.a-tab').forEach(x=>x.classList.remove('active'));const p=document.getElementById('ap-'+t);if(p)p.classList.add('active');if(e)e.classList.add('active');if(t==='loans')loadAdminLoans();if(t==='installments')loadAdminInstallments();};
-window.toggleChatWin=function(){const w=document.getElementById('chatWin');window._chatOpen=!window._chatOpen;w.classList.toggle('open',window._chatOpen);if(window._chatOpen)document.getElementById('fcBadge').style.display='none';};
-window.toast=function(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);};
-window.openLb=function(u){document.getElementById('lbImg').src=u;document.getElementById('lightbox').classList.add('open');};
-window.closeLb=function(){document.getElementById('lightbox').classList.remove('open');};
-window.bnavSet=function(p){document.querySelectorAll('.bnav').forEach(b=>b.classList.toggle('active',b.dataset.p===p));};
-document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===document.getElementById('lightbox'))closeLb();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
-
-const _tw=["I'm Nabin Khanal — digital marketing strategist & stock market analyst. 3+ years Digital Marketing, 4+ years Stock Market.","250+ active members learning practical skills. Real-world knowledge, not just theory."];
-let _li=0,_ci=0,_ce=null;
-window._twStarted=false;
-window.startTw=function(){window._twStarted=true;_li=0;_ci=0;twLine();};
-function twLine(){if(_li>=_tw.length)return;_ce=document.getElementById('tw'+(_li+1));if(!_ce){_li++;twLine();return;}_ci=0;_ce.textContent='';twChar();}
-function twChar(){if(_ci<_tw[_li].length){_ce.textContent+=_tw[_li][_ci++];setTimeout(twChar,15);}else{_li++;setTimeout(twLine,200);}}
-
-// Admin Installments Load
-async function loadAdminInstallments() {
-  const container = document.getElementById('installmentAdminList');
-  if (!container) return;
-  
-  onSnapshot(query(collection(db, 'installment_payments'), orderBy('createdAt', 'desc')), snap => {
-    if (snap.empty) {
-      container.innerHTML = '<div class="empty-state"><i class="fas fa-receipt"></i><p>कुनै किस्ता भुक्तानी छैन।</p></div>';
-      return;
-    }
-    
-    container.innerHTML = snap.docs.map(d => {
-      const p = d.data();
-      const st = p.status === 'pending' ? 'sp-pending' : 'sp-verified';
-      const stTxt = p.status === 'pending' ? 'समीक्षा बाँकी' : 'स्वीकृत';
-      
-      let actions = '';
-      if (p.status === 'pending') {
-        actions = `<button class="btn-sm gr" onclick="approveInstallment('${d.id}', '${p.loanId}', ${p.period})">✅ स्वीकृत गर्नुहोस्</button>`;
+        instTable += '</div>';
       }
       
       return `<div class="enr-card">
-        <div class="enr-top">
-          <div class="enr-avatar">💳</div>
-          <div class="enr-meta">
-            <strong>किस्ता नं: ${p.period}</strong>
-            <div class="sub">लोन ID: ${p.loanId}</div>
-          </div>
-          <span class="status-pill ${st}">${stTxt}</span>
+        <div class="enr-top"><div class="enr-avatar">${(l.userName||'U')[0]}</div><div class="enr-meta"><strong>${l.userName}</strong><div class="sub">${l.bankName||''} · ${l.accountNo||''}</div></div><div class="enr-amount">रु. ${l.amount}</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+            <span style="font-size:.7rem;color:#7a8aaa">कुल: रु. ${totalPay} · तिरेको: ${paidCount}/4</span>
+            <div style="display:flex; gap:.5rem; align-items:center">
+                <span class="trust-badge">${trustScore}% Trust</span>
+                ${statusBadge}
+            </div>
         </div>
-        ${p.proofBase64 ? `<img src="${p.proofBase64}" class="proof-img-full" onclick="openLb('${p.proofBase64}')">` : ''}
-        <div class="enr-actions">
-          ${actions}
+        <div class="enr-info"><span><i class="fas fa-id-card"></i> ${l.citNo}</span><span><i class="fas fa-user"></i> ${l.accountHolder}</span></div>
+        ${docsHtml}
+        ${instTable}
+        ${payProofsHtml}
+        <div class="enr-actions" style="margin-top:.5rem">
+            ${actions}
+            ${l.agreementHtml ? `<button class="btn-sm out" onclick="viewAgreement('${id}')"><i class="fas fa-file-contract"></i> सम्झौता हेर्नुहोस्</button>` : ''}
         </div>
       </div>`;
     }).join('');
   });
 }
+async function verifyLoan(id){
+  try{await updateDoc(doc(db,'loans',id),{status:'verified',verifiedAt:serverTimestamp()});toast('✅ प्रमाणित');}
+  catch(e){toast('❌ '+e.message);}
+}
+async function approveLoan(id){
+  try{await updateDoc(doc(db,'loans',id),{status:'approved',approvedAt:serverTimestamp()});toast('✅ स्वीकृत');}
+  catch(e){toast('❌ '+e.message);}
+}
+async function rejectLoan(id){
+  const reason=prompt('अस्वीकृत कारण:');
+  if(!reason)return;
+  try{await updateDoc(doc(db,'loans',id),{status:'rejected',rejectReason:reason});toast('❌ अस्वीकृत');}
+  catch(e){toast('❌ '+e.message);}
+}
 
-async function approveInstallment(paymentId, loanId, period) {
-  try {
-    // 1. Update payment status
-    await updateDoc(doc(db, 'installment_payments', paymentId), { status: 'approved' });
-    
-    // 2. Update Loan schedule and paid count
-    const loanRef = doc(db, 'loans', loanId);
-    const loanSnap = await getDoc(loanRef);
-    if (loanSnap.exists()) {
-      const l = loanSnap.data();
-      const newSchedule = l.schedule.map(s => {
-        if (s.period === period) return { ...s, status: 'paid' };
-        return s;
-      });
-      const newPaidCount = newSchedule.filter(s => s.status === 'paid').length;
-      
-      await updateDoc(loanRef, { 
-        schedule: newSchedule, 
-        paidInstallments: newPaidCount 
-      });
+// View Agreement (Admin & User)
+async function viewAgreement(loanId) {
+    try {
+        const snap = await getDoc(doc(db, 'loans', loanId));
+        if (snap.exists() && snap.data().agreementHtml) {
+            showAgreementModal(snap.data().agreementHtml);
+        } else {
+            toast('❌ सम्झौता भेटिएन');
+        }
+    } catch (e) {
+        toast('❌ ' + e.message);
     }
-    toast('✅ किस्ता स्वीकृत भयो!');
-  } catch(e) {
-    toast('❌ ' + e.message);
+}
+
+// ============ INSTALLMENT APPROVE (auto amount reduce, trust, discount) ============
+async function approveInstallment(loanId,period){
+  try{
+    const loanRef=doc(db,'loans',loanId);
+    const snap=await getDoc(loanRef);
+    if(!snap.exists())throw new Error('Not found');
+    const l=snap.data();
+    const payments=l.payments||[];
+    const idx=payments.findIndex(p=>p.period===period);
+    if(idx===-1)throw new Error('Installment not found');
+    if(payments[idx].status==='approved')throw new Error('Already approved');
+    
+    payments[idx].status='approved';
+    payments[idx].approvedAt=new Date().toISOString();
+    
+    const newPaidCount=(l.paidInstallments||0)+1;
+    let updates={payments,paidInstallments:newPaidCount};
+    
+    // Trust Score logic
+    let newTrust = l.trustScore || 50;
+    newTrust += 10; // each on-time payment adds 10%
+    if (newTrust > 100) newTrust = 100;
+    
+    // Early Payment Discount (within 15 days for all 4)
+    if (newPaidCount >= 4) {
+        updates.status='completed';
+        const submittedDate = l.createdAt?.toDate() || new Date(l.createdAt);
+        const now = new Date();
+        const daysDiff = (now - submittedDate) / (1000 * 60 * 60 * 24);
+        
+        if (daysDiff <= 15) {
+            // 50% interest discount
+            const originalInterest = l.amount * 0.24; // 24% total
+            const discountAmount = originalInterest * 0.50; // 50% off interest
+            updates.earlyDiscountApplied = true;
+            updates.discountAmount = discountAmount;
+            updates.totalInterestPaid = originalInterest - discountAmount;
+            newTrust = 100; // Max trust
+            toast('🎉 Early payment discount applied! 50% interest waived.');
+        } else {
+            toast('✅ All installments cleared!');
+        }
+    } else {
+        toast(`✅ किस्ता #${period} approved! रकम घटाइयो`);
+    }
+    
+    updates.trustScore = newTrust;
+    await updateDoc(loanRef,updates);
+  }catch(e){toast('❌ '+e.message);}
+}
+async function rejectInstallment(loanId,period){
+  try{
+    const loanRef=doc(db,'loans',loanId);
+    const snap=await getDoc(loanRef);
+    const l=snap.data();
+    const payments=l.payments||[];
+    const idx=payments.findIndex(p=>p.period===period);
+    if(idx===-1)return;
+    payments[idx].status='rejected';
+    payments[idx].rejectedAt=new Date().toISOString();
+    await updateDoc(loanRef,{payments});
+    toast('❌ किस्ता अस्वीकृत');
+  }catch(e){toast('❌ '+e.message);}
+}
+
+async function verifyEnroll(id){
+  try{await updateDoc(doc(db,'enrollments',id),{status:'verified',verifiedAt:serverTimestamp()});toast('✅ Verified');}
+  catch(e){toast('❌ '+e.message);}
+}
+async function verifyPdfSale(id){
+  try{await updateDoc(doc(db,'pdf_purchases',id),{status:'verified',verifiedAt:serverTimestamp()});toast('✅ PDF unlocked');}
+  catch(e){toast('❌ '+e.message);}
+}
+
+async function openAdminChat(chatId){
+  window._adminChatId=chatId;
+  document.getElementById('adminChatPanel').style.display='block';
+  if(window._adminChatUnsub)window._adminChatUnsub();
+  window._adminChatUnsub=onSnapshot(doc(db,'chats',chatId),snap=>{
+    if(!snap.exists())return;
+    const x=snap.data();
+    document.getElementById('adminChatTitle').textContent=x.userName||'Chat';
+    const area=document.getElementById('adminMsgsArea');
+    area.innerHTML=(x.messages||[]).map(m=>`<div class="msg-bubble ${m.from==='admin'?'user':'admin'}">${m.text}</div>`).join('');
+    area.scrollTop=area.scrollHeight;
+  });
+}
+function closeAdminChatPanel(){
+  document.getElementById('adminChatPanel').style.display='none';
+  if(window._adminChatUnsub){window._adminChatUnsub();window._adminChatUnsub=null;}
+  window._adminChatId=null;
+}
+async function sendAdminReply(){
+  if(!window._adminChatId)return;
+  const inp=document.getElementById('adminReplyIn');const txt=inp.value.trim();
+  if(!txt)return;inp.value='';
+  try{await updateDoc(doc(db,'chats',window._adminChatId),{messages:arrayUnion({from:'admin',text:txt,time:new Date().toLocaleTimeString()}),unreadAdmin:false});}
+  catch(e){toast('❌ '+e.message);}
+}
+async function changeAdminPass(){
+  const cur=document.getElementById('curPass').value;
+  const np=document.getElementById('newPass').value;
+  const cp=document.getElementById('confPass').value;
+  if(!cur||!np||!cp)return toast('❌ Fill all');
+  if(np.length<6)return toast('❌ Min 6');
+  if(np!==cp)return toast('❌ No match');
+  try{
+    const cred=EmailAuthProvider.credential(_user.email,cur);
+    await reauthenticateWithCredential(_user,cred);
+    await updatePassword(_user,np);
+    toast('✅ Updated');
+    ['curPass','newPass','confPass'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){toast('❌ '+e.message);}
+}
+
+// ============ TMS MODAL ============
+function openTMS(){document.getElementById('tmsModal').classList.add('open');}
+function closeTMSModal(){document.getElementById('tmsModal').classList.remove('open');}
+function confirmTMS(){
+  closeTMSModal();
+  toast('📞 Nabin will contact you soon!');
+  if(_user){
+    addDoc(collection(db,'collaborations'),{userName:_user.displayName||_user.email,whatsappNumber:'—',workType:'TMS Account',description:'User requested TMS account opening',status:'pending',createdAt:serverTimestamp()}).catch(console.error);
   }
 }
 
-// Add installment tab to admin
-document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelector('.admin-tabs');
-  if (tabs) {
-    const btn = document.createElement('button');
-    btn.className = 'a-tab';
-    btn.innerHTML = `💳 किस्ता`;
-    btn.onclick = () => switchATab('installments', btn);
-    tabs.appendChild(btn);
-  }
+// ============ EXPOSE ALL ============
+Object.assign(window,{
+  doLogin,doSignup,doGoogle,doReset,logout,
+  switchAuthTab,showForgot,togglePass,
+  showPage,bnavSet,
+  toggleChatWin,sendUserMsg,
+  pickCourse,pickPdfCourse,buyPdfFromHome,goToEnrollStep,
+  proceedToPayment,backToDetails,resetEnrollFlow,handleProofUpload,submitEnrollment,
+  pickWorkType,submitCollab,
+  submitLoan,openPayModal,closePayModal,previewInstProof,submitInstallmentPayment,
+  switchATab,verifyEnroll,verifyPdfSale,
+  verifyLoan,approveLoan,rejectLoan,
+  approveInstallment,rejectInstallment,
+  openAdminChat,closeAdminChatPanel,sendAdminReply,changeAdminPass,
+  openTMS,closeTMSModal,confirmTMS,
+  openLb,closeLb,toast,
+  showAgreementModal, closeAgreement, viewAgreement
 });
-</script>
 
-<script>
-window.playNotificationBeep=function(){try{const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=800;o.type='sine';g.gain.setValueAtTime(.3,c.currentTime);g.gain.exponentialRampToValueAtTime(.01,c.currentTime+.2);o.start(c.currentTime);o.stop(c.currentTime+.2);}catch(e){}};
-if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?v=22').then(() => console.log('✅ Main SW registered')).catch(e => console.log('SW:', e));
-  navigator.serviceWorker.register('/firebase-messaging-sw.js').then(() => console.log('✅ FCM SW registered')).catch(e => console.log('FCM SW:', e));
-}
-setTimeout(()=>{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission();},5000);
-</script>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getMessaging, onMessage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js";
-const cfg={apiKey:"AIzaSyCcKYUIL8mICWxEk7qdK6ucGHhqRS08BbA",authDomain:"digital-with-nabin-6ec1d.firebaseapp.com",projectId:"digital-with-nabin-6ec1d",storageBucket:"digital-with-nabin-6ec1d.firebasestorage.app",messagingSenderId:"602694608782",appId:"1:602694608782:web:62ce9fa1232de6187866df"};
-try{const a2=initializeApp(cfg,'fgNoti');const m=getMessaging(a2);onMessage(m,p=>{const t=p.notification?.title||'DWN';const b=p.notification?.body||'New';if(window.playNotificationBeep)window.playNotificationBeep();if(Notification.permission==='granted')new Notification(t,{body:b,icon:'https://i.ibb.co/PGWF6Rs8/28b9e198-7e61-4359-a0f5-fef54ae38743.png'});if(window.toast)toast(`💬 ${t}`);});}catch(e){}
-</script>
-
-<script>
-function openTMS() {var m = document.getElementById('tmsModal');if (m) {m.classList.add('open');document.body.style.overflow = 'hidden';}}
-function closeTMSModal() {var m = document.getElementById('tmsModal');if (m) {m.classList.remove('open');document.body.style.overflow = '';}}
-function confirmTMS() {window.open('https://ckyc.linch.com.np/auth/individual-registration','_blank','noopener,noreferrer');closeTMSModal();}
-document.addEventListener('DOMContentLoaded', function() {var modal = document.getElementById('tmsModal');if (modal) {modal.addEventListener('click', function(e) { if (e.target === this) closeTMSModal(); });}document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeTMSModal(); });});
+// ============ ABOUT TEXT ============
+setTimeout(()=>{
+  const t1=document.getElementById('tw1');
+  const t2=document.getElementById('tw2');
+  if(t1)t1.textContent='3+ years in Digital Marketing — helping brands grow with Facebook, TikTok & Instagram ads.';
+  if(t2)t2.textContent='4 years in Stock Market — NEPSE & Forex trading with proven strategies.';
+},500);
 </script>
 </body>
 </html>
