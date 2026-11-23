@@ -500,6 +500,14 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 
 /* Trust Badge */
 .trust-badge{background:rgba(59,130,246,.15);color:#60a5fa;padding:.2rem .5rem;border-radius:20px;font-size:.65rem;font-weight:800;margin-left:.5rem;display:inline-block}
+
+/* Company Stats Cards */
+.company-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1rem}
+.c-stat-card{background:rgba(12,18,28,.85);border:1px solid rgba(168,85,247,.2);border-radius:14px;padding:.8rem;text-align:center}
+.c-stat-card strong{display:block;font-size:1.2rem;font-weight:900;color:#a855f7;margin-bottom:.2rem}
+.c-stat-card span{font-size:.65rem;color:#7a8aaa;text-transform:uppercase;letter-spacing:.5px}
+.c-stat-card.green strong{color:#2aff9e}
+.c-stat-card.red strong{color:#ff8080}
 </style>
 </head>
 <body>
@@ -799,7 +807,7 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
       <div class="form-grid">
         <div class="f-group"><label class="f-label">पूरा नाम *</label><input type="text" id="lnName" class="f-input" placeholder="तपाईंको नाम"></div>
         <div class="f-group"><label class="f-label">नागरिकता नम्बर *</label><input type="text" id="lnCitNo" class="f-input" placeholder="१२३-४५६-७८९"></div>
-        <div class="f-group"><label class="f-label">ऋण रकम (रु) *</label><input type="number" id="lnAmount" class="f-input" placeholder="50000" min="1000" max="500000"></div>
+        <div class="f-group"><label class="f-label">ऋण रकम (रु) *</label><input type="number" id="lnAmount" class="f-input" placeholder="अधिकतम १५,०००" min="1000"></div>
         <div class="f-group"><label class="f-label">बैंकको नाम *</label><input type="text" id="lnBank" class="f-input" placeholder="नेपाल इन्भेष्टमेन्ट बैंक"></div>
         <div class="f-group"><label class="f-label">खाता नम्बर *</label><input type="text" id="lnAccNo" class="f-input" placeholder="खाता नम्बर"></div>
         <div class="f-group"><label class="f-label">खाता धारकको नाम *</label><input type="text" id="lnAccHolder" class="f-input" placeholder="बैंकमा दर्ता नाम"></div>
@@ -836,7 +844,17 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
   <div style="padding:1rem;max-width:1200px;margin:0 auto;padding-bottom:6rem">
     <div class="admin-header"><div class="admin-title"><i class="fas fa-shield-alt"></i> Admin Dashboard</div><div style="font-size:.68rem;color:#a855f7;background:rgba(168,85,247,.08);padding:.25rem .6rem;border-radius:20px;border:1px solid rgba(168,85,247,.25);word-break:break-all">nabinkhanal0007@gmail.com</div></div>
     <div class="stats-row"><div class="s-card"><strong id="st1">0</strong><span>Enrollments</span></div><div class="s-card"><strong id="st2">0</strong><span>⏳ Pending</span></div><div class="s-card"><strong id="st3">Rs.0</strong><span>Revenue</span></div><div class="s-card"><strong id="st4">0</strong><span>Chats</span></div><div class="s-card"><strong id="st5">0</strong><span>Collabs</span></div><div class="s-card"><strong id="st6">0</strong><span>Users</span></div></div>
-    <div class="admin-tabs">
+    
+    <!-- Company Stats for Loans -->
+    <div class="admin-title" style="margin:1.5rem 0 .6rem; font-size:.85rem; color:#2aff9e;"><i class="fas fa-building"></i> Company Loan Stats</div>
+    <div class="company-stats-grid" id="companyLoanStats">
+        <div class="c-stat-card green"><strong id="c_approved">Rs. 0</strong><span>Approved Loans</span></div>
+        <div class="c-stat-card red"><strong id="c_rejected">0</strong><span>Rejected Loans</span></div>
+        <div class="c-stat-card"><strong id="c_market">Rs. 0</strong><span>Active Market Loans</span></div>
+        <div class="c-stat-card green"><strong id="c_interest">Rs. 0</strong><span>Total Interest Income</span></div>
+    </div>
+
+    <div class="admin-tabs" style="margin-top:1rem">
       <button class="a-tab active" onclick="switchATab('overview',this)">📊 Overview</button>
       <button class="a-tab" onclick="switchATab('enrollments',this)">📋 Enrollments<span class="a-badge" id="enrBadge" style="display:none">0</span></button>
       <button class="a-tab" onclick="switchATab('users',this)">👥 Users</button>
@@ -873,7 +891,7 @@ textarea.f-input{border-radius:14px;resize:vertical;min-height:80px}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, collection, doc, addDoc, updateDoc, onSnapshot, query, orderBy, where, serverTimestamp, getDoc, setDoc, arrayUnion, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, where, serverTimestamp, getDoc, setDoc, arrayUnion, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const cfg={apiKey:"AIzaSyCcKYUIL8mICWxEk7qdK6ucGHhqRS08BbA",authDomain:"digital-with-nabin-6ec1d.firebaseapp.com",projectId:"digital-with-nabin-6ec1d",storageBucket:"digital-with-nabin-6ec1d.firebasestorage.app",messagingSenderId:"602694608782",appId:"1:602694608782:web:62ce9fa1232de6187866df"};
 const app=initializeApp(cfg);
@@ -1042,25 +1060,38 @@ async function loadMyLoans(uid){
   const q=query(collection(db,'loans'),where('userId','==',uid));
   onSnapshot(q,snap=>{
     const docs = snap.docs;
+    // Filter out rejected loans for User view
     const activeLoans = docs.filter(d => d.data().status !== 'completed' && d.data().status !== 'rejected');
     const pastLoans = docs.filter(d => d.data().status === 'completed');
-    
-    // If any active loan exists, hide new loan form
-    const form = document.getElementById('newLoanForm');
-    if (activeLoans.length > 0) {
-        form.style.display = 'none';
+    const totalLoansTaken = docs.filter(d => d.data().status !== 'rejected').length; // don't count rejected towards limits
+
+    // Check if user has reached max 4 times
+    if (totalLoansTaken >= 4) {
+        document.getElementById('newLoanForm').style.display = 'none';
+    } else if (activeLoans.length > 0) {
+        document.getElementById('newLoanForm').style.display = 'none';
     } else {
-        form.style.display = 'block'; // Can apply for new loan
+        document.getElementById('newLoanForm').style.display = 'block'; 
+        let nextLimit = 15000;
+        if (totalLoansTaken === 1) nextLimit = 20000;
+        else if (totalLoansTaken === 2) nextLimit = 25000;
+        else if (totalLoansTaken === 3) nextLimit = 30000;
+        
+        document.getElementById('lnAmount').setAttribute('max', nextLimit);
+        document.getElementById('lnAmount').placeholder = `अधिकतम रु. ${nextLimit}`;
+        
         if (pastLoans.length > 0) {
-            form.querySelector('h4').innerHTML = '<i class="fas fa-plus-circle"></i> नयाँ ऋण आवेदन (Re-Loan)';
+            document.getElementById('newLoanForm').querySelector('h4').innerHTML = `<i class="fas fa-plus-circle"></i> नयाँ ऋण आवेदन (Re-Loan: अधिकतम रु. ${nextLimit})`;
         } else {
-            form.querySelector('h4').innerHTML = '<i class="fas fa-plus-circle"></i> नयाँ ऋण आवेदन';
+            document.getElementById('newLoanForm').querySelector('h4').innerHTML = `<i class="fas fa-plus-circle"></i> नयाँ ऋण आवेदन (अधिकतम रु. ${nextLimit})`;
         }
     }
 
-    if(docs.length === 0){c.innerHTML='';return;}
+    // Render only valid loans
+    const validDocs = docs.filter(d => d.data().status !== 'rejected');
+    if(validDocs.length === 0){c.innerHTML='';return;}
 
-    c.innerHTML=docs.map(d=>{
+    c.innerHTML=validDocs.map(d=>{
       const l=d.data();
       const loanId=d.id;
       const paidCount=l.paidInstallments||0;
@@ -1070,7 +1101,6 @@ async function loadMyLoans(uid){
       if(l.status==='pending')statusBadge='<span class="status-pill sp-pending">समीक्षा बाँकी</span>';
       else if(l.status==='verified')statusBadge='<span class="status-pill sp-pending">प्रमाणित</span>';
       else if(l.status==='approved')statusBadge='<span class="status-pill sp-verified">✅ स्वीकृत</span>';
-      else if(l.status==='rejected')statusBadge='<span class="status-pill sp-rejected">❌ अस्वीकृत</span>';
       else if(l.status==='completed')statusBadge='<span class="status-pill sp-completed">🎉 पूर्ण (Closed)</span>';
       
       let timeline='';
@@ -1096,8 +1126,6 @@ async function loadMyLoans(uid){
         actionBtn='<div style="text-align:center;padding:.7rem;background:rgba(42,255,158,.1);border-radius:14px;color:#2aff9e;font-weight:800">🎉 सबै किस्ता तिरिसक्नुभयो!</div>';
       } else if(l.status==='pending'){
         actionBtn='<div class="pdf-pending-pill"><i class="fas fa-hourglass-half"></i> एडमिनले जाँच गर्दै</div>';
-      } else if(l.status==='rejected'){
-        actionBtn=`<div style="color:#ff8080;font-size:.78rem;text-align:center">कारण: ${l.rejectReason||'—'}</div>`;
       } else if(l.status==='completed') {
         actionBtn = `<div style="text-align:center;padding:.7rem;background:rgba(59,130,246,.1);border-radius:14px;color:#60a5fa;font-weight:800">✅ यो ऋण पूर्ण भइसक्यो</div>`;
       }
@@ -1177,6 +1205,20 @@ async function submitLoan(){
   
   if(!name||!citNo||!amount||!bank||!accNo||!accHolder)return toast('सबै फिल्ड भर्नुहोस्');
   if(amount<1000)return toast('कम्तीमा १०००');
+  
+  // Limit check
+  const q = query(collection(db,'loans'), where('userId','==',_user.uid));
+  const snap = await getDocs(q);
+  const validLoans = snap.docs.filter(d => d.data().status !== 'rejected');
+  const totalLoans = validLoans.length;
+  let maxLimit = 15000;
+  if (totalLoans === 1) maxLimit = 20000;
+  else if (totalLoans === 2) maxLimit = 25000;
+  else if (totalLoans === 3) maxLimit = 30000;
+  
+  if (amount > maxLimit) return toast(`तपाईंको हालको ऋण सीमा रु. ${maxLimit} हो।`);
+  if (totalLoans >= 4) return toast('तपाईंले अधिकतम ४ पटक ऋण लिनुभएको छ।');
+
   if(!citFront||!citBack||!selfie||!bankStmt)return toast('सबै कागजात अपलोड');
   if(!terms)return toast('सर्तमा सहमत हुनुहोस्');
 
@@ -1407,9 +1449,27 @@ async function loadAdminData(){
 }
 function updateAdminStats(){
   onSnapshot(collection(db,'enrollments'),s=>{document.getElementById('st1').textContent=s.size;let p=0,rev=0;s.forEach(d=>{const x=d.data();if(x.status==='pending')p++;if(x.status==='verified')rev+=x.amount||0;});document.getElementById('st2').textContent=p;document.getElementById('st3').textContent='Rs.'+rev;});
-  onSnapshot(collection(db,'chats'),s=>document.getElementById('st4').textContent=s.size);
-  onSnapshot(collection(db,'collaborations'),s=>document.getElementById('st5').textContent=s.size);
-  onSnapshot(collection(db,'users'),s=>document.getElementById('st6').textContent=s.size);
+  onSnapshot(collection(db,'chats'),s=>{document.getElementById('st4').textContent=s.size;});
+  onSnapshot(collection(db,'collaborations'),s=>{document.getElementById('st5').textContent=s.size;});
+  onSnapshot(collection(db,'users'),s=>{document.getElementById('st6').textContent=s.size;});
+  
+  // Company Loan Stats
+  onSnapshot(collection(db,'loans'),s=>{
+      let approvedAmt=0, rejectedCount=0, activeMarket=0, interestInc=0;
+      s.forEach(d=>{
+          const l=d.data();
+          if(l.status==='rejected') rejectedCount++;
+          if(l.status==='approved' || l.status==='completed'){
+              approvedAmt += l.amount;
+              interestInc += (l.paidInstallments||0) * (l.amount*0.06);
+              if(l.status==='approved') activeMarket += l.amount;
+          }
+      });
+      document.getElementById('c_approved').textContent='Rs. '+approvedAmt;
+      document.getElementById('c_rejected').textContent=rejectedCount;
+      document.getElementById('c_market').textContent='Rs. '+activeMarket;
+      document.getElementById('c_interest').textContent='Rs. '+Math.round(interestInc);
+  });
 }
 function loadAdminEnrollments(){
   const c=document.getElementById('enrollmentList');if(!c)return;
@@ -1522,6 +1582,9 @@ function loadAdminLoans(){
         instTable += '</div>';
       }
       
+      // Delete Button (Admin only)
+      let deleteBtn = `<button class="btn-sm red" onclick="deleteLoan('${id}')" style="margin-left:auto;"><i class="fas fa-trash"></i> Delete</button>`;
+
       return `<div class="enr-card">
         <div class="enr-top"><div class="enr-avatar">${(l.userName||'U')[0]}</div><div class="enr-meta"><strong>${l.userName}</strong><div class="sub">${l.bankName||''} · ${l.accountNo||''}</div></div><div class="enr-amount">रु. ${l.amount}</div></div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
@@ -1529,6 +1592,7 @@ function loadAdminLoans(){
             <div style="display:flex; gap:.5rem; align-items:center">
                 <span class="trust-badge">${trustScore}% Trust</span>
                 ${statusBadge}
+                ${deleteBtn}
             </div>
         </div>
         <div class="enr-info"><span><i class="fas fa-id-card"></i> ${l.citNo}</span><span><i class="fas fa-user"></i> ${l.accountHolder}</span></div>
@@ -1556,6 +1620,17 @@ async function rejectLoan(id){
   if(!reason)return;
   try{await updateDoc(doc(db,'loans',id),{status:'rejected',rejectReason:reason});toast('❌ अस्वीकृत');}
   catch(e){toast('❌ '+e.message);}
+}
+
+// Delete Loan function
+async function deleteLoan(id) {
+    if (!confirm('के तपाईं यो लोन र यसको डेटा पूर्ण रूपमा डिलिट गर्न चाहनुहुन्छ?')) return;
+    try {
+        await deleteDoc(doc(db, 'loans', id));
+        toast('🗑️ लोन डिलिट भयो');
+    } catch (e) {
+        toast('❌ ' + e.message);
+    }
 }
 
 // View Agreement (Admin & User)
@@ -1709,7 +1784,7 @@ Object.assign(window,{
   pickWorkType,submitCollab,
   submitLoan,openPayModal,closePayModal,previewInstProof,submitInstallmentPayment,
   switchATab,verifyEnroll,verifyPdfSale,
-  verifyLoan,approveLoan,rejectLoan,
+  verifyLoan,approveLoan,rejectLoan,deleteLoan,
   approveInstallment,rejectInstallment,
   openAdminChat,closeAdminChatPanel,sendAdminReply,changeAdminPass,
   openTMS,closeTMSModal,confirmTMS,
